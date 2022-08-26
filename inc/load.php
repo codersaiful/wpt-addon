@@ -11,7 +11,7 @@ class Load{
     }
 
     public function __construct(){
-        
+        new Enqueue();
     }
 
 }

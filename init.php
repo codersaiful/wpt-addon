@@ -24,6 +24,14 @@ if ( ! defined( 'WPT_DEV_VERSION' ) ) {
 }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
+if ( !defined( 'WPT_ADDON_BASE_URL' ) ) {
+    define( "WPT_ADDON_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
+}
+
+if ( !defined( 'WPT_ADDON_VERSION' ) ) {
+    define( "WPT_ADDON_VERSION", '1.0.0' );
+}
+
 class WPT_Addons{
 
     public static $_instance;
@@ -51,7 +59,7 @@ class WPT_Addons{
 	}
 
     public function i18n(){
-        load_plugin_textdomain( 'wpt_addons' );
+        load_plugin_textdomain( 'wpt_addon' );
     }
 
     public function init(){
@@ -70,10 +78,10 @@ class WPT_Addons{
     }
 }
 WPT_Addons::instace();
-register_activation_hook( __FILE__, 'wpt_addons_activation' );
+register_activation_hook( __FILE__, 'wpt_addon_activation' );
 
-function wpt_addons_activation(){
-    $key = 'wpt_addons_date';
+function wpt_addon_activation(){
+    $key = 'wpt_addon_date';
     $ins_dt = get_option( $key );
     if( ! empty( $ins_dt ) ) return;
     update_option( $key, time());
