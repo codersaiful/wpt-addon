@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Addons WPT - Specific
  * Plugin URI: https://wooproducttable.com/
@@ -65,6 +64,8 @@ class WPT_Addons{
 	
 		//Including Function File. It will stay at the Top of the File
 		include_once __DIR__ . '/inc/functions.php';
+
+        WPT_ADDON\Inc\Load::instance();
 
     }
 }
