@@ -3,10 +3,26 @@ namespace WPT_ADDON\Inc;
 
 class Enqueue{
 
-    public function __construct()
-    {
+    
+    /**
+     * Load Front End Enequeue File
+     *
+     * @return void
+     */
+    public function frontend(){
         add_action( 'wp_enqueue_scripts', [$this, 'wp_enqueue_scripts'] );
+        return $this;
+    }
+
+    /**
+     * Load Admin Enequeue File
+     *
+     * @return void
+     */
+    public function admin(){
+        if( ! is_admin() ) return $this;
         add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
+        return $this;
     }
 
     public function wp_enqueue_scripts()

@@ -1,6 +1,11 @@
 <?php 
 namespace WPT_ADDON\Inc;
 
+/**
+ * Full Plugin Load Manager is here
+ * 
+ * @since 1.0.0
+ */
 class Load{
     public static $_instance;
     public static function instance(){
@@ -11,7 +16,12 @@ class Load{
     }
 
     public function __construct(){
-        new Enqueue();
+        //Load Enqueue
+        $enqueue = new Enqueue();
+        $enqueue->frontend();
+        $enqueue->admin();
+
+        
     }
 
 }
