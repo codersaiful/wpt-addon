@@ -1,5 +1,5 @@
 <?php 
-namespace WPT_ADDON\Inc;
+namespace WPT_ADDON\Inc\App;
 
 class Enqueue{
 
