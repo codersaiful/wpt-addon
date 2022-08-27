@@ -1,7 +1,7 @@
 <?php 
 namespace WPT_ADDON\Inc\App;
 
-class Enqueue{
+class Enqueue extends Base{
 
     private $frontend = false;
     private $admin = false;
@@ -67,9 +67,9 @@ class Enqueue{
 
     public function wp_enqueue_scripts()
     {
-        wp_enqueue_style( 'wpt_addon-style', WPT_ADDON_BASE_URL . 'assets/css/style.css', array(), WPT_ADDON_VERSION, 'all' );
+        wp_enqueue_style( $this->prefix . '-style', WPT_ADDON_BASE_URL . 'assets/css/style.css', array(), WPT_ADDON_VERSION, 'all' );
         wp_enqueue_script( 'jquery' );
-        wp_enqueue_script( 'wpt_addon-script', WPT_ADDON_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), WPT_ADDON_VERSION, true );
+        wp_enqueue_script( $this->prefix . '-script', WPT_ADDON_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), WPT_ADDON_VERSION, true );
 
         $ajax_url = admin_url( 'admin-ajax.php' );
         $WPT_ADDON_DATA = array( 
@@ -79,13 +79,13 @@ class Enqueue{
             'checkout_url' => wc_get_checkout_url(),
             'cart_url' => wc_get_cart_url(),
             );
-        wp_localize_script( 'wpt_addon-script', 'WPT_ADDON_DATA', $WPT_ADDON_DATA );
+        wp_localize_script( $this->prefix . '-script', $this->data_name, $WPT_ADDON_DATA );
     }
     
     public function admin_enqueue_scripts()
     {
-        wp_enqueue_style( 'wpt_addon-admin', WPT_ADDON_BASE_URL . 'assets/css/admin-style.css', array(), WPT_ADDON_VERSION, 'all' );
-        wp_enqueue_script( 'wpt_addon-admin', WPT_ADDON_BASE_URL . 'assets/js/admin-script.js', array( 'jquery' ), WPT_ADDON_VERSION, true );
+        wp_enqueue_style( $this->prefix . '-admin', WPT_ADDON_BASE_URL . 'assets/css/admin-style.css', array(), WPT_ADDON_VERSION, 'all' );
+        wp_enqueue_script( $this->prefix . '-admin', WPT_ADDON_BASE_URL . 'assets/js/admin-script.js', array( 'jquery' ), WPT_ADDON_VERSION, true );
     }
 
 }
