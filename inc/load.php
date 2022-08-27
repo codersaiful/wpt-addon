@@ -3,8 +3,12 @@ namespace WPT_ADDON\Inc;
 
 /**
  * Full Plugin Load Manager is here
+ * Load Manager Means:
+ *  * Assets Load Manager
+ * * Other Object Load Manager
  * 
  * @since 1.0.0
+ * @author Saiful Islam <codersaiful@gmail.com>
  */
 class Load{
     public static $_instance;
@@ -18,10 +22,10 @@ class Load{
     public function __construct(){
         //Load Enqueue
         $enqueue = new Enqueue();
-        $enqueue->frontend();
-        $enqueue->admin();
+        $enqueue->set('admin');
+        $enqueue->set('frontend');
+        $enqueue->run();
 
-        
     }
 
 }
