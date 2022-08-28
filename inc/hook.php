@@ -15,12 +15,17 @@ use WPT_ADDON\Inc\App\Hook_Base;
 class Hook extends Hook_Base{
 
     public function __construct(){
-
         
+        // $this->action('salam_sir');        
         $this->action('example_hook');        
         $this->filter('example_filter');   
     }
 
+
+    function salam_sir($shortcode){
+        $shortcode->set_shortcde_text('Nilam_SIR');
+        var_dump($shortcode);
+    }
 
     function example_hook(){
         echo '<h2>Example Hook</h2>';
