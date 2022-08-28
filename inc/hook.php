@@ -1,6 +1,6 @@
 <?php 
 namespace WPT_ADDON\Inc;
-use WPT_ADDON\Inc\App\Base;
+use WPT_ADDON\Inc\App\Hook_Base;
 
 /**
  * All Basic Hook will control from 
@@ -12,14 +12,13 @@ use WPT_ADDON\Inc\App\Base;
  * Normall we will use this Hook.
  * 
  */
-class Hook extends Base{
+class Hook extends Hook_Base{
 
     public function __construct(){
-        parent::__construct();
 
         
         $this->action('example_hook');        
-        $this->filter('example_filter');        
+        $this->filter('example_filter');   
     }
 
 
@@ -28,46 +27,11 @@ class Hook extends Base{
 
 
     function example_hook(){
-        echo 'Example Hook';
+        echo '<h2>Example Hook</h2>';
     }
     function example_filter(){
         return 'Example Hook';
     }
 
-    /**
-     * Calling Action Hook
-     *
-     * @param string $action_hook_name
-     * @param integer $accepted_args
-     * @param integer $priority
-     * @param string $method_name
-     * @return void
-     */
-    private function action( string $action_hook_name, int $accepted_args = 1, int $priority = 10,  string $method_name = '' ){
-        $this->hook('add_action', $action_hook_name, $accepted_args, $priority, $method_name);
-    }
-
-    /**
-     * Calling Filter Hook.
-     *
-     * @param string $action_hook_name
-     * @param integer $accepted_args
-     * @param integer $priority
-     * @param string $method_name
-     * @return void
-     */
-    private function filter( string $action_hook_name, int $accepted_args = 1, int $priority = 10,  string $method_name = '' ){
-        $this->hook('add_filter', $action_hook_name, $accepted_args, $priority, $method_name);
-    }
-    
-    private function hook( string $hook_type, string $action_hook_name, int $accepted_args = 1, int $priority = 10,  string $method_name = '' ){
-        if( empty( $method_name ) ){
-            $method_name = $action_hook_name;
-        }
-
-        if( ! method_exists($this,$method_name) ) return;
-
-        $hook_type( $action_hook_name, [$this, $method_name], $priority, $accepted_args );
-    }
 
 }
