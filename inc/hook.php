@@ -22,10 +22,6 @@ class Hook extends Hook_Base{
     }
 
 
-
-
-
-
     function example_hook(){
         echo '<h2>Example Hook</h2>';
     }
