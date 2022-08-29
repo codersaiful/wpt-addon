@@ -19,8 +19,21 @@ class Hook extends Hook_Base{
         // $this->action('salam_sir');        
         $this->action('example_hook');        
         $this->filter('example_filter');   
+        // $this->filter('wpt_wrapper_class',2);   
+        // $this->filter('wpt_query_args',2);   
     }
 
+
+    function wpt_query_args($query, $shortcode){
+        
+        var_dump($query);
+        return $query;
+    }
+    function wpt_wrapper_class($query, $shortcode){
+        
+        var_dump($query);
+        return $query;
+    }
 
     function salam_sir($shortcode){
         $shortcode->set_shortcde_text('Nilam_SIR');
