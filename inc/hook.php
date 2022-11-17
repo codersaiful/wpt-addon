@@ -19,6 +19,8 @@ class Hook extends Hook_Base{
         
         $this->action('example_hook');        
         $this->filter('example_filter');   
+
+        $this->filter('wpt_query_args');
     }
 
 
@@ -30,4 +32,8 @@ class Hook extends Hook_Base{
     }
 
 
+    public function wpt_query_args( $args ){
+        var_dump($args);
+        return $args;
+    }
 }

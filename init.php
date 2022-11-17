@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: WPT addons - Variation Filter Table
  * Plugin URI: https://wooproducttable.com/
  * Description: WooProductTable Addons Plugin for specific task.
  * Author: Saiful Islam
@@ -8,9 +8,9 @@
  * 
  * Version: 1.0
  * Requires at least:    4.0.0
- * Tested up to:         6.0.1
+ * Tested up to:         6.1
  * WC requires at least: 3.0.0
- * WC tested up to: 	 6.8.2
+ * WC tested up to: 	 7.1.0
  * 
  */
 
@@ -24,15 +24,15 @@ if ( ! defined( 'WPT_DEV_VERSION' ) ) {
 }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
-if ( !defined( 'WPT_ADDON_BASE_URL' ) ) {
-    define( "WPT_ADDON_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
+if ( !defined( 'WPT_ADDON_VF_BASE_URL' ) ) {
+    define( "WPT_ADDON_VF_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
 }
 
-if ( !defined( 'WPT_ADDON_VERSION' ) ) {
-    define( "WPT_ADDON_VERSION", '1.0.0' );
+if ( !defined( 'WPT_ADDON_VF_VERSION' ) ) {
+    define( "WPT_ADDON_VF_VERSION", '1.0.0' );
 }
 
-class WPT_Addons{
+class WPT_Addons_VF{
 
     public static $_instance;
 
@@ -59,7 +59,7 @@ class WPT_Addons{
 	}
 
     public function i18n(){
-        load_plugin_textdomain( 'wpt_addon' );
+        load_plugin_textdomain( 'wpt_addon_vf' );
     }
 
     public function init(){
@@ -77,11 +77,11 @@ class WPT_Addons{
 
     }
 }
-WPT_Addons::instace();
-register_activation_hook( __FILE__, 'wpt_addon_activation' );
+WPT_Addons_VF::instace();
+register_activation_hook( __FILE__, 'wpt_addon_vf_activation' );
 
-function wpt_addon_activation(){
-    $key = 'wpt_addon_date';
+function wpt_addon_vf_activation(){
+    $key = 'wpt_addon_vf_date';
     $ins_dt = get_option( $key );
     if( ! empty( $ins_dt ) ) return;
     update_option( $key, time());
