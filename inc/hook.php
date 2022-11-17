@@ -45,6 +45,11 @@ class Hook extends Hook_Base{
         return $args;
     }
     public function wpt_table_row( Row $row ){
+
+        $custom_variations = $row->table_atts['custom_variations'] ?? '';
+        $custom_variations = is_string( $custom_variations ) ? $custom_variations : '';
+        $custom_variations = trim($custom_variations);
+        $custom_variations_arr = explode(',', $custom_variations);
         // var_dump($row->table_atts);
         // $row->display = false;
         // return;
@@ -56,7 +61,7 @@ class Hook extends Hook_Base{
 
         $available = $row->product_data['attributes'] ?? [];
         $available = is_array( $available ) ? $available : [];
-        $my_items = ['small'];
+        $my_items = $custom_variations_arr;// ['small'];
         $common = array_intersect($available, $my_items);
         if( empty( $common ) ){
             $row->display = false;
