@@ -21,6 +21,8 @@ class Hook extends Hook_Base{
         $this->filter('example_filter');   
 
         $this->filter('wpt_query_args');
+        $this->filter('wpt_table_row');
+        // $this->action('wpt_table_row'); 
     }
 
 
@@ -35,5 +37,20 @@ class Hook extends Hook_Base{
     public function wpt_query_args( $args ){
         var_dump($args);
         return $args;
+    }
+    public function wpt_table_row( $row ){
+        // $row->display = false;
+        // var_dump($row->display_row);
+        // var_dump($row);
+        // return $row;
+        unset($row->_enable_cols['product_title']);
+        ?>
+        <tr>
+            <td colspan="7">
+                <?php var_dump($row->_enable_cols); ?>
+                <h1>Hello World <?php echo $row->product_id; ?></h1>
+            </td>
+        </tr>
+        <?php 
     }
 }
