@@ -18,15 +18,19 @@ class Hook extends Hook_Base{
 
     public function __construct(){
         
-        
+        // $this->action('wpt_load');
         // $this->action('example_hook');        
         // $this->filter('example_filter');   
 
         // $this->filter('wpt_query_args');
-        $this->filter('wpt_table_row');
-        // $this->action('wpt_table_row'); 
+        // $this->filter('wpt_table_row');
+        $this->action('wpt_table_row'); 
     }
 
+    public function wpt_load( $shortcode ){
+        $shortcode->table_display = false;
+        // var_dump($shortcode);
+    }
 
     function example_hook(){
         echo '<h2>Example Hook</h2>';
@@ -41,6 +45,9 @@ class Hook extends Hook_Base{
         return $args;
     }
     public function wpt_table_row( Row $row ){
+        // var_dump($row->table_atts);
+        // $row->display = false;
+        // return;
         // $row->display = false;
         // var_dump($row->display_row);
         // var_dump($row);
