@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WPT addons - Variation Filter Table
- * Plugin URI: https://wooproducttable.com/
+ * Plugin Name: WPT addons - Variation Filter Table by CodeAstrology
+ * Plugin URI: https://wooproducttable.com/addons/
  * Description: WooProductTable Addons Plugin for specific task.
- * Author: Saiful Islam
+ * Author: CodeAstrology Team
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
  * Version: 1.0
