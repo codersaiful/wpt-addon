@@ -44,6 +44,19 @@ class Hook extends Hook_Base{
         // var_dump($args);
         return $args;
     }
+
+    /**
+     * How it will work.
+     * It will filter based on specific variation
+     * like: [Product_Table id='19674' name='Nothing For Test Only' custom_variations='small']
+     * use showtcode like:
+     * [Product_Table id='19674' name='Nothing For Test Only' custom_variations='small']
+     *
+     * @param Row $row
+     * @return void
+     * 
+     * @author Saiful Islam <codersaiful@gmail.com>
+     */
     public function wpt_table_row( Row $row ){
 
         $custom_variations = $row->table_atts['custom_variations'] ?? '';
