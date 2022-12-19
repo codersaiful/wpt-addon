@@ -72,7 +72,7 @@ if( !function_exists( 'codeastrology_dynamic_price_file' ) ){
         return $file;
     }
  }
- add_filter( 'wpto_template_loc_item_dynamic_price', 'codeastrology_dynamic_price_file', 10 );
+//  add_filter( 'wpto_template_loc_item_dynamic_price', 'codeastrology_dynamic_price_file', 10 );
  
 //  if( !function_exists( 'codeastrology_single_attribute' ) ){
 
@@ -83,3 +83,12 @@ if( !function_exists( 'codeastrology_dynamic_price_file' ) ){
  
 //  }
 //  add_filter( 'wpto_default_column_arr', 'codeastrology_single_attribute' );
+
+add_filter( 'wpto_template_folder', 'wpt_custom_pro_change_template_folder', 50, 3 );
+function wpt_custom_pro_change_template_folder($items_directory, $keyword, $type){
+    if($type == 'dynamic_price'){
+        return __DIR__ . '/../file/';
+
+    }
+    return $items_directory;
+}
