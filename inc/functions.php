@@ -48,6 +48,6 @@ function getIdWiseSetting(){
     }
     return $idWiseSetting;
 }
-echo '<pre>';
-print_r(getIdWiseSetting());
-echo '</pre>';
+// echo '<pre>';
+// print_r(getIdWiseSetting());
+// echo '</pre>';
