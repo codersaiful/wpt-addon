@@ -2,6 +2,11 @@
 /**
  * All important functon will stay here.
  */
+// function dd($val){
+// 	echo "<pre>";
+// 		var_dump($val);
+// 	echo "</pre>";
+//  }
 
 $product_id = 17664;
 $variation_id = 19666;
@@ -48,6 +53,33 @@ function getIdWiseSetting(){
     }
     return $idWiseSetting;
 }
-// echo '<pre>';
-// print_r(getIdWiseSetting());
-// echo '</pre>';
+
+/**
+ * Add new column type for product table;
+ */
+function wpt_add_dynamic_price_column( $add_new_col_type, $columns_array, $column_settings, $post ){
+    $add_new_col_type['dynamic_price'] = 'Dynamic Price';
+    return $add_new_col_type;
+}
+add_filter( 'wpto_addnew_col_arr', 'wpt_add_dynamic_price_column', 10, 4 );
+
+
+if( !function_exists( 'codeastrology_dynamic_price_file' ) ){
+    function codeastrology_dynamic_price_file( $file ){
+        $file = __DIR__ . '/../file/dynamic_price.php';
+        //$file = $your_file_location;
+        // dd($file);
+        return $file;
+    }
+ }
+ add_filter( 'wpto_template_loc_item_dynamic_price', 'codeastrology_dynamic_price_file', 10 );
+ 
+//  if( !function_exists( 'codeastrology_single_attribute' ) ){
+
+//     function codeastrology_single_attribute( $column_array ) {
+//         dd($column_array);
+//         return $column_array;
+//     }
+ 
+//  }
+//  add_filter( 'wpto_default_column_arr', 'codeastrology_single_attribute' );
