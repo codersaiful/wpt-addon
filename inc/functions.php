@@ -17,3 +17,37 @@
 // // var_dump($value[1]['product_pricing'][0]['quantity_ranges']);
 // var_dump($value[1]['product_pricing'][0]['conditions']);
 // var_dump($value[1]['product_pricing'][1]['conditions']);
+// dd($value[1]['product_pricing'][0]['quantity_ranges']);
+
+
+$value = get_option( 'rp_wcdpd_settings' );
+
+function getValues( $value ){
+	$asValue = [];
+	foreach( $value as $asValue ){
+		$asValue[] = $asValue;
+	}
+	return $asValue;
+}
+
+$pricingArray = getValues($value);
+$product_pricing = getValues( $pricingArray['product_pricing'] );
+
+$product_variations = getValues($product_pricing['conditions']);
+
+function variaId( $product_variations ){
+	foreach( $product_variations['product_variations'] as $id  ){
+		$id = $id;
+	}
+	return $id;
+}
+
+function quantityRanges( $product_pricing ){
+	foreach( $product_pricing['quantity_ranges'] as $quantity_ranges ){
+		$price = $quantity_ranges;
+	}
+	return $price;
+}
+
+$price = quantityRanges( $product_pricing );
+$id = variaId( $product_variations );
