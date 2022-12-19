@@ -53,6 +53,10 @@ function getIdWiseSetting(){
     }
     return $idWiseSetting;
 }
+function getSpecifcSetting( $product_variation_id ){
+    $settings = getIdWiseSetting();
+    return $settings[$product_variation_id] ?? [];
+}
 
 /**
  * Add new column type for product table;
