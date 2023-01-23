@@ -1,3 +1,14 @@
 /**
 Only for FrontEnd
 */
+
+.all_check_header_footer.all_check_header>span {
+    visibility: hidden;
+} 
+
+
+.item_inside_cell.wpt_check {
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
