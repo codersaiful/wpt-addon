@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: Addons WPT - Select Product By Quantity ( Sarjil )
  * Plugin URI: https://wooproducttable.com/
  * Description: WooProductTable Addons Plugin for specific task.
  * Author: Saiful Islam
