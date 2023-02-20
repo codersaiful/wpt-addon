@@ -19,6 +19,7 @@ class Hook extends Hook_Base{
         $this->filter('woocommerce_product_data_panels'); 
         $this->action('wpt_add_field_in_panel');    
         $this->action('woocommerce_process_product_meta');    
+        $this->action('wpt_load');    
     }
 
     /**
@@ -96,6 +97,40 @@ class Hook extends Hook_Base{
         
         //Updating Here
         update_post_meta( $post_id, 'wpt_filter_col', esc_attr( $wpt_filter_col ) );
+    }
+
+    public function wpt_load( $shortcode ){
+
+        if( ! is_product() ) return;
+        $maArr = [];
+
+        global $product;
+
+        // Get product ID
+        $product_id = $product->get_id();
+
+        // Check searchbox on or off
+        if( $shortcode->search_n_filter['search_box']  == 'yes' ){
+            $shortcode->search_box = true;
+        }else{
+            $shortcode->search_box = false;
+        }
+        
+        // get value form product meta box 
+        $columns_kaywords = get_post_meta( $product_id,'wpt_filter_col', true );
+
+        $filter_kaywords = explode(",", $columns_kaywords);
+
+        // If set column list then replace default value 
+        if( !empty($columns_kaywords) ){
+            $shortcode->search_n_filter['taxonomy_keywords'] = $filter_kaywords;
+        }
+
+        // $shortcode->filter = $filter_kaywords;
+        echo '<pre>';
+        // var_dump($shortcode->filter);
+        // var_dump($shortcode);
+        echo '</pre>';
     }
 
 }
