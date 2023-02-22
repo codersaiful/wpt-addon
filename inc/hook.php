@@ -102,29 +102,16 @@ class Hook extends Hook_Base{
     public function wpt_load( $shortcode ){
 
         if( ! is_product() ) return;
-        $maArr = [];
-
+ 
         global $product;
 
         // Get product ID
         $product_id = $product->get_id();
 
-        // Check searchbox on or off
-        if( $shortcode->search_n_filter['search_box']  == 'yes' ){
-            $shortcode->search_box = true;
-        }else{
-            $shortcode->search_box = false;
-        }
-        
         // get value form product meta box 
         $columns_kaywords = get_post_meta( $product_id,'wpt_filter_col', true );
 
         $filter_kaywords = explode(",", $columns_kaywords);
-
-        // If set column list then replace default value 
-        if( !empty($columns_kaywords) ){
-            $shortcode->search_n_filter['taxonomy_keywords'] = $filter_kaywords;
-        }
 
         // Check Mini filter on or off
         if( $shortcode->search_n_filter['filter_box']  == 'yes' ){
@@ -138,12 +125,6 @@ class Hook extends Hook_Base{
             $shortcode->search_n_filter['filter'] = $filter_kaywords;
         }
 
-        // var_dump( $shortcode->filter );
-        // $shortcode->filter = $filter_kaywords;
-        echo '<pre>';
-        // var_dump( $shortcode->search_n_filter );
-        // var_dump($shortcode);
-        echo '</pre>';
     }
 
 }
