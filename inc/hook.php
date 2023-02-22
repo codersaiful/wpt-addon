@@ -126,9 +126,22 @@ class Hook extends Hook_Base{
             $shortcode->search_n_filter['taxonomy_keywords'] = $filter_kaywords;
         }
 
+        // Check Mini filter on or off
+        if( $shortcode->search_n_filter['filter_box']  == 'yes' ){
+            $shortcode->filter_box= true;
+        }else{
+            $$shortcode->filter_box = false;
+        }
+
+        // If set column list then replace default value 
+        if( !empty($columns_kaywords) ){
+            $shortcode->search_n_filter['filter'] = $filter_kaywords;
+        }
+
+        // var_dump( $shortcode->filter );
         // $shortcode->filter = $filter_kaywords;
         echo '<pre>';
-        // var_dump($shortcode->filter);
+        // var_dump( $shortcode->search_n_filter );
         // var_dump($shortcode);
         echo '</pre>';
     }
