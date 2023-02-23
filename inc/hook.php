@@ -20,8 +20,18 @@ class Hook extends Hook_Base{
         $this->action('wpt_add_field_in_panel');    
         $this->action('woocommerce_process_product_meta');    
         $this->action('wpt_load');    
+        $this->action('save_post');    
     }
 
+    
+    public  function save_post( $post_id ) {
+        if ( isset( $_POST['_product_categories'] ) ) {
+            $categories = array_map( 'sanitize_text_field', $_POST['_product_categories'] );
+            update_post_meta( $post_id, '_product_categories', maybe_serialize( $categories ) );
+        } else {
+            delete_post_meta( $post_id, '_product_categories' );
+        }
+    }
     /**
      * To define Tab Menu Under single product edit page
      * We have used a filter: woocommerce_product_data_tabs to To define Tab Menu Under single product edit page
@@ -66,6 +76,35 @@ class Hook extends Hook_Base{
      * @return void
      */
     public function wpt_add_field_in_panel(){
+
+        global $post;
+        $id = $post->ID;
+        $Product_Variable = new \WC_Product_Variable( $id ); 
+        $attributes = $Product_Variable->get_variation_attributes();
+        $arrtibute_keys = array_keys( $attributes );
+        // var_dump();
+        // woocommerce_wp_select(
+        //     array(
+        //         'id'          => 'wpt_filter_colss',
+        //         'label'       => __('Testing', 'woocommerce'),
+        //         'options'     => array(
+        //             'red'      => __('Red', 'woocommerce'),
+        //             'green'    => __('Green', 'woocommerce'),
+        //             'blue'     => __('Blue', 'woocommerce'),
+        //         ),
+        //         'value' => 'blue',
+        //         'desc_tip'    => true,
+        //         'multiple' => true,
+        //         'description' => __('Please select a color for the product', 'woocommerce'),
+        //         // 'custom_attributes'=> array(
+        //         //     'multiple' => 'multiple'
+        //         // )
+        //     )
+        // );
+
+
+        // $columns_kaywords = get_post_meta( $id,'wpt_filter_colss', true );
+
         $args = array();
         $args[] = array(
             'id'        =>'wpt_filter_col',
