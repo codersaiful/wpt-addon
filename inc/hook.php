@@ -82,6 +82,8 @@ class Hook extends Hook_Base{
         $Product_Variable = new \WC_Product_Variable( $id ); 
         $attributes = $Product_Variable->get_variation_attributes();
         $arrtibute_keys = array_keys( $attributes );
+        // $des = implode($arrtibute_keys,'');
+        
         // var_dump();
         // woocommerce_wp_select(
         //     array(
@@ -112,8 +114,8 @@ class Hook extends Hook_Base{
             'label'     =>  __( 'Column List', 'wpt_pro' ),
             'class'     =>  'wpt_input',
             'type'      =>  'text',
-            'desc_tip'  =>  true,
-            'description'=> __( 'Add column to filter', 'wpt_pro' ),
+            // 'desc_tip'  =>  true,
+            'description'=> implode(',',$arrtibute_keys),
             // 'data_type' => 'decimal'
         );
         
