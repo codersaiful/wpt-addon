@@ -42,7 +42,7 @@ class Hook extends Hook_Base{
     public function woocommerce_product_data_tabs( $product_data_tab){
  
         $wpt_tab['wpt_column_filter'] = array(
-            'label' => __('Wpt Column Filter','wcmmq'),
+            'label' => __('Wpt Column Filter','wpt_pro'),
             'target'   => 'wpt_column_filter', //This is targetted div's id
             'class'     => array( 'hide_if_downloadable','hide_if_grouped' ), //'hide_if_grouped',
             );
@@ -82,30 +82,6 @@ class Hook extends Hook_Base{
         $Product_Variable = new \WC_Product_Variable( $id ); 
         $attributes = $Product_Variable->get_variation_attributes();
         $arrtibute_keys = array_keys( $attributes );
-        // $des = implode($arrtibute_keys,'');
-        
-        // var_dump();
-        // woocommerce_wp_select(
-        //     array(
-        //         'id'          => 'wpt_filter_colss',
-        //         'label'       => __('Testing', 'woocommerce'),
-        //         'options'     => array(
-        //             'red'      => __('Red', 'woocommerce'),
-        //             'green'    => __('Green', 'woocommerce'),
-        //             'blue'     => __('Blue', 'woocommerce'),
-        //         ),
-        //         'value' => 'blue',
-        //         'desc_tip'    => true,
-        //         'multiple' => true,
-        //         'description' => __('Please select a color for the product', 'woocommerce'),
-        //         // 'custom_attributes'=> array(
-        //         //     'multiple' => 'multiple'
-        //         // )
-        //     )
-        // );
-
-
-        // $columns_kaywords = get_post_meta( $id,'wpt_filter_colss', true );
 
         $args = array();
         $args[] = array(
@@ -115,7 +91,7 @@ class Hook extends Hook_Base{
             'class'     =>  'wpt_input',
             'type'      =>  'text',
             // 'desc_tip'  =>  true,
-            'description'=> implode(',',$arrtibute_keys),
+            'description'=> implode(', ',$arrtibute_keys),
             // 'data_type' => 'decimal'
         );
         
@@ -153,12 +129,12 @@ class Hook extends Hook_Base{
         $columns_kaywords = get_post_meta( $product_id,'wpt_filter_col', true );
 
         $filter_kaywords = explode(",", $columns_kaywords);
-
+        var_dump( empty( $columns_kaywords) );
         // Check Mini filter on or off
-        if( $shortcode->search_n_filter['filter_box']  == 'yes' ){
+        if( !empty( $columns_kaywords) && $shortcode->search_n_filter['filter_box']  == 'yes' ){
             $shortcode->filter_box= true;
         }else{
-            $$shortcode->filter_box = false;
+            $shortcode->filter_box = false;
         }
 
         // If set column list then replace default value 
