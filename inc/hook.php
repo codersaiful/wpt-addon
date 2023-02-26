@@ -129,7 +129,7 @@ class Hook extends Hook_Base{
         $columns_kaywords = get_post_meta( $product_id,'wpt_filter_col', true );
 
         $filter_kaywords = explode(",", $columns_kaywords);
-        var_dump( empty( $columns_kaywords) );
+        
         // Check Mini filter on or off
         if( !empty( $columns_kaywords) && $shortcode->search_n_filter['filter_box']  == 'yes' ){
             $shortcode->filter_box= true;
