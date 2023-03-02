@@ -122,7 +122,7 @@ class Hook extends Hook_Base{
             'class'     =>  'wpt_input',
             'type'      =>  'text',
             // 'desc_tip'  =>  true,
-            'description'=> "write 'hide', if u want to hide message column",
+            'description'=> "Type 'hide', if you want to hide message column",
             // 'data_type' => 'decimal'
         );
         
@@ -143,10 +143,12 @@ class Hook extends Hook_Base{
     
         $wpt_filter_col = $_POST['wpt_filter_col'] ?? false;
         $wpt_var_id = $_POST['wpt_var_id'] ?? false;
+        $hide_col = $_POST['wpt_var_hide_col'] ?? false;
         
         //Updating Here
         update_post_meta( $post_id, 'wpt_filter_col', esc_attr( $wpt_filter_col ) );
         update_post_meta( $post_id, 'wpt_var_id', esc_attr( $wpt_var_id ) );
+        update_post_meta( $post_id, 'wpt_var_hide_col', esc_attr( $hide_col ) );
     }
 
     public function wpt_template_loc( $file, $row ){
