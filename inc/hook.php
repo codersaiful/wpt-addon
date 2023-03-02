@@ -115,6 +115,17 @@ class Hook extends Hook_Base{
             // 'data_type' => 'decimal'
         );
         
+        $args[] = array(
+            'id'        =>'wpt_var_hide_col',
+            'name'      => 'wpt_var_hide_col',
+            'label'     =>  __( 'Hide Message Column', 'wpt_pro' ),
+            'class'     =>  'wpt_input',
+            'type'      =>  'text',
+            // 'desc_tip'  =>  true,
+            'description'=> "write 'hide', if u want to hide message column",
+            // 'data_type' => 'decimal'
+        );
+        
         $args = apply_filters('wpt_field_args_in_panel', $args);
     
         foreach($args as $arg){
@@ -176,6 +187,12 @@ class Hook extends Hook_Base{
         // If set column list then replace default value 
         if( !empty($columns_kaywords) ){
             $shortcode->search_n_filter['filter'] = $filter_kaywords;
+        }
+
+        $hide_col = get_post_meta( $product_id,'wpt_var_hide_col', true );
+        if( 'hide' == $hide_col ){
+            // var_dump($wpt_var_id);
+            unset($shortcode->_enable_cols['message']);
         }
     }
 
