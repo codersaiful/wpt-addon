@@ -115,22 +115,24 @@ class Hook extends Hook_Base{
             // 'data_type' => 'decimal'
         );
         
-        $args[] = array(
-            'id'        =>'wpt_var_hide_col',
-            'name'      => 'wpt_var_hide_col',
-            'label'     =>  __( 'Hide Message Column', 'wpt_pro' ),
-            'class'     =>  'wpt_input',
-            'type'      =>  'text',
-            // 'desc_tip'  =>  true,
-            'description'=> "Type 'hide', if you want to hide message column",
-            // 'data_type' => 'decimal'
-        );
+
         
         $args = apply_filters('wpt_field_args_in_panel', $args);
     
         foreach($args as $arg){
             woocommerce_wp_text_input($arg);
         }
+        $args = array(
+            'id'        =>'wpt_var_hide_col',
+            'name'      => 'wpt_var_hide_col',
+            'label'     =>  __( 'Hide Message Column', 'wpt_pro' ),
+            // 'class'     =>  'wpt_input',
+            // 'type'      =>  'text',
+            // 'desc_tip'  =>  true,
+            'description'=> "Type 'hide', if you want to hide message column",
+            // 'data_type' => 'decimal'
+        );
+        woocommerce_wp_checkbox($args);
     }
 
     /**
