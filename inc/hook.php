@@ -19,6 +19,7 @@ class Hook extends Hook_Base{
 
         $this->filter('woocommerce_product_data_tabs'); 
         $this->filter('woocommerce_product_data_panels'); 
+        $this->filter('wpt_template_loc',2); 
         $this->action('wpt_add_field_in_panel');    
         $this->action('woocommerce_process_product_meta');    
         $this->action('wpt_load');    
@@ -137,6 +138,20 @@ class Hook extends Hook_Base{
         update_post_meta( $post_id, 'wpt_var_id', esc_attr( $wpt_var_id ) );
     }
 
+    public function wpt_template_loc( $file, $row ){
+        $product_id = $row->product_id;
+        $wpt_var_id = get_post_meta( $row->product_parent_id,'wpt_var_id', true );
+        
+        $wpt_var_ids = explode(",", $wpt_var_id);
+        
+        if(is_array( $wpt_var_ids ) && in_array( $product_id, $wpt_var_ids ) && strpos($file,'message.php') > 0){
+            $empty_file = 'empty.php';
+            return $empty_file;
+        }
+
+        return $file;
+    }
+
     public function wpt_load( $shortcode ){
 
         if( ! is_product() ) return;
@@ -165,10 +180,10 @@ class Hook extends Hook_Base{
             $shortcode->search_n_filter['filter'] = $filter_kaywords;
         }
 
-        if( true ){
-            // var_dump($wpt_var_id);
-            unset($shortcode->_enable_cols['message']);
-        }
+        // if( true ){
+        //     // var_dump($wpt_var_id);
+        //     unset($shortcode->_enable_cols['message']);
+        // }
         
 
     }
