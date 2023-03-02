@@ -104,16 +104,16 @@ class Hook extends Hook_Base{
             // 'data_type' => 'decimal'
         );
 
-        $args[] = array(
-            'id'        =>'wpt_var_id',
-            'name'      => 'wpt_var_id',
-            'label'     =>  __( 'Variation Id', 'wpt_pro' ),
-            'class'     =>  'wpt_input',
-            'type'      =>  'text',
-            // 'desc_tip'  =>  true,
-            'description'=> implode(', ',$var_ids),
-            // 'data_type' => 'decimal'
-        );
+        // $args[] = array(
+        //     'id'        =>'wpt_var_id',
+        //     'name'      => 'wpt_var_id',
+        //     'label'     =>  __( 'Variation Id', 'wpt_pro' ),
+        //     'class'     =>  'wpt_input',
+        //     'type'      =>  'text',
+        //     // 'desc_tip'  =>  true,
+        //     'description'=> implode(', ',$var_ids),
+        //     // 'data_type' => 'decimal'
+        // );
         
 
         
@@ -122,17 +122,26 @@ class Hook extends Hook_Base{
         foreach($args as $arg){
             woocommerce_wp_text_input($arg);
         }
-        $args = array(
+
+        $args = array();
+
+        $args[] = array(
             'id'        =>'wpt_var_hide_col',
             'name'      => 'wpt_var_hide_col',
             'label'     =>  __( 'Hide Message Column', 'wpt_pro' ),
-            // 'class'     =>  'wpt_input',
-            // 'type'      =>  'text',
-            // 'desc_tip'  =>  true,
-            'description'=> "Type 'hide', if you want to hide message column",
-            // 'data_type' => 'decimal'
+            // 'description'=> "Type 'hide', if you want to hide message column",
         );
-        woocommerce_wp_checkbox($args);
+
+        $args[] = array(
+            'id'        =>'wpt_var_hide_img',
+            'name'      => 'wpt_var_hide_img',
+            'label'     =>  __( 'Hide Image Column', 'wpt_pro' ),
+            // 'description'=> "Type 'hide', if you want to hide message column",
+        );
+
+        foreach($args as $arg){
+            woocommerce_wp_checkbox($arg);
+        }
     }
 
     /**
@@ -144,28 +153,32 @@ class Hook extends Hook_Base{
     function woocommerce_process_product_meta( $post_id ){
     
         $wpt_filter_col = $_POST['wpt_filter_col'] ?? false;
-        $wpt_var_id = $_POST['wpt_var_id'] ?? false;
-        $hide_col = $_POST['wpt_var_hide_col'] ?? false;
+        // $wpt_var_id = $_POST['wpt_var_id'] ?? false;
+        $wpt_var_hide_col = $_POST['wpt_var_hide_col'] ?? false;
+
+        $wpt_var_hide_img = $_POST['wpt_var_hide_img'] ?? false;
         
         //Updating Here
         update_post_meta( $post_id, 'wpt_filter_col', esc_attr( $wpt_filter_col ) );
-        update_post_meta( $post_id, 'wpt_var_id', esc_attr( $wpt_var_id ) );
-        update_post_meta( $post_id, 'wpt_var_hide_col', esc_attr( $hide_col ) );
+        // update_post_meta( $post_id, 'wpt_var_id', esc_attr( $wpt_var_id ) );
+        update_post_meta( $post_id, 'wpt_var_hide_col', esc_attr( $wpt_var_hide_col ) );
+
+        update_post_meta( $post_id, 'wpt_var_hide_img', esc_attr( $wpt_var_hide_img ) );
     }
 
-    public function wpt_template_loc( $file, $row ){
-        $product_id = $row->product_id;
-        $wpt_var_id = get_post_meta( $row->product_parent_id,'wpt_var_id', true );
+    // public function wpt_template_loc( $file, $row ){
+    //     $product_id = $row->product_id;
+    //     $wpt_var_id = get_post_meta( $row->product_parent_id,'wpt_var_id', true );
         
-        $wpt_var_ids = explode(",", $wpt_var_id);
+    //     $wpt_var_ids = explode(",", $wpt_var_id);
         
-        if(is_array( $wpt_var_ids ) && in_array( $product_id, $wpt_var_ids ) && strpos($file,'message.php') > 0){
-            $empty_file = 'empty.php';
-            return $empty_file;
-        }
+    //     if(is_array( $wpt_var_ids ) && in_array( $product_id, $wpt_var_ids ) && strpos($file,'message.php') > 0){
+    //         $empty_file = 'empty.php';
+    //         return $empty_file;
+    //     }
 
-        return $file;
-    }
+    //     return $file;
+    // }
 
     public function wpt_load( $shortcode ){
 
@@ -193,10 +206,17 @@ class Hook extends Hook_Base{
             $shortcode->search_n_filter['filter'] = $filter_kaywords;
         }
 
-        $hide_col = get_post_meta( $product_id,'wpt_var_hide_col', true );
-        if( 'hide' == $hide_col ){
-            // var_dump($wpt_var_id);
+        $wpt_var_hide_col = get_post_meta( $product_id,'wpt_var_hide_col', true );
+        $wpt_var_hide_img = get_post_meta( $product_id,'wpt_var_hide_img', true );
+
+        // var_dump($shortcode->_enable_cols);
+
+        if( 'yes' == $wpt_var_hide_col ){
             unset($shortcode->_enable_cols['message']);
+        }
+
+        if( 'yes' == $wpt_var_hide_img ){
+            unset($shortcode->_enable_cols['thumbnails']);
         }
     }
 
