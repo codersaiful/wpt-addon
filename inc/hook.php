@@ -163,9 +163,7 @@ class Hook extends Hook_Base{
 
         // get value form product meta box 
         $columns_kaywords = get_post_meta( $product_id,'wpt_filter_col', true );
-        $wpt_var_id = get_post_meta( $product_id,'wpt_var_id', true );
 
-        $wpt_var_id = explode(",", $wpt_var_id);
         $filter_kaywords = explode(",", $columns_kaywords);
         
         // Check Mini filter on or off
@@ -179,13 +177,6 @@ class Hook extends Hook_Base{
         if( !empty($columns_kaywords) ){
             $shortcode->search_n_filter['filter'] = $filter_kaywords;
         }
-
-        // if( true ){
-        //     // var_dump($wpt_var_id);
-        //     unset($shortcode->_enable_cols['message']);
-        // }
-        
-
     }
 
 }
