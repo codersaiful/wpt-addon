@@ -81,6 +81,7 @@ class Hook extends Hook_Base{
         $id = $post->ID;
         $Product_Variable = new \WC_Product_Variable( $id ); 
         $attributes = $Product_Variable->get_variation_attributes();
+        $var_ids = $Product_Variable->get_children();
         $arrtibute_keys = array_keys( $attributes );
 
         $args = array();
@@ -92,6 +93,17 @@ class Hook extends Hook_Base{
             'type'      =>  'text',
             // 'desc_tip'  =>  true,
             'description'=> implode(', ',$arrtibute_keys),
+            // 'data_type' => 'decimal'
+        );
+
+        $args[] = array(
+            'id'        =>'wpt_var_id',
+            'name'      => 'wpt_var_id',
+            'label'     =>  __( 'Variation Id', 'wpt_pro' ),
+            'class'     =>  'wpt_input',
+            'type'      =>  'text',
+            // 'desc_tip'  =>  true,
+            'description'=> implode(', ',$var_ids),
             // 'data_type' => 'decimal'
         );
         
@@ -111,9 +123,11 @@ class Hook extends Hook_Base{
     function woocommerce_process_product_meta( $post_id ){
     
         $wpt_filter_col = $_POST['wpt_filter_col'] ?? false;
+        $wpt_var_id = $_POST['wpt_var_id'] ?? false;
         
         //Updating Here
         update_post_meta( $post_id, 'wpt_filter_col', esc_attr( $wpt_filter_col ) );
+        update_post_meta( $post_id, 'wpt_var_id', esc_attr( $wpt_var_id ) );
     }
 
     public function wpt_load( $shortcode ){
