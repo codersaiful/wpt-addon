@@ -15,6 +15,8 @@ use WPT_ADDON\Inc\App\Hook_Base;
 class Hook extends Hook_Base{
 
     public function __construct(){      
+        $this->filter('wpto_short_message_box_type',10,6); 
+
         $this->filter('woocommerce_product_data_tabs'); 
         $this->filter('woocommerce_product_data_panels'); 
         $this->action('wpt_add_field_in_panel');    
@@ -23,6 +25,11 @@ class Hook extends Hook_Base{
         $this->action('save_post');    
     }
 
+    // public function wpto_short_message_box_type( $val , $settings, $product, $keyword, $table_ID, $column_settings ){
+    //     echo ''
+    //     var_dump($column_settings);
+    //     return false;
+    // }
     
     public  function save_post( $post_id ) {
         if ( isset( $_POST['_product_categories'] ) ) {
@@ -141,7 +148,9 @@ class Hook extends Hook_Base{
 
         // get value form product meta box 
         $columns_kaywords = get_post_meta( $product_id,'wpt_filter_col', true );
+        $wpt_var_id = get_post_meta( $product_id,'wpt_var_id', true );
 
+        $wpt_var_id = explode(",", $wpt_var_id);
         $filter_kaywords = explode(",", $columns_kaywords);
         
         // Check Mini filter on or off
@@ -155,6 +164,12 @@ class Hook extends Hook_Base{
         if( !empty($columns_kaywords) ){
             $shortcode->search_n_filter['filter'] = $filter_kaywords;
         }
+
+        if( true ){
+            // var_dump($wpt_var_id);
+            unset($shortcode->_enable_cols['message']);
+        }
+        
 
     }
 
