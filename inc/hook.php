@@ -192,19 +192,24 @@ class Hook extends Hook_Base{
         // get value form product meta box 
         $columns_kaywords = get_post_meta( $product_id,'wpt_filter_col', true );
 
-        $filter_kaywords = explode(",", $columns_kaywords);
+        $filter_kaywords = explode(",", trim($columns_kaywords));
         
         // Check Mini filter on or off
         if( !empty( $columns_kaywords) && $shortcode->search_n_filter['filter_box']  == 'yes' ){
             $shortcode->filter_box= true;
+            $filter_kaywords = array_filter( $filter_kaywords );
+            $filter_kaywords = array_map(function($item){
+                $item = ltrim($item);
+                $item = rtrim($item);
+                return $item;//trim( $item);
+            }, $filter_kaywords);
+            
+            $shortcode->search_n_filter['filter'] = $filter_kaywords;
         }else{
             $shortcode->filter_box = false;
         }
 
-        // If set column list then replace default value 
-        if( !empty($columns_kaywords) ){
-            $shortcode->search_n_filter['filter'] = $filter_kaywords;
-        }
+        
 
         $wpt_var_hide_col = get_post_meta( $product_id,'wpt_var_hide_col', true );
         $wpt_var_hide_img = get_post_meta( $product_id,'wpt_var_hide_img', true );
