@@ -133,6 +133,13 @@ class Hook extends Hook_Base{
         );
 
         $args[] = array(
+            'id'        =>'wpt_var_hide_msg2',
+            'name'      => 'wpt_var_hide_msg2',
+            'label'     =>  __( 'Hide 2nd Message Column', 'wpt_pro' ),
+            // 'description'=> "Type 'hide', if you want to hide message column",
+        );
+
+        $args[] = array(
             'id'        =>'wpt_var_hide_img',
             'name'      => 'wpt_var_hide_img',
             'label'     =>  __( 'Hide Image Column', 'wpt_pro' ),
@@ -155,6 +162,7 @@ class Hook extends Hook_Base{
         $wpt_filter_col = $_POST['wpt_filter_col'] ?? false;
         // $wpt_var_id = $_POST['wpt_var_id'] ?? false;
         $wpt_var_hide_col = $_POST['wpt_var_hide_col'] ?? false;
+        $wpt_var_hide_msg2 = $_POST['wpt_var_hide_msg2'] ?? false;
 
         $wpt_var_hide_img = $_POST['wpt_var_hide_img'] ?? false;
         
@@ -162,24 +170,15 @@ class Hook extends Hook_Base{
         update_post_meta( $post_id, 'wpt_filter_col', esc_attr( $wpt_filter_col ) );
         // update_post_meta( $post_id, 'wpt_var_id', esc_attr( $wpt_var_id ) );
         update_post_meta( $post_id, 'wpt_var_hide_col', esc_attr( $wpt_var_hide_col ) );
+        update_post_meta( $post_id, 'wpt_var_hide_msg2', esc_attr( $wpt_var_hide_msg2 ) );
 
         update_post_meta( $post_id, 'wpt_var_hide_img', esc_attr( $wpt_var_hide_img ) );
     }
 
-    // public function wpt_template_loc( $file, $row ){
-    //     $product_id = $row->product_id;
-    //     $wpt_var_id = get_post_meta( $row->product_parent_id,'wpt_var_id', true );
-        
-    //     $wpt_var_ids = explode(",", $wpt_var_id);
-        
-    //     if(is_array( $wpt_var_ids ) && in_array( $product_id, $wpt_var_ids ) && strpos($file,'message.php') > 0){
-    //         $empty_file = 'empty.php';
-    //         return $empty_file;
-    //     }
-
-    //     return $file;
-    // }
-
+ 
+    /**
+     * Diaplay Filter box on variation product
+     */
     public function wpt_load( $shortcode ){
 
         if( ! is_product() ) return;
@@ -212,12 +211,17 @@ class Hook extends Hook_Base{
         
 
         $wpt_var_hide_col = get_post_meta( $product_id,'wpt_var_hide_col', true );
+        $wpt_var_hide_msg2 = get_post_meta( $product_id,'wpt_var_hide_msg2', true );
         $wpt_var_hide_img = get_post_meta( $product_id,'wpt_var_hide_img', true );
 
         // var_dump($shortcode->_enable_cols);
 
         if( 'yes' == $wpt_var_hide_col ){
             unset($shortcode->_enable_cols['message']);
+        }
+
+        if( 'yes' == $wpt_var_hide_msg2 ){
+            unset($shortcode->_enable_cols['new_message']);
         }
 
         if( 'yes' == $wpt_var_hide_img ){
