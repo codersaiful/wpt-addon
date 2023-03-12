@@ -23,7 +23,7 @@ if( !function_exists( 'mio_new_message_in_meta' ) ){
 
     function mio_new_message_in_meta( $cart_data, $cart_item = null ) {
         $custom_items = array();
-
+dd($cart_data);
 
         if( ! empty( $cart_data ) ) {
             $custom_items = $cart_data;
