@@ -1,3 +1,16 @@
 /**
 Only for FrontEnd
 */
+
+/* Sesend messagebox design */
+input.wpt_custom_message.message_2 {
+	border: 1px solid var(--wpt_off_white);
+    background-color: var(--wpt_white);
+    padding: 7px 11px;
+    margin: 0;
+    border-radius: 2px;
+    font-size: 14px;
+    line-height: 14px;
+    text-transform: none;
+    box-shadow: unset;
+}

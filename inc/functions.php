@@ -23,13 +23,12 @@ if( !function_exists( 'mio_new_message_in_meta' ) ){
 
     function mio_new_message_in_meta( $cart_data, $cart_item = null ) {
         $custom_items = array();
-dd($cart_data);
 
         if( ! empty( $cart_data ) ) {
             $custom_items = $cart_data;
         }
         if( isset( $cart_item['color_2'] ) ) {
-            $msg_label = __( '2nd Color', 'wpt_pro' );
+            $msg_label = __( '2nd Message', 'wpt_pro' );
             $args['cart_item'] = $cart_item;
             $custom_items[] = array( "name" => $msg_label, "value" => $cart_item['color_2'] );
         }
@@ -62,7 +61,7 @@ if( ! function_exists( 'mio_order_meta_handler' ) ){
         $values = $item->legacy_values;
         $custom_msg_2nd_color = isset( $values['color_2'] ) && !empty( $values['color_2'] ) ? $values['color_2'] : false;
         if( $custom_msg_2nd_color ) {
-            $msg_label = __( '2nd Color', 'wpt_pro' );
+            $msg_label = __( '2nd Message', 'wpt_pro' );
             $args['item_id'] = $item_id;
             $args['values'] = $values;
             $args['item'] = $item;
