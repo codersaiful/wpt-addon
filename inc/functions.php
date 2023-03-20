@@ -35,5 +35,4 @@ function codeastrology_args_manipulation( $args ){
 }
 
 add_filter('wpto_table_query_args','codeastrology_args_manipulation');
-add_filter('wpto_table_query_args_in_row','codeastrology_args_manipulation');
 add_filter('wpto_query_arg_ajax','codeastrology_args_manipulation');
