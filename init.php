@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WPT addons - Variation Filter Table by CodeAstrology
+ * Plugin Name: aaa WPT addons - Variation Filter Table by CodeAstrology
  * Plugin URI: https://wooproducttable.com/addons/
  * Description: WooProductTable Addons Plugin for specific task.
  * Author: CodeAstrology Team
@@ -14,6 +14,16 @@
  * 
  */
 
+
+/**
+ * 
+ * 
+ * ###########################################
+ * UPDATED VERSION AT wpt-addons-variation-filter/init.php
+ * ###########################################
+ * 
+ * 
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
     die();
