@@ -1,6 +1,16 @@
 <?php 
 
 /**
+ * Check plugin pro version
+ */
+if( !function_exists('wpt_is_pro') ){
+    function wpt_is_pro(){
+        if( defined( 'WPT_PRO_DEV_VERSION' ) ) return true;
+        return false;
+    }
+}
+
+/**
  *  Display variable and simple product together
  * @author Fazle Bari
  */
@@ -54,7 +64,9 @@ function wpto_admin_basic_tab_var_simple( $meta_basics ){
                     <td>
                         <select name="basics[product_type]" data-name='product_type' id="wpt_table_product_type" class="wpt_fullwidth wpt_data_filed_atts ua_input" >
                             <option value="" <?php echo isset( $meta_basics['product_type'] ) && $meta_basics['product_type'] == '' ? 'selected' : false; ?>><?php esc_html_e('Product','wpt_pro');?></option>
-                            <option value="product_variation" <?php echo isset( $meta_basics['product_type'] ) && $meta_basics['product_type'] == 'product_variation' ? 'selected' : false; ?>><?php esc_html_e('Only Variation Product','wpt_pro');?></option>
+                            <?php if ( wpt_is_pro() ): ?>
+                                <option value="product_variation" <?php echo isset( $meta_basics['product_type'] ) && $meta_basics['product_type'] == 'product_variation' ? 'selected' : false; ?>><?php esc_html_e('Only Variation Product','wpt_pro');?></option>
+                            <?php endif; ?>
                             <option value="product_var_and_simple" <?php echo isset( $meta_basics['product_type'] ) && $meta_basics['product_type'] == 'product_var_and_simple' ? 'selected' : false; ?>><?php esc_html_e('Variation and Simple Product','wpt_pro');?></option>
                         </select><?php wpt_doc_link('Product Type (Product/Variation Product)'); wpt_doc_link('https://demo.wooproducttable.com/product-variant-in-separate-row/','See demo'); ?>
                         <p>
