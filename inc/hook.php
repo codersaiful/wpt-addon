@@ -23,7 +23,7 @@ class Hook extends Hook_Base{
 
     /**
      * Here we are changining the default argument of the table
-     * If the table is displying is group product page on then we will chenge the argument
+     * This will set product tag id which we got from the plugin query tag
      * @param [array] $args
      * @return $args
      * @author Fazle Bari

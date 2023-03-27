@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: Display Products By Tag ( WPT Addons )
  * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Description: Will display product by tag on the caregory page. 
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
@@ -10,7 +10,7 @@
  * Requires at least:    4.0.0
  * Tested up to:         6.1
  * WC requires at least: 3.0.0
- * WC tested up to: 	 7.1.0
+ * WC tested up to: 	 7.5.1 
  * 
  */
 
