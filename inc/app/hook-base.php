@@ -1,5 +1,5 @@
 <?php 
-namespace WPT_ADDON\Inc\App;
+namespace WPT_ADDON_LUD\Inc\App;
 
 /**
  * All Basic Hook will control from 

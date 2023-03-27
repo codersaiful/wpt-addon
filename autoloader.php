@@ -1,5 +1,5 @@
 <?php
-namespace WPT_ADDON;
+namespace WPT_ADDON_LUD;
 
 defined('ABSPATH') || exit;
 

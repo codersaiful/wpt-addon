@@ -1,8 +1,8 @@
 <?php 
-namespace WPT_ADDON\Inc;
+namespace WPT_ADDON_LUD\Inc;
 
-use WPT_ADDON\Inc\App\Enqueue;
-use WPT_ADDON\Inc\App\Base;
+use WPT_ADDON_LUD\Inc\App\Enqueue;
+use WPT_ADDON_LUD\Inc\App\Base;
 
 /**
  * Full Plugin Load Manager is here
