@@ -16,7 +16,7 @@ class Hook extends Hook_Base{
 
     public function __construct(){
         //$this->action('example_hook');        
-        //add_filter('wpt_query_args' , [$this, 'tableQuery'] );  
+        add_filter('wpt_query_args' , [$this, 'tableQuery'] );  
         //add_filter('wpto_table_query_args' , [$this, 'tableQuery'] );  
     }
 
