@@ -39,6 +39,8 @@ class Hook extends Hook_Base{
 
         ];
 
+        $args['posts_per_page'] = 1000;
+        
         return $args;
 
     }
