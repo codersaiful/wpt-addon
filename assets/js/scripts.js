@@ -51,7 +51,7 @@ jQuery(function ($) {
             });
             setTimeout(function(){
                 if(typeof $('select.filter_select.filter').select2 !== 'function') return;
-                $('select.filter_select.filter').select2();
+                //$('select.filter_select.filter').select2();
             },500); 
         }
 
