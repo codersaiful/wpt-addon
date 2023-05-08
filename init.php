@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Simple and Variation 
+ * Plugin Name: WPT - Simple and Variation Products 
  * Plugin URI: https://wooproducttable.com/
  * Description: WooProductTable Addons Plugin for specific task.
  * Author: Saiful Islam
