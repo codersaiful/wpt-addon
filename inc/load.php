@@ -25,11 +25,11 @@ class Load extends Base{
 
     public function __construct(){
         parent::__construct();
-        //Load Enqueue
-        $enqueue = new Enqueue();
-        $enqueue->set('admin');
-        $enqueue->set('frontend');
-        $enqueue->run();
+        //Load Enqueue Currently off Enequeue
+        // $enqueue = new Enqueue();
+        // $enqueue->set('admin');
+        // $enqueue->set('frontend');
+        // $enqueue->run();
 
         $hook = new Hook();
         

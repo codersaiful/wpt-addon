@@ -11,25 +11,48 @@ use WPT_ADDON\Inc\App\Hook_Base;
  * 
  * Normall we will use this Hook.
  * 
+ * // add_filter("wpt_product_loop", [ $this, 'wpt_product_loop'], 10, 2 ); 
  */
 class Hook extends Hook_Base{
 
     public function __construct(){      
-        add_filter("wpt_query_args", [ $this, 'wpt_query_args'], 10, 2 );  
-        add_filter("wpt_product_loop", [ $this, 'product_loop'], 10, 2 );  
-        $this->add_filter('product_loop');
+        $this->filter('wpt_product_loop', 2);
+
     }
 
+    public function wpt_product_loop( $product_loop, $shortcode ){
+        usort($product_loop->posts, [$this, 'my_sort']);
+        return $product_loop;
+    }
 
-    public function wpt_query_args( $args, $shortcode ){
-        // $args['orderby'] = 'title';
+    public function my_sort($prev, $next){
+        $a_id = $b_id = 0;
+        $prev_title = $prev->post_title;
+
+        $pattern = "/mm (\d+)/"; // Regular expression pattern to match "mm" followed by digits
+
+        preg_match($pattern, $prev_title, $matches1); // Match the pattern in the sentence
+
+        if (!empty($matches1)) {
+            $number = $matches1[1]; // Get the number captured in the first capturing group
+            $a_id = $number; // Output: 80
+        }
         
-        return $args;
-    }
-    public function product_loop( $loop, $shortcode ){
-        // var_dump($loop);
-        
-        return $loop;
-    }
 
+        $next_title = $next->post_title;
+        preg_match($pattern, $next_title, $matches); 
+        if (!empty($matches)) {
+            $number = $matches[1]; // Get the number captured in the first capturing group
+            $b_id = $number; // Output: 80
+        }
+  
+        if ($a_id < $b_id) {
+            return -1;
+        } elseif ($a_id > $b_id) {
+            return 1;
+        } else {
+            return 0;
+        }
+        return 1;
+    }
 }
