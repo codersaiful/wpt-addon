@@ -14,20 +14,15 @@ use WPT_ADDON\Inc\App\Hook_Base;
  */
 class Hook extends Hook_Base{
 
-    public function __construct(){
-
-        
-        $this->action('example_hook');        
-        $this->filter('example_filter');   
+    public function __construct(){      
+        add_filter("wpt_query_args", [ $this, 'wpt_query_args'], 10, 2 );  
     }
 
 
-    function example_hook(){
-        echo '<h2>Example Hook</h2>';
+    public function wpt_query_args( $args, $shortcode ){
+        $args['orderby'] = 'title';
+        dd($args['orderby']);
+        return $args;
     }
-    function example_filter(){
-        return 'Example Hook';
-    }
-
 
 }
