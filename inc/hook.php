@@ -16,13 +16,20 @@ class Hook extends Hook_Base{
 
     public function __construct(){      
         add_filter("wpt_query_args", [ $this, 'wpt_query_args'], 10, 2 );  
+        add_filter("wpt_product_loop", [ $this, 'product_loop'], 10, 2 );  
+        $this->add_filter('product_loop');
     }
 
 
     public function wpt_query_args( $args, $shortcode ){
-        $args['orderby'] = 'title';
-        dd($args['orderby']);
+        // $args['orderby'] = 'title';
+        
         return $args;
+    }
+    public function product_loop( $loop, $shortcode ){
+        // var_dump($loop);
+        
+        return $loop;
     }
 
 }

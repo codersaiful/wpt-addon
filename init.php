@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Sort by product title
+ * Plugin Name: Addons WPT - Sort by product title (Jonas)
  * Plugin URI: https://wooproducttable.com/
  * Description: To load product order by title
  * Author: Saiful Islam
