@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: Addons WPT - Sort by product title
  * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Description: To load product order by title
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
  * Version: 1.0
  * Requires at least:    4.0.0
- * Tested up to:         6.1
+ * Tested up to:         6.2
  * WC requires at least: 3.0.0
- * WC tested up to: 	 7.1.0
+ * WC tested up to: 	 7.6.1
  * 
  */
 
