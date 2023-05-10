@@ -106,10 +106,10 @@ class Hook extends Hook_Base{
         $pattern = '/(\d+)\s*x\s*(\d+)/';
         preg_match($pattern, $product1_title, $matches1);
         preg_match($pattern, $product2_title, $matches2);
-        $first_num1 = $matches1[1];
-        $first_num2 = $matches2[1];
-        $second_num1 = $matches1[2];
-        $second_num2 = $matches2[2];
+        $first_num1 = $matches1[1] ?? 0;
+        $first_num2 = $matches2[1] ?? 0;
+        $second_num1 = $matches1[2] ?? 0;
+        $second_num2 = $matches2[2] ?? 0;
     
         // sort the array based on the first number in ascending order
         if ($first_num1 < $first_num2) {
