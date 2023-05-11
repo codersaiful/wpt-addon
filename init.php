@@ -13,7 +13,7 @@
  * WC tested up to: 	 7.1.0
  * 
  */
-
+// return;
 
 if ( ! defined( 'ABSPATH' ) ) {
     die();

@@ -13,9 +13,15 @@ if( !function_exists('wpt_is_pro') ){
 /**
  *  Display variable and simple product together
  * @author Fazle Bari
+ * @author Saiful Islam <codersaiful@gmail.com>
  */
 function codeastrology_args_manipulation( $args ){
-    dd($args['post_type']);
+
+    $post_type = $args['post_type'] ?? 'product';
+    if( 'product_var_and_simple' !== $post_type ) return $args;
+
+    $args['post_type'] = 'product';
+
    $query = new \WP_Query($args);
    $p_products = array();
    if($query->have_posts()):
@@ -45,8 +51,7 @@ function codeastrology_args_manipulation( $args ){
    return $args;
 }
 
-add_filter('wpto_table_query_args','codeastrology_args_manipulation');
-add_filter('wpto_query_arg_ajax','codeastrology_args_manipulation');
+add_filter('wpt_query_args','codeastrology_args_manipulation');
 
 
 /**
