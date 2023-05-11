@@ -1,5 +1,11 @@
 <?php 
 
+
+function wpt_simpe_var_license(){
+
+    return true;
+}
+
 /**
  * Check plugin pro version
  */
