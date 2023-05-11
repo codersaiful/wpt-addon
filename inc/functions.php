@@ -10,48 +10,7 @@ if( !function_exists('wpt_is_pro') ){
     }
 }
 
-/**
- *  Display variable and simple product together
- * @author Fazle Bari
- * @author Saiful Islam <codersaiful@gmail.com>
- */
-function codeastrology_args_manipulation( $args ){
 
-    $post_type = $args['post_type'] ?? 'product';
-    if( 'product_var_and_simple' !== $post_type ) return $args;
-
-    $args['post_type'] = 'product';
-
-   $query = new \WP_Query($args);
-   $p_products = array();
-   if($query->have_posts()):
-      while( $query->have_posts() ): $query->the_post();
-        global $product;
-        $id = get_the_id();
-        if( $product->get_type() !== 'variable' ){
-            $p_products[] = $id;
-        }
-
-        if( $product->get_type() == 'variable' ){
-            $variable = new WC_Product_Variable( $id );
-
-            $available_variations = $variable->get_available_variations();
-            $variations_id = wp_list_pluck( $available_variations, 'variation_id' );
-            $p_products = array_merge($p_products, $variations_id);
-
-        }
-
-      endwhile;
-    endif;
-    $args['post_type'] = array('product', 'product_variation',);
-    $args['post__in'] = $p_products;
-    $args['tax_query'] = false;
-    $args['meta_query'] = false;
-
-   return $args;
-}
-
-add_filter('wpt_query_args','codeastrology_args_manipulation');
 
 
 /**
