@@ -29,9 +29,9 @@ class Init
     public $plugin_root_file = WPT_ADDON_PLUGIN_FILE_NAME; //Need plugin's main root file data of __FILE__.
     public $plugin_version = WPT_ADDON_VERSION;//current version of plugin
 
-    public $page_title = 'License Addons';
+    public $page_title = 'License Page';
 
-    public $page_slug = 'wpt-addons-simple-variaton';//'wpt-addons-simple-variaton';
+    public $page_slug = 'woo-product-table-license';//'wpt-addons-simple-variaton'; //'woo-product-table-license';
     public $parent_page = 'edit.php?post_type=wpt_product_table';
 
     //specially for redirection
@@ -42,6 +42,8 @@ class Init
     public $store_url = 'https://staging19.codeastrology.com/'; //https://codeastrology.com/
     public $author_name = 'CodeAstrology Team';
     public $permission = 'manage_options';//Manage or edit permission
+    //If it's child License
+    public $parent_addon_prefix = 'wpt';
 
 
     public $license_root_file = __FILE__;

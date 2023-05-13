@@ -47,7 +47,13 @@ class Manage
 
         //Menu and Page Settings
         add_action('admin_init', [$this, 'register_option']);
-        add_action( 'admin_menu', [$this, 'license_menu'] );
+        if( ! empty( $this->settings->parent_addon_prefix ) ){
+            add_action( $this->settings->parent_addon_prefix . '_addon_license_area', [$this, 'license_page']);
+            // $this->license_page();
+        }else{
+            add_action( 'admin_menu', [$this, 'license_menu'] );
+        }
+        
 
         //Activate and Deactivate License.
         add_action('admin_init', [$this, 'activate_license']);

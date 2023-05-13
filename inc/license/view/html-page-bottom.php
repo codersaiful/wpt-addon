@@ -22,7 +22,12 @@ $prefix = $this->prefix;
 ?>
 <div class="ca-license-bottom-area <?php echo esc_attr( $prefix ); ?>-license-bottom-area">
     <?php
-    var_dump($this);
+    // var_dump($this);
     do_action( $prefix . '_license_bottom_area' );
+    ?>
+</div>
+<div class="ca-addon-license-area <?php echo esc_attr( $prefix ); ?>-addon-license-area">
+    <?php
+    do_action( $prefix . '_addon_license_area' );
     ?>
 </div>
