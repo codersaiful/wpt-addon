@@ -50,8 +50,8 @@ class Init
         $this->license_data_key = $this->prefix . '_license_data';
         $this->license_page_link = admin_url( $this->license_page_link );
         
-        $manage = new License_Manage($this, '_pro'); //This only for Product table actually.
-        // $manage = new License_Manage($this);
+        // $manage = new License_Manage($this, '_pro'); //This only for Product table actually.
+        $manage = new License_Manage($this);
         
 
         //If Need
