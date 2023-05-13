@@ -1,0 +1,116 @@
+
+
+/*License Field Design*/
+input#admin-option-text-license-key {
+    apperance: none;
+    outline: none;
+    border: 1px #f3f3f3 solid;
+    padding-left: 20px;
+    vertical-align: middle;
+    font-size: 1rem;
+    font-weight: 400;
+    position: relative;
+    width: 550px;
+    height: 70px;
+    border-radius: 6px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+.license-module-parent {
+    box-shadow: 0 0 30px rgb(0 0 0 / 2%);
+    padding: 70px 50px;
+    margin: 15px 0;
+    background: #fff;
+}
+p.attr-alert.attr-alert-success,
+p.wpt-license-heading{
+    font-size: 2rem;
+}
+label.admin-option-text-license-key {
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+}
+form#admin-license-form input[type="submit"],
+button.btn-license-activate.attr-btn-primary.admin-license-form-submit {
+    color: white;
+    background: linear-gradient(to right, #8041F2, #3095ED);
+    border-radius: 8px;
+    transition: 0.2s ease-in-out;
+    padding: 15px 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    margin-top: 20px;
+    border-radius: 30px;
+}
+form#admin-license-form input[type="submit"]{
+    background: linear-gradient(to right, #ff3030, #9c27b0);
+}
+form#admin-license-form input[type="submit"],
+button.btn-license-activate.attr-btn-primary.admin-license-form-submit:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    cursor: pointer;
+}
+div#wpt_configuration_form div#table_style .ultraaddons .with-background, 
+div#wpt_configuration_form div#table_style .ultraaddons-panel .with-background {
+    width: 100%;
+}
+
+.license-key{
+    font-size: 20px;
+}
+.license-key strong {
+    color: red !important;
+}
+
+.license-key > a:hover {
+    color: #d88a17;
+}
+
+
+/*EDD extra*/
+.user-info-edd {
+    margin-top: 36px;
+    display: block;
+}
+
+.user-info-edd .user-details {}
+
+.edd-single-user-ifno {
+    display: flex;
+    border-bottom: 1px solid #bdb3b373;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.edd-single-user-ifno p.field-name {
+    font-weight: bold;
+    width: 120px;
+}
+
+.user-info-edd {}
+
+.edd-single-user-ifno.item_name {}
+
+.edd-single-user-ifno.item_name p.field-value{
+    color: #a928a0;
+    font-weight: bold;
+}
+.edd-single-user-ifno.customer_name p.field-value {
+    color: #020202;
+    font-weight: bold;
+}
+.wpt-license-heading b,p.attr-alert.attr-alert-success b {
+    color: #ac299c;
+    white-space: nowrap;
+    padding-right: 2px;
+}
+
+p.attr-alert.attr-alert-success {
+    color: #4caf50;
+}
