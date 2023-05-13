@@ -45,8 +45,11 @@ class Manage
 
         add_action('init', [$this, 'plugin_updater']);
 
+        
         //Menu and Page Settings
         add_action('admin_init', [$this, 'register_option']);
+
+        var_dump(did_action($this->settings->parent_addon_prefix . '_addon_license_area'),$this->settings);
         if( ! empty( $this->settings->parent_addon_prefix ) ){
             add_action( $this->settings->parent_addon_prefix . '_addon_license_area', [$this, 'license_page']);
             // $this->license_page();
