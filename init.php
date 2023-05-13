@@ -31,6 +31,9 @@ if ( !defined( 'WPT_ADDON_BASE_URL' ) ) {
 if ( !defined( 'WPT_ADDON_VERSION' ) ) {
     define( "WPT_ADDON_VERSION", '1.0.0' );
 }
+if ( !defined( 'WPT_ADDON_PLUGIN_FILE_NAME' ) ) { //WPTP_PLUGIN_FILE_NAME
+    define( "WPT_ADDON_PLUGIN_FILE_NAME", __FILE__ );
+}
 
 class WPT_Addons{
 
@@ -75,7 +78,7 @@ class WPT_Addons{
 
         
         WPT_ADDON\Inc\Load::instance();
-        // new WPT_ADDON\Inc\License\Init();
+        $aaa = new WPT_ADDON\Inc\License\Init();
     }
 }
 WPT_Addons::instace();

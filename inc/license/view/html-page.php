@@ -11,7 +11,7 @@
         //$this->get_live_license_status(); //Getting licens data Live
  */
 $settings = $this->settings;
-
+// var_dump($settings);
 /**
  * There will stay HTML Field or input filed of
  * active deactive button. 

@@ -3,15 +3,17 @@ namespace WPT_ADDON\Inc\License;
 
 use \CodeAstrology_License\Manage as License_Manage;
 
+
 if ( ! class_exists('\CodeAstrology_License\Plugin_Updater') ) {
 	// load our custom updater
 	include dirname( __FILE__ ) . '/resource/updater.php';
 }
+
 if ( ! class_exists( 'CodeAstrology_License\Manage' ) ) {
 	// load our custom updater
 	include dirname( __FILE__ ) . '/resource/manage.php';
 }
-include dirname( __FILE__ ) . '/settings.php';
+
 
 
 class Init
@@ -24,16 +26,16 @@ class Init
     public $item_name = 'WPT Addons - Simple and Variation product';
     public $help_url = 'https://wooproducttable.com/docs/doc/license/where-is-my-license-key/';
 
-    public $plugin_root_file = WPTP_PLUGIN_FILE_NAME; //Need plugin's main root file data of __FILE__.
-    public $plugin_version = WPT_PRO_DEV_VERSION;//current version of plugin
+    public $plugin_root_file = WPT_ADDON_PLUGIN_FILE_NAME; //Need plugin's main root file data of __FILE__.
+    public $plugin_version = WPT_ADDON_VERSION;//current version of plugin
 
-    public $page_title = 'License Page';
+    public $page_title = 'License Addons';
 
-    public $page_slug = 'wpt-addon-license';
+    public $page_slug = 'wpt-addons-simple-variaton';//'wpt-addons-simple-variaton';
     public $parent_page = 'edit.php?post_type=wpt_product_table';
 
     //specially for redirection
-    public $license_page_link = 'edit.php?post_type=wpt_product_table&page=wpt-addon-license';
+    public $license_page_link = 'edit.php?post_type=wpt_product_table&page=wpt-addons-simple-variaton';
 
 
     //Static but Dynamic (No need change)

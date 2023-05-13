@@ -23,6 +23,7 @@ class Manage
 
     // protected
     protected $enequeue_handle = 'ca-license-style';
+    protected $form_section;
 
     public function __construct( object $settings, $pro = '')
     {
@@ -36,6 +37,7 @@ class Manage
         $this->register_sett = $this->prefix . '_license_sett';
         $this->btn_activate = $this->prefix . '_btn_activate_license';
         $this->btn_deactivate = $this->prefix . '_btn_deactivate_license';
+        $this->form_section = $this->settings->page_slug . '_' . $this->prefix;
         
 
         $this->license_key = trim( get_option( $this->license_key_name ) );
@@ -99,13 +101,13 @@ class Manage
             $this->register_sett,
             __( $this->settings->page_title ),
             [$this, 'license_key_settings_field'],
-            $this->settings->page_slug
+            $this->form_section
         );
         // add_settings_field(
         //     $this->license_key_name,
         //     '<label for="' . $this->license_key_name . '">' . __( 'License Key' ) . '</label>',
         //     [$this, 'license_key_settings_field'],
-        //     $this->settings->page_slug,
+        //     $this->form_section,
         //     $this->register_sett,
         // );
         ?>
@@ -114,7 +116,7 @@ class Manage
             <form method="post" action="options.php">
     
                 <?php
-                do_settings_sections( $this->settings->page_slug );
+                do_settings_sections( $this->form_section );
                 settings_fields( $this->register_sett );
                 submit_button();
                 ?>
@@ -258,7 +260,7 @@ class Manage
                     'sl_activation' => 'false',
                     'message'       => rawurlencode($message),
                 ),
-                WPT_EDD_LICENSE_PAGE_LINK//admin_url('plugins.php')
+                $this->settings->license_page_link //admin_url('plugins.php')
             );
 
             wp_safe_redirect($redirect);
@@ -278,7 +280,7 @@ class Manage
         //         'sl_activation' => 'true',
         //         'barta'       => rawurlencode( $message ),
         //     ),
-        //     WPT_EDD_LICENSE_PAGE_LINK
+        //     $this->settings->license_page_link
         // );
 
         // wp_safe_redirect( $redirect );
@@ -344,7 +346,7 @@ class Manage
                         'sl_activation' => 'false',
                         'message'       => rawurlencode($message),
                     ),
-                    WPT_EDD_LICENSE_PAGE_LINK,//admin_url('plugins.php')
+                    $this->settings->license_page_link,//admin_url('plugins.php')
                 );
 
                 wp_safe_redirect($redirect);
@@ -544,7 +546,7 @@ class Manage
     {
 
         $link_label = __( 'Activate License', 'wpt_pro' );
-        $link = WPT_EDD_LICENSE_PAGE_LINK;
+        $link = $this->settings->license_page_link;
 		$message = esc_html__( 'Please activate ', 'wpt_pro' ) . '<strong>' . esc_html__( $this->settings->item_name ) . '</strong>' . esc_html__( ' license to get automatic updates.', 'wpt_pro' ) . '</strong>';
         printf( '<div class="error error-warning is-dismissible"><p>%1$s <a href="%2$s">%3$s</a></p></div>', $message, $link, $link_label );
     }
