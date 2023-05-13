@@ -73,8 +73,9 @@ class WPT_Addons{
 		//Including Function File. It will stay at the Top of the File
 		include_once __DIR__ . '/inc/functions.php';
 
+        
         WPT_ADDON\Inc\Load::instance();
-
+        // new WPT_ADDON\Inc\License\Init();
     }
 }
 WPT_Addons::instace();

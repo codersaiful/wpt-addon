@@ -1,5 +1,5 @@
 <?php
-namespace WPT_ADDON\Inc;
+namespace WPT_ADDON\Inc\License;
 
 use \CodeAstrology_License\Manage as License_Manage;
 
@@ -18,10 +18,10 @@ class Init
 {
 
     //Most Important, It's Obvously should change, Otherwise conflict
-    public $prefix = 'wpt';
+    public $prefix = 'wpt_add_sv';
 
-    public $item_id = 6553;
-    public $item_name = 'Woo Product Table Pro';
+    public $item_id = 12858;//6553;
+    public $item_name = 'WPT Addons - Simple and Variation product';
     public $help_url = 'https://wooproducttable.com/docs/doc/license/where-is-my-license-key/';
 
     public $plugin_root_file = WPTP_PLUGIN_FILE_NAME; //Need plugin's main root file data of __FILE__.
@@ -29,11 +29,11 @@ class Init
 
     public $page_title = 'License Page';
 
-    public $page_slug = 'woo-product-table-license';
+    public $page_slug = 'wpt-addon-license';
     public $parent_page = 'edit.php?post_type=wpt_product_table';
 
     //specially for redirection
-    public $license_page_link = 'edit.php?post_type=wpt_product_table&page=woo-product-table-license';
+    public $license_page_link = 'edit.php?post_type=wpt_product_table&page=wpt-addon-license';
 
 
     //Static but Dynamic (No need change)
