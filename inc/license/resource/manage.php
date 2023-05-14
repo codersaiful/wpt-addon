@@ -70,8 +70,8 @@ class Manage
         if( ! empty( $this->settings->parent_addon_prefix ) ){
             if( ! empty( $this->settings->parent_exists_class ) && ! class_exists( $this->settings->parent_exists_class ) ){
                 $this->hook_prefix = $this->settings->parent_addon_prefix;
-                
-                $this->settings->license_page_link = false;
+                $this->main_license_slug = $this->hook_prefix . '-all-license';
+                $this->settings->license_page_link = admin_url( 'admin.php?page=' .$this->main_license_slug );
                 add_action( 'admin_menu', [$this, 'license_menu_empty'] );
             }
             $this->settings->page_title = "License";
@@ -130,7 +130,6 @@ class Manage
         );
     }    
     function license_menu_empty() {
-        $this->main_license_slug = $this->hook_prefix . '-all-license';
         global $submenu;
 
         if( ! isset( $submenu[$this->settings->parent_page] ) ) return;
@@ -323,11 +322,12 @@ class Manage
             }
         }
 
+        update_option($this->settings->license_data_key, $license_data);
         // Check if anything passed on a message constituting a failure
         if (! empty($message)) {
             $redirect = add_query_arg(
                 array(
-                    'page'          => $this->settings->page_slug,
+                    'page'          => $this->main_license_slug ?? $this->settings->page_slug,
                     'sl_activation' => 'false',
                     'message'       => rawurlencode($message),
                 ),
@@ -343,7 +343,7 @@ class Manage
             update_option($this->license_key_name, $license);
         }
         update_option($this->license_status_name, $license_data->license);
-        update_option($this->settings->license_data_key, $license_data);
+        
 
         // $redirect = add_query_arg(
         //     array(
@@ -413,7 +413,7 @@ class Manage
 
                 $redirect = add_query_arg(
                     array(
-                        'page'          => $this->settings->page_slug,
+                        'page'          => $this->main_license_slug ?? $this->settings->page_slug,
                         'sl_activation' => 'false',
                         'message'       => rawurlencode($message),
                     ),
@@ -621,11 +621,7 @@ class Manage
         $link = $this->settings->license_page_link;
         
 		$message = esc_html__( 'Please activate ', 'wpt_pro' ) . '<strong>' . esc_html__( $this->settings->item_name ) . '</strong>' . esc_html__( ' license to get automatic updates.', 'wpt_pro' ) . '</strong>';
-        if( empty( $link ) ){
-            printf( '<div class="error error-warning is-dismissible"><p>%1$s %2$s</p></div>', $message, $link, $link_label );
-        }else{
-            printf( '<div class="error error-warning is-dismissible"><p>%1$s <a href="%2$s">%3$s</a></p></div>', $message, $link, $link_label );
-        }
+        printf( '<div class="error error-warning is-dismissible"><p>%1$s <a href="%2$s">%3$s</a></p></div>', $message, $link, $link_label );
         
     }
 
