@@ -20,7 +20,7 @@ $settings = $this->settings;
  */
 
 $license_data  = $this->get_license_data();// get_option( $this->settings->license_data_key );
-
+// var_dump($this->license_key);
 if($this->status === 'valid' && is_object($license_data) ){
     $customer_name = $license_data->customer_name;
     ?>

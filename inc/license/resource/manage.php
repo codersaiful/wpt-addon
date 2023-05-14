@@ -5,6 +5,17 @@ class Manage
 {
 
     protected $prefix;
+
+    /**
+     * It's actually parent prefix
+     * We will use it for parent prefix
+     * jodi child addon banay ar sekhane parent pro nai, tokhon
+     * amora eta bebohar korbo.
+     * license menu and main hook prefix hisbe
+     *
+     * @var string 
+     */
+    protected $hook_prefix;
     protected $settings;
     protected $status;
     protected $license_key;
@@ -28,6 +39,7 @@ class Manage
     public function __construct( object $settings, $pro = '')
     {
         $this->prefix = $settings->prefix;
+        $this->hook_prefix = $this->prefix;
         $this->settings = $settings;
 
         $this->license_key_name = $this->prefix . $pro . '_license_key';
@@ -49,8 +61,15 @@ class Manage
         //Menu and Page Settings
         add_action('admin_init', [$this, 'register_option']);
 
-        var_dump(did_action($this->settings->parent_addon_prefix . '_addon_license_area'),$this->settings);
+        
         if( ! empty( $this->settings->parent_addon_prefix ) ){
+            if( ! empty( $this->settings->parent_exists_class ) && ! class_exists( $this->settings->parent_exists_class ) ){
+                $this->hook_prefix = $this->settings->parent_addon_prefix;
+                
+                $this->settings->license_page_link = false;
+                add_action( 'admin_menu', [$this, 'license_menu_empty'] );
+            }
+            $this->settings->page_title = "License";
             add_action( $this->settings->parent_addon_prefix . '_addon_license_area', [$this, 'license_page']);
             // $this->license_page();
         }else{
@@ -69,6 +88,7 @@ class Manage
         }
 
         add_action('admin_enqueue_scripts', [$this, 'admin_enqueue']);
+        
     }
 
     /**
@@ -104,6 +124,24 @@ class Manage
             [$this, 'license_page']
         );
     }    
+    function license_menu_empty() {
+        $main_license_slug = $this->hook_prefix . '-all-license';
+        global $submenu;
+
+        if( ! isset( $submenu[$this->settings->parent_page] ) ) return;
+        // $current_menus = wp_list_pluck( $submenu['edit.php?post_type=wpt_product_table'], 2 );
+        $current_menus = wp_list_pluck( $submenu[$this->settings->parent_page], 2 );
+        if(in_array( $main_license_slug, $current_menus )) return;
+
+        add_submenu_page(
+            $this->settings->parent_page,
+            __( $this->settings->page_title ),
+            __( $this->settings->page_title ),
+            $this->settings->permission,
+            $main_license_slug,
+            [$this, 'license_page_empty']
+        );
+    }    
 
     function license_page() {
         add_settings_section(
@@ -119,9 +157,10 @@ class Manage
         //     $this->form_section,
         //     $this->register_sett,
         // );
+        
         ?>
-        <div class="wrap">
-            <h2><?php esc_html_e( $this->settings->item_name . ' ' . $this->settings->page_title ); ?></h2>
+        <div class="outer-wrap prefix-<?php echo esc_attr( $this->prefix ); ?> hookprefix-<?php echo esc_attr( $this->hook_prefix ); ?>">
+            <h2 class="plugin-name"><?php esc_html_e( $this->settings->item_name ); ?></h2>
             <form method="post" action="options.php">
     
                 <?php
@@ -136,10 +175,28 @@ class Manage
                 <p class="license-key"><strong>Tips: </strong><a href="<?php echo esc_url( $this->settings->help_url ); ?>" target="_black"><?php echo esc_html__( 'Where is my license key? Click Here', 'wpt_pro' ); ?></a></p>
             </div>
             <?php
-            include dirname( $this->settings->license_root_file ) . '/view/html-page-bottom.php';
+            include_once dirname( $this->settings->license_root_file ) . '/view/html-page-bottom.php';
             ?>
 
         </div>
+        <?php
+    }
+    
+    function license_page_empty() {
+        add_settings_section(
+            $this->register_sett,
+            __( $this->settings->page_title ),
+            [$this, 'license_key_settings_field'],
+            $this->form_section
+        );
+
+        ?>
+           
+            <?php
+            include_once dirname( $this->settings->license_root_file ) . '/view/html-page-bottom.php';
+            ?>
+
+        
         <?php
     }
 
@@ -554,10 +611,17 @@ class Manage
     public function notice_to_activate()
     {
 
+        // var_dump($this->settings->license_page_link);
         $link_label = __( 'Activate License', 'wpt_pro' );
         $link = $this->settings->license_page_link;
+        
 		$message = esc_html__( 'Please activate ', 'wpt_pro' ) . '<strong>' . esc_html__( $this->settings->item_name ) . '</strong>' . esc_html__( ' license to get automatic updates.', 'wpt_pro' ) . '</strong>';
-        printf( '<div class="error error-warning is-dismissible"><p>%1$s <a href="%2$s">%3$s</a></p></div>', $message, $link, $link_label );
+        if( empty( $link ) ){
+            printf( '<div class="error error-warning is-dismissible"><p>%1$s %2$s</p></div>', $message, $link, $link_label );
+        }else{
+            printf( '<div class="error error-warning is-dismissible"><p>%1$s <a href="%2$s">%3$s</a></p></div>', $message, $link, $link_label );
+        }
+        
     }
 
     public function admin_enqueue()
