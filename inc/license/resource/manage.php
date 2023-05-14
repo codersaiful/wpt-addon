@@ -38,6 +38,7 @@ class Manage
 
 
     protected $main_license_slug;
+    protected $manage_loc;
 
     public function __construct( object $settings, $pro = '')
     {
@@ -57,6 +58,7 @@ class Manage
 
         $this->license_key = trim( get_option( $this->license_key_name ) );
         $this->status = get_option( $this->license_status_name );
+        $this->manage_loc = __FILE__;
 
         add_action('init', [$this, 'plugin_updater']);
 
@@ -91,7 +93,7 @@ class Manage
         }
 
         add_action('admin_enqueue_scripts', [$this, 'admin_enqueue']);
-        
+
     }
 
     /**
@@ -634,7 +636,7 @@ class Manage
         $screen = get_current_screen();
         $screen_id = $screen->id;
 
-        if( strpos($screen_id,$slug) || strpos($screen_id,$this->main_license_slug) ){
+        if( strpos($screen_id,$slug) || ( ! empty( $this->main_license_slug ) && strpos($screen_id,$this->main_license_slug)) ){
             $src = plugins_url() . '/'. plugin_basename( dirname( $this->settings->license_root_file ) . '/view/license-style.css' );
  
             wp_register_style($this->enequeue_handle,$src, [], '1.0.0', 'all');

@@ -68,7 +68,7 @@ class Init
         // $manage = new License_Manage($this, '_pro'); 
 
         $manage = new License_Manage($this);
-
+        var_dump($manage);
         // $this->prefix = "saiful";
         // $this->license_data_key = $this->prefix . '_license_data';
         // $this->license_page_link = admin_url( $this->license_page_link );
