@@ -22,7 +22,7 @@ class Init
     //Most Important, It's Obvously should change, Otherwise conflict
     public $prefix = 'wpt_add_sv';
 
-    public $item_id = 12858;//6553;
+    public $item_id = 12854;//6553;
     public $item_name = 'WPT Addons - Simple and Variation product';
     public $help_url = 'https://wooproducttable.com/docs/doc/license/where-is-my-license-key/';
 

@@ -1,4 +1,49 @@
+.ca-license-bottom-area {
+    display: flex;
+}
 
+.ca-addon-license-area .outer-wrap {}
+
+.ca-addon-license-area .outer-wrap .license-module-parent {
+    padding: 10px 0;
+    margin: 0;
+}
+
+.ca-addon-license-area .outer-wrap p.attr-alert.attr-alert-success {
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.ca-addon-license-area .outer-wrap .user-info-edd {
+    margin-top: 0;
+}
+
+.ca-addon-license-area .outer-wrap {
+    width: 500px;
+    background: white;
+    padding: 10px;
+    max-width: 100%;
+}
+
+.ca-addon-license-area {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.ca-addon-license-area .outer-wrap h2.plugin-name {
+    padding: 0;
+    margin: 0;
+    color: #898989;
+    font-size: 22px;
+    font-weight: 200;
+}
+
+.ca-addon-license-area .outer-wrap>form>h2 {
+    display: none;
+}
 
 /*License Field Design*/
 input#admin-option-text-license-key {

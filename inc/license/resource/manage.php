@@ -36,6 +36,9 @@ class Manage
     protected $enequeue_handle = 'ca-license-style';
     protected $form_section;
 
+
+    protected $main_license_slug;
+
     public function __construct( object $settings, $pro = '')
     {
         $this->prefix = $settings->prefix;
@@ -125,20 +128,20 @@ class Manage
         );
     }    
     function license_menu_empty() {
-        $main_license_slug = $this->hook_prefix . '-all-license';
+        $this->main_license_slug = $this->hook_prefix . '-all-license';
         global $submenu;
 
         if( ! isset( $submenu[$this->settings->parent_page] ) ) return;
         // $current_menus = wp_list_pluck( $submenu['edit.php?post_type=wpt_product_table'], 2 );
         $current_menus = wp_list_pluck( $submenu[$this->settings->parent_page], 2 );
-        if(in_array( $main_license_slug, $current_menus )) return;
+        if(in_array( $this->main_license_slug, $current_menus )) return;
 
         add_submenu_page(
             $this->settings->parent_page,
             __( $this->settings->page_title ),
             __( $this->settings->page_title ),
             $this->settings->permission,
-            $main_license_slug,
+            $this->main_license_slug,
             [$this, 'license_page_empty']
         );
     }    
@@ -630,7 +633,8 @@ class Manage
         $parent_page = $this->settings->parent_page;
         $screen = get_current_screen();
         $screen_id = $screen->id;
-        if( strpos($screen_id,$slug) ){
+
+        if( strpos($screen_id,$slug) || strpos($screen_id,$this->main_license_slug) ){
             $src = plugins_url() . '/'. plugin_basename( dirname( $this->settings->license_root_file ) . '/view/license-style.css' );
  
             wp_register_style($this->enequeue_handle,$src, [], '1.0.0', 'all');
