@@ -5,6 +5,7 @@
  * Description: Min max disable for group product.
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
+ * Text Domain: wcmmq_group_addon
  * 
  * Version: 1.0
  * Requires at least:    4.0.0
@@ -12,8 +13,26 @@
  * WC requires at least: 3.0.0
  * WC tested up to: 	 7.1.0
  * 
+ * 
+ * Customer Details: 
+ * ticket: https://codeastrology.com/support/ticket/min-max-control-step/
+ * name: Sascha Dippel
+ * project: apatoto group product a min max disable
  */
 
+ /**
+  * folder name will be: wcmmq-group-addon-sascha
+
+  * All other file has removed.
+  Actually his only need a little functionality, 
+  That's why, I have removed all other file.
+  Now just included inc/functions.php file. 
+  which is added inside init hook.
+
+  IMPORTANT:
+  REMOVED autoloder.php and
+  REMOVED: WCMMQ_GROUP_ADDON\Inc\Load::instance();
+  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     die();
@@ -67,13 +86,13 @@ class WCMMQ_GROUP_Addons{
 		 * Auto Loader
          * @since 1.0.0
 		 */
-		include_once __DIR__ . '/autoloader.php';
+		// include_once __DIR__ . '/autoloader.php';
 	
 	
 		//Including Function File. It will stay at the Top of the File
 		include_once __DIR__ . '/inc/functions.php';
 
-        WCMMQ_GROUP_ADDON\Inc\Load::instance();
+        // WCMMQ_GROUP_ADDON\Inc\Load::instance();
 
     }
 }
