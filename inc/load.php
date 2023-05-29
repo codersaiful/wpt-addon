@@ -1,8 +1,8 @@
 <?php 
-namespace WPT_ADDON\Inc;
+namespace WCMMQ_GROUP_ADDON\Inc;
 
-use WPT_ADDON\Inc\App\Enqueue;
-use WPT_ADDON\Inc\App\Base;
+use WCMMQ_GROUP_ADDON\Inc\App\Enqueue;
+use WCMMQ_GROUP_ADDON\Inc\App\Base;
 
 /**
  * Full Plugin Load Manager is here
