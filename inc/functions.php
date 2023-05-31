@@ -36,14 +36,18 @@ function wcmmq_group_addons_detect_grouped(){
 
 }
 
+remove_filter('woocommerce_update_cart_validation', 'wcmmq_update_cart_validation', 10);
+remove_filter('woocommerce_add_to_cart_validation', 'wcmmq_min_max_valitaion', 10);
 function wcmmq_group_return_true(){
     return true;
 }
 function wcmmq_group_addons_args_manage( $args, $product ){
     
-    $args['input_value'] = $args['min_value'] = $args['step'] = $args['min_qty'] = 1;
-    
-    $args['max_value'] = $args['max_qty'] = '';
+    if(empty( $args['input_value'] )){
+        $args['input_value'] = 1;
+    }
     // var_dump($args);
+    $args['min_value'] = $args['step'] = $args['min_qty'] = 1;
+    $args['max_value'] = $args['max_qty'] = '';
     return $args;
 }

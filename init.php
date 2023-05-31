@@ -38,9 +38,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
 
-if ( ! defined( 'WC_MMQ_VERSION' ) ) {
-    return;
-}
+// if ( ! defined( 'WC_MMQ_VERSION' ) ) {
+//     return;
+// }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 if ( !defined( 'WCMMQ_GROUP_ADDON_BASE_URL' ) ) {
