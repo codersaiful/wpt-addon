@@ -21,7 +21,7 @@
  */
 
  /**
-  * folder name will be: wcmmq-group-addon-sascha
+  * folder name will be: x-wcmmq-group-addon-sascha
 
   * All other file has removed.
   Actually his only need a little functionality, 
