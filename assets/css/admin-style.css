@@ -138,7 +138,6 @@ table.stock-email-table tbody tr:hover {
     }
 
     table.stock-email-table tbody tr td:before {
-        font-family: OpenSans-Regular;
         font-size: 14px;
         color: #999;
         line-height: 1.2;
