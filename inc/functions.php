@@ -17,11 +17,12 @@ function codeastrology_single_product_summary(){
     // dd($min_quantity);
 
     if( $min_quantity > $stock_qty ) :
+        remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
         ?>
             <div class="wcmmq-notify">
                 <form method="post" action="">
-                    <input type="email" name="wcmmq_stock_email" placeholder="Enter your email" required>
-                    <input type="submit" value="Notify me when available">
+                    <input class="wcmmq-notify-inputbox" type="email" name="wcmmq_stock_email" placeholder="Enter your email" required>
+                    <input class="wcmmq-notify-button" type="submit" value="Notify me when available">
                     <input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
                     <?php wp_nonce_field( 'wcmmq_stock_email', 'wcmmq_stock_email_nonce' ); ?>
                 </form>
@@ -69,3 +70,8 @@ function wcmmq_save_email_to_database( $email, $product_id ) {
 
     $wpdb->insert($table_name, $data);
 }
+
+// function remove_add_to_cart_button() {
+//     remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+// }
+// add_action( 'init', 'remove_add_to_cart_button' );

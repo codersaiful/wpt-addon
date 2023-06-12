@@ -1,3 +1,29 @@
 /**
 Only for FrontEnd
 */
+
+.single-product input.wcmmq-notify-button {
+    background-color: #1a1a1a !important;
+    border-color: #1a1a1a !important;
+    color: #ffffff !important;
+    border-radius: 5px;
+}
+
+.single-product input.wcmmq-notify-button:hover {
+    background-color: #2c2d33 !important;
+    border-color: #2c2d33 !important;
+    color: #ffffff !important;
+}
+
+.single-product input.wcmmq-notify-inputbox {
+    display: inline-block;
+    margin-bottom: 10px;
+    border: 1px solid #CDD9ED;
+    background: #fff;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 25px;
+    outline-color: #678EFE !important;
+    transition: background .3s ease, border .3s ease, color .3s 
+}

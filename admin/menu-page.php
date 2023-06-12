@@ -26,18 +26,22 @@ function wcmmq_addon_email_notify_page(){
             <h1>Email lists</h1>
             <table class="stock-email-table">
                 <thead>
-                <tr>
-                    <th>Sl No</th>
-                    <th>Product Name</th>
-                    <th>Email</th>
-                </tr>
+                    <tr class="wcmmq-table-row">
+                        <th>Sl No</th>
+                        <th>Product Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($results as $row) : ?>
                     <tr>
                         <td><?php echo $serialNumber ?></td>
-                        <td><?php echo get_the_title( $row->product_id ); ?></td>
-                        <td><?php echo $row->email; ?></td>
+                        <td><a href="<?php echo get_the_permalink($row->product_id ); ?>" target="_blank" ><?php echo get_the_title( $row->product_id ); ?></a></td>
+                        <td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
+                        <td>
+                            ok
+                        </td>
                     </tr>
                 <?php $serialNumber++; endforeach; ?>
                 </tbody>
