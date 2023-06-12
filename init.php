@@ -74,7 +74,7 @@ class WCMMQ_Addons{
 		include_once __DIR__ . '/inc/functions.php';
 
 		//Including admin menu 
-		include_once __DIR__ . '/admin/menu-page.php';
+		// include_once __DIR__ . '/admin/menu-page.php';
 
         WCMMQ_ADDON\Inc\Load::instance();
 
@@ -95,6 +95,7 @@ function wcmmq_addon_activation(){
         id INT(9) NOT NULL AUTO_INCREMENT,
         email VARCHAR(100) NOT NULL,
         product_id INT(9) NOT NULL,
+        sent_status VARCHAR(3) NOT NULL DEFAULT 'No',
         PRIMARY KEY (id)
     ) $charset_collate;";
 

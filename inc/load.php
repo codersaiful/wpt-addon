@@ -3,6 +3,7 @@ namespace WCMMQ_ADDON\Inc;
 
 use WCMMQ_ADDON\Inc\App\Enqueue;
 use WCMMQ_ADDON\Inc\App\Base;
+use WCMMQ_ADDON\Admin\Admin_Loader;
 
 /**
  * Full Plugin Load Manager is here
@@ -32,6 +33,9 @@ class Load extends Base{
         $enqueue->run();
 
         $hook = new Hook();
+
+        $admin = new Admin_Loader();
+        $admin->run();
         
     }
 

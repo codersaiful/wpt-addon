@@ -34,13 +34,14 @@ class Hook extends Hook_Base{
      * @author Fazle Bari <fazlebarisn@gmail.com>
      */
     public function woocommerce_single_product_summary(){
-
+        global $wpdb;
         if ( isset( $_POST['wcmmq_stock_email'] ) && isset( $_POST['product_id'] ) && isset( $_POST['wcmmq_stock_email_nonce'] ) && wp_verify_nonce( $_POST['wcmmq_stock_email_nonce'], 'wcmmq_stock_email' ) ) {
             $email = sanitize_email( $_POST['wcmmq_stock_email'] );
             $product_id = absint( $_POST['product_id'] );
             $saved = false;
             if(! empty($email) ){
-                $saved = wcmmq_save_email_to_database( $email, $product_id );
+                $table_name = $wpdb->prefix . $this->notify_table_name; //'wcmmq_low_stock_emails' 
+                $saved = wcmmq_save_email_to_database( $email, $product_id, $table_name );
             }
     
             if ( $saved ) {
