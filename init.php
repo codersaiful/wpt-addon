@@ -73,6 +73,9 @@ class WCMMQ_Addons{
 		//Including Function File. It will stay at the Top of the File
 		include_once __DIR__ . '/inc/functions.php';
 
+		//Including admin menu 
+		include_once __DIR__ . '/admin/menu-page.php';
+
         WCMMQ_ADDON\Inc\Load::instance();
 
     }

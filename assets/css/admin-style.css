@@ -1,3 +1,18 @@
 /**
 Only for Admin
 */
+
+table.stock-email-table {
+border-collapse: collapse;
+width: 100%;
+}
+
+.low-stock-email {
+    width: 70%;
+}
+
+table.stock-email-table th, table.stock-email-table td {
+border: 1px solid black;
+padding: 8px;
+text-align: left;
+}
