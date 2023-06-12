@@ -19,20 +19,20 @@ if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
 
-if ( ! defined( 'WPT_DEV_VERSION' ) ) {
+if ( ! defined( 'WC_MMQ_VERSION' ) ) {
     return;
 }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
-if ( !defined( 'WPT_ADDON_BASE_URL' ) ) {
-    define( "WPT_ADDON_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
+if ( !defined( 'WCMMQ_ADDON_BASE_URL' ) ) {
+    define( "WCMMQ_ADDON_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
 }
 
-if ( !defined( 'WPT_ADDON_VERSION' ) ) {
-    define( "WPT_ADDON_VERSION", '1.0.0' );
+if ( !defined( 'WCMMQ_ADDON_VERSION' ) ) {
+    define( "WCMMQ_ADDON_VERSION", '1.0.0' );
 }
 
-class WPT_Addons{
+class WCMMQ_Addons{
 
     public static $_instance;
 
@@ -73,14 +73,14 @@ class WPT_Addons{
 		//Including Function File. It will stay at the Top of the File
 		include_once __DIR__ . '/inc/functions.php';
 
-        WPT_ADDON\Inc\Load::instance();
+        WCMMQ_ADDON\Inc\Load::instance();
 
     }
 }
-WPT_Addons::instace();
-register_activation_hook( __FILE__, 'wpt_addon_activation' );
+WCMMQ_Addons::instace();
+register_activation_hook( __FILE__, 'wcmmq_addon_activation' );
 
-function wpt_addon_activation(){
+function wcmmq_addon_activation(){
     $key = 'wpt_addon_date';
     $ins_dt = get_option( $key );
     if( ! empty( $ins_dt ) ) return;

@@ -1,5 +1,5 @@
 <?php 
-namespace WPT_ADDON\Inc\App;
+namespace WCMMQ_ADDON\Inc\App;
 
 class Enqueue extends Base{
 
@@ -67,9 +67,9 @@ class Enqueue extends Base{
 
     public function wp_enqueue_scripts()
     {
-        wp_enqueue_style( $this->prefix . '-style', WPT_ADDON_BASE_URL . 'assets/css/style.css', array(), WPT_ADDON_VERSION, 'all' );
+        wp_enqueue_style( $this->prefix . '-style', WCMMQ_ADDON_BASE_URL . 'assets/css/style.css', array(), WCMMQ_ADDON_VERSION, 'all' );
         wp_enqueue_script( 'jquery' );
-        wp_enqueue_script( $this->prefix . '-script', WPT_ADDON_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), WPT_ADDON_VERSION, true );
+        wp_enqueue_script( $this->prefix . '-script', WCMMQ_ADDON_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), WCMMQ_ADDON_VERSION, true );
 
         $ajax_url = admin_url( 'admin-ajax.php' );
         $WPT_ADDON_DATA = array( 
@@ -84,8 +84,8 @@ class Enqueue extends Base{
     
     public function admin_enqueue_scripts()
     {
-        wp_enqueue_style( $this->prefix . '-admin', WPT_ADDON_BASE_URL . 'assets/css/admin-style.css', array(), WPT_ADDON_VERSION, 'all' );
-        wp_enqueue_script( $this->prefix . '-admin', WPT_ADDON_BASE_URL . 'assets/js/admin-script.js', array( 'jquery' ), WPT_ADDON_VERSION, true );
+        wp_enqueue_style( $this->prefix . '-admin', WCMMQ_ADDON_BASE_URL . 'assets/css/admin-style.css', array(), WCMMQ_ADDON_VERSION, 'all' );
+        wp_enqueue_script( $this->prefix . '-admin', WCMMQ_ADDON_BASE_URL . 'assets/js/admin-script.js', array( 'jquery' ), WCMMQ_ADDON_VERSION, true );
     }
 
 }

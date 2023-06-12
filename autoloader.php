@@ -1,5 +1,5 @@
 <?php
-namespace WPT_ADDON;
+namespace WCMMQ_ADDON;
 
 defined('ABSPATH') || exit;
 
