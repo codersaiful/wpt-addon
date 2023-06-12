@@ -1,7 +1,9 @@
 <?php 
-/**
- * All important functon will stay here.
- */
+
+ /**
+  * add a input box on the single product page 
+  * @author Fazle Bari <fazlebarisn@gmail.com>
+  */
 function codeastrology_single_product_summary(){
     global $product;
     $product_data= $product->get_data();
@@ -12,7 +14,7 @@ function codeastrology_single_product_summary(){
 
     $min_quantity = get_post_meta($product_id, 'min_quantity', true);
 
-    //  dd(ABSPATH);
+    // dd($min_quantity);
 
     if( $min_quantity > $stock_qty ) :
         ?>
@@ -28,3 +30,42 @@ function codeastrology_single_product_summary(){
     endif;
 }
 add_action( 'woocommerce_single_product_summary', 'codeastrology_single_product_summary', 35 );
+
+/**
+ *  Collect data from input box
+ *  @author Fazle Bari <fazlebarisn@gmail.com>
+ */
+function wcmmq_save_low_stock_email() {
+    if ( isset( $_POST['wcmmq_stock_email'] ) && isset( $_POST['product_id'] ) && isset( $_POST['wcmmq_stock_email_nonce'] ) && wp_verify_nonce( $_POST['wcmmq_stock_email_nonce'], 'wcmmq_stock_email' ) ) {
+        $email = sanitize_email( $_POST['wcmmq_stock_email'] );
+        $product_id = absint( $_POST['product_id'] );
+
+        // Save the email and product ID to your database
+
+        $saved = wcmmq_save_email_to_database( $email, $product_id );
+
+        if ( $saved ) {
+            echo '<p>Thank you! We will notify you when the product is available.</p>';
+        } else {
+            echo '<p>There was an error. Please try again later.</p>';
+        }
+    }
+}
+add_action( 'init', 'wcmmq_save_low_stock_email' );
+
+/**
+ * Save information in to the database
+ * @author Fazle Bari <fazlebarisn@gmail.com>
+ */
+function wcmmq_save_email_to_database( $email, $product_id ) {
+    global $wpdb;
+
+    $table_name = $wpdb->prefix . 'wcmmq_low_stock_emails';
+
+    $data = array(
+        'email' => $email,
+        'product_id' => $product_id,
+    );
+
+    $wpdb->insert($table_name, $data);
+}

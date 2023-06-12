@@ -59,7 +59,7 @@ class WCMMQ_Addons{
 	}
 
     public function i18n(){
-        load_plugin_textdomain( 'wpt_addon' );
+        load_plugin_textdomain( 'wcmmq_addon' );
     }
 
     public function init(){
