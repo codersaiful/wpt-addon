@@ -45,9 +45,26 @@ class Hook extends Hook_Base{
             }
     
             if ( $saved ) {
-                echo '<p class="wcmmq-message wcmmq-message-success">Thank you! We will notify you when the product is available.</p>';
+                $msessage = "Thank you! We will notify you when the product is available.";
+                // wc_add_notice( $msessage, 'success' );
+                ?>
+                <div class="woocommerce">
+                    <div class="woocommerce-message" role="alert"><?php echo esc_html( $msessage ); ?></div>
+                </div>
+                
+                <?php 
+                // echo '<p class="wcmmq-message wcmmq-message-success">' . $msessage . '</p>';
             } else {
-                echo '<p class="wcmmq-message wcmmq-message-error">There was an error. Please try again later.</p>';
+                $msessage = "There was an error. Please try again later.";
+                // wc_add_notice( $msessage, 'error' );
+                ?>
+                <div class="woocommerce">
+                    <ul class="woocommerce-error" role="alert">
+                        <li><?php echo esc_html( $msessage ); ?></li>
+                    </ul>
+                </div>
+                <?php 
+                // echo '<p class="wcmmq-message wcmmq-message-error">' . $msessage . '</p>';
             }
         }
 
@@ -58,9 +75,12 @@ class Hook extends Hook_Base{
         $stock_status = $product_data['stock_status'];
         $stock_qty = $product_data['stock_quantity'];
 
+        if( ! defined( 'WC_MMQ_PREFIX' ) ){
+            define('WC_MMQ_PREFIX', '');
+        }
         
         // $min_quantity = get_post_meta($product_id, 'min_quantity', true);
-        $min_quantity = get_post_meta($product_id, '_wcmmq_s_min_quantity', true);
+        $min_quantity = get_post_meta($product_id, WC_MMQ_PREFIX . 'min_quantity', true);
         
         if( ! empty( $min_quantity ) && ! empty( $stock_qty ) && $min_quantity > $stock_qty ) :
             remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
