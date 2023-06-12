@@ -7,14 +7,12 @@
 function codeastrology_single_product_summary(){
     global $product;
     $product_data= $product->get_data();
-    $product_id= $product->id;
+    $product_id= $product->get_id();
 
     $stock_status = $product_data['stock_status'];
     $stock_qty = $product_data['stock_quantity'];
 
     $min_quantity = get_post_meta($product_id, 'min_quantity', true);
-
-    // dd($min_quantity);
 
     if( $min_quantity > $stock_qty ) :
         remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );

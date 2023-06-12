@@ -13,6 +13,11 @@ function wcmmq_addon_email_menu(){
 }
 add_action( 'admin_menu','wcmmq_addon_email_menu' );
 
+/**
+ *  This is a menu page. Page data will show here 
+ *  @author Fazle Bari <fazlebarisn@gmail.com>
+ *  @since 1.0
+ */
 function wcmmq_addon_email_notify_page(){
 
     // Query from 'wcmmq_low_stock_emails' table and retrieve the data
@@ -31,6 +36,7 @@ function wcmmq_addon_email_notify_page(){
                         <th>Product Name</th>
                         <th>Email</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +48,7 @@ function wcmmq_addon_email_notify_page(){
                         <td>
                             ok
                         </td>
+                        <td>Delete</td>
                     </tr>
                 <?php $serialNumber++; endforeach; ?>
                 </tbody>
