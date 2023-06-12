@@ -149,27 +149,27 @@ table.stock-email-table tbody tr:hover {
     }
 
     table.stock-email-table tbody tr td:nth-child(1):before {
-        content: "Date"
+        content: "Sl No"
     }
 
     table.stock-email-table tbody tr td:nth-child(2):before {
-        content: "Order ID"
+        content: "Product Name"
     }
 
     table.stock-email-table tbody tr td:nth-child(3):before {
-        content: "Name"
+        content: "Email"
     }
 
     table.stock-email-table tbody tr td:nth-child(4):before {
-        content: "Price"
+        content: "Status"
     }
 
     table.stock-email-table tbody tr td:nth-child(5):before {
-        content: "Quantity"
+        content: "Action"
     }
 
     table.stock-email-table tbody tr td:nth-child(6):before {
-        content: "Total"
+        content: "Others"
     }
 
     table.stock-email-table tbody tr {
