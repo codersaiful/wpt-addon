@@ -60,7 +60,7 @@ class Hook extends Hook_Base{
 
         
         // $min_quantity = get_post_meta($product_id, 'min_quantity', true);
-        $min_quantity = get_post_meta($product_id, '_wcmmq_s_min_quantity', true);
+        $min_quantity = get_post_meta($product_id, 'min_quantity', true);
         
         if( ! empty( $min_quantity ) && ! empty( $stock_qty ) && $min_quantity > $stock_qty ) :
             remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
