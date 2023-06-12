@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
- * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Plugin Name: Low stock email notify 
+ * Plugin URI: https://codeastrology.com/min-max-quantity/
+ * Description: When the stock quantity is lower than the minimum quantity, an email input box appears. customer can submit their email
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
@@ -19,9 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
 
-if ( ! defined( 'WC_MMQ_VERSION' ) ) {
-    return;
-}
+// if ( ! defined( 'WC_MMQ_VERSION' ) ) {
+//     return;
+// }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 if ( !defined( 'WCMMQ_ADDON_BASE_URL' ) ) {
@@ -81,7 +81,25 @@ WCMMQ_Addons::instace();
 register_activation_hook( __FILE__, 'wcmmq_addon_activation' );
 
 function wcmmq_addon_activation(){
-    $key = 'wpt_addon_date';
+
+    // create a new table (wcmmq_low_stock_emails) to save data
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'wcmmq_low_stock_emails';
+
+    $charset_collate = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE $table_name (
+        id INT(9) NOT NULL AUTO_INCREMENT,
+        email VARCHAR(100) NOT NULL,
+        product_id INT(9) NOT NULL,
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);
+
+    // save info
+    $key = 'wcmmq_addon_date';
     $ins_dt = get_option( $key );
     if( ! empty( $ins_dt ) ) return;
     update_option( $key, time());
