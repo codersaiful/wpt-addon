@@ -9,9 +9,16 @@ class Menu_Page_Table extends Hook_Base
 {
 
     public $page_slug = 'wcmmq_addon_email_notify';
+    public $posts_per_page = 1;
+    public $page_number = 1;
 
     public function __construct()
     {
+
+        
+        if( isset($_GET['page_number']) && ! empty( $_GET['page_number'] )){
+            $this->page_number = $_GET['page_number'] ?? 1;
+        }
 
         $this->action('admin_menu');  
     }
@@ -57,6 +64,8 @@ class Menu_Page_Table extends Hook_Base
             echo 'Reload';
             return;
         }
+        
+
         //Delete Part
         if( isset($_GET['delete']) && ! empty( $_GET['delete'] )){
             $row_id = $_GET['delete'] ?? false;
@@ -69,49 +78,81 @@ class Menu_Page_Table extends Hook_Base
         }
         
         // Query from 'wcmmq_low_stock_emails' table and retrieve the data
-        
-        $results = $wpdb->get_results("SELECT * FROM $table_name");
+        //Added LIMIT 10
+        $offset = ($this->page_number - 1 ) * $this->posts_per_page;
+        $results = $wpdb->get_results("SELECT * FROM $table_name ORDER BY id DESC LIMIT " . $this->posts_per_page . " OFFSET $offset");
         $serialNumber = 1;
-        
+        //$page_number
+        $basic_admin_url = 'admin.php?page=' . $this->page_slug . '&page_number=' . $this->page_number;
         ?>
             <div class="low-stock-email">
                 <h1>Email lists</h1>
-                <table class="stock-email-table">
-                    <thead>
-                        <tr class="wcmmq-table-row">
-                            <th>Sl No</th>
-                            <th>Product Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($results as $row) : ?>
-                        <tr class="wcmmq-row wcmma-row-<?php echo esc_attr( $row->sent_status ); ?>">
-                            <td class="wcmmq-td wcmmq-td-serial"><?php echo $serialNumber ?></td>
-                            <td class="wcmmq-td wcmmq-td-title"><a href="<?php echo get_the_permalink($row->product_id ); ?>" target="_blank" ><?php echo get_the_title( $row->product_id ); ?></a></td>
-                            <td class="wcmmq-td wcmmq-td-email"><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
-                            <td class="wcmmq-action wcmmq-status">
-                                <?php
-                                $status = $row->sent_status;
-                                $do_change_status = 'Yes';
-                                if($status ==='Yes'){
-                                    $do_change_status = 'No';
-                                }
-                                ?>
-                                <b><?php echo esc_html( $status ); ?></b> | 
-                                <a class="wcmmq-action-btn" href="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->page_slug . '&sent_status=' . $do_change_status . '&row_id=' . $row->id ) ); ?>">Change</a>
-                            </td>
-                            <td class="wcmmq-action wcmmq-delete"><a class="wcmmq-action-btn" href="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->page_slug . '&delete=' . $row->id ) ); ?>">Delete</a></td>
-                        </tr>
-                    <?php $serialNumber++; endforeach; ?>
-                    </tbody>
-                </table>
+                <?php $this->pagination(); ?>
+                <div class="wcmmq-email-table-wrapper">
+                    <table class="stock-email-table">
+                        <thead>
+                            <tr class="wcmmq-table-row">
+                                <th>Sl No</th>
+                                <th>Product Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($results as $row) : ?>
+                            <tr class="wcmmq-row wcmma-row-<?php echo esc_attr( $row->sent_status ); ?>">
+                                <td class="wcmmq-td wcmmq-td-serial"><?php echo $serialNumber ?></td>
+                                <td class="wcmmq-td wcmmq-td-title"><a href="<?php echo get_the_permalink($row->product_id ); ?>" target="_blank" ><?php echo get_the_title( $row->product_id ); ?></a></td>
+                                <td class="wcmmq-td wcmmq-td-email"><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
+                                <td class="wcmmq-action wcmmq-status">
+                                    <?php
+                                    $status = $row->sent_status;
+                                    $do_change_status = 'Yes';
+                                    if($status ==='Yes'){
+                                        $do_change_status = 'No';
+                                    }
+                                    ?>
+                                    <b><?php echo esc_html( $status ); ?></b> | 
+                                    <a class="wcmmq-action-btn" href="<?php echo esc_url( admin_url( $basic_admin_url . '&sent_status=' . $do_change_status . '&row_id=' . $row->id ) ); ?>">Change</a>
+                                </td>
+                                <td class="wcmmq-action wcmmq-delete"><a class="wcmmq-action-btn" href="<?php echo esc_url( admin_url( $basic_admin_url . '&delete=' . $row->id ) ); ?>">Delete</a></td>
+                            </tr>
+                        <?php $serialNumber++; endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                
             </div>
         <?php
     }
 
+    public function pagination(){
+        echo '<div class="wcmmq-pagination-wrapper">';
+        global $wpdb;
+        $table_name = $wpdb->prefix . $this->notify_table_name; //'wcmmq_low_stock_emails' 
+        
+        $total_rows = $wpdb->get_var("SELECT COUNT(*) FROM $table_name");
+
+        // Calculate the total number of pages
+        $total_pages = ceil($total_rows / $this->posts_per_page);
+
+        $basic_admin_url = 'admin.php?page=' . $this->page_slug . '&page_number=' . $this->page_number;
+
+
+        // Display pagination links
+        if ($total_pages > 1) {
+            echo '<div class="wcmmq-pagination">';
+            for ($i = 1; $i <= $total_pages; $i++) {
+                $active_class = ($this->page_number == $i) ? 'active' : '';
+                echo '<a href="' . admin_url( 'admin.php?page=' . $this->page_slug . '&page_number=' . $i ) . '" class="' . $active_class . '">' . $i . '</a>';
+            }
+            echo '</div>';
+        }
+
+
+        echo '</div>';///.wcmmq-pagination-wrapper
+    }
     public function create_table()
     {
     

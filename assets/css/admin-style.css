@@ -41,7 +41,7 @@ table.stock-email-table {
     border-spacing: 1;
     border-collapse: collapse;
     background: #fff;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     overflow: hidden;
     width: 100%;
     margin: 0 auto;
@@ -198,4 +198,32 @@ table.stock-email-table tr.wcmmq-row td a.wcmmq-action-btn:hover {
     background: #1a2024;
 }
 table.stock-email-table tr.wcmmq-row td.wcmmq-td-email a{color: #0584d1;font-weight: bold;}
-table.stock-email-table tr.wcmmq-row td{padding: 0;}
+
+
+/* pagination */
+.wcmmq-pagination-wrapper {
+    text-align: center;
+  }
+  
+  .wcmmq-pagination {
+    display: inline-block;
+  }
+  
+  .wcmmq-pagination a {
+    color: black;
+    background-color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+  }
+  
+  .wcmmq-pagination a.active {
+    background-color: #0584d1;
+    color: white;
+    border: 1px solid #046dad;
+  }
+  
+  .wcmmq-pagination a:hover:not(.active) {background-color: #ddd;}
