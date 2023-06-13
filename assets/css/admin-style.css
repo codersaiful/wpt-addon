@@ -227,3 +227,4 @@ table.stock-email-table tr.wcmmq-row td.wcmmq-td-email a{color: #0584d1;font-wei
   }
   
   .wcmmq-pagination a:hover:not(.active) {background-color: #ddd;}
+.wcmmq-pagination-wrapper-footer{margin-top: 20px;}

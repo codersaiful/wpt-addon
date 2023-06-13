@@ -123,12 +123,13 @@ class Menu_Page_Table extends Hook_Base
                     </table>
                 </div>
                 
+                <?php $this->pagination('footer'); ?>
             </div>
         <?php
     }
 
-    public function pagination(){
-        echo '<div class="wcmmq-pagination-wrapper">';
+    public function pagination($position_name = ''){
+        echo '<div class="wcmmq-pagination-wrapper wcmmq-pagination-wrapper-' . $position_name . '">';
         global $wpdb;
         $table_name = $wpdb->prefix . $this->notify_table_name; //'wcmmq_low_stock_emails' 
         
