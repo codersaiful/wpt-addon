@@ -9,7 +9,7 @@ class Menu_Page_Table extends Hook_Base
 {
 
     public $page_slug = 'wcmmq_addon_email_notify';
-    public $posts_per_page = 1;
+    public $posts_per_page = 50;
     public $page_number = 1;
 
     public function __construct()
