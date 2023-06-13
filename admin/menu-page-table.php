@@ -89,10 +89,10 @@ class Menu_Page_Table extends Hook_Base
                     <tbody>
                     <?php foreach ($results as $row) : ?>
                         <tr class="wcmmq-row wcmma-row-<?php echo esc_attr( $row->sent_status ); ?>">
-                            <td><?php echo $serialNumber ?></td>
-                            <td><a href="<?php echo get_the_permalink($row->product_id ); ?>" target="_blank" ><?php echo get_the_title( $row->product_id ); ?></a></td>
-                            <td><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
-                            <td>
+                            <td class="wcmmq-td wcmmq-td-serial"><?php echo $serialNumber ?></td>
+                            <td class="wcmmq-td wcmmq-td-title"><a href="<?php echo get_the_permalink($row->product_id ); ?>" target="_blank" ><?php echo get_the_title( $row->product_id ); ?></a></td>
+                            <td class="wcmmq-td wcmmq-td-email"><a href="mailto:<?php echo $row->email; ?>"><?php echo $row->email; ?></a></td>
+                            <td class="wcmmq-action wcmmq-status">
                                 <?php
                                 $status = $row->sent_status;
                                 $do_change_status = 'Yes';
@@ -101,9 +101,9 @@ class Menu_Page_Table extends Hook_Base
                                 }
                                 ?>
                                 <b><?php echo esc_html( $status ); ?></b> | 
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->page_slug . '&sent_status=' . $do_change_status . '&row_id=' . $row->id ) ); ?>">Change</a>
+                                <a class="wcmmq-action-btn" href="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->page_slug . '&sent_status=' . $do_change_status . '&row_id=' . $row->id ) ); ?>">Change</a>
                             </td>
-                            <td><a href="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->page_slug . '&delete=' . $row->id ) ); ?>">Delete</a></td>
+                            <td class="wcmmq-action wcmmq-delete"><a class="wcmmq-action-btn" href="<?php echo esc_url( admin_url( 'admin.php?page=' . $this->page_slug . '&delete=' . $row->id ) ); ?>">Delete</a></td>
                         </tr>
                     <?php $serialNumber++; endforeach; ?>
                     </tbody>

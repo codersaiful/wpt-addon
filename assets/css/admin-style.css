@@ -176,5 +176,26 @@ table.stock-email-table tbody tr:hover {
         font-size: 14px
     }
 }
+table.stock-email-table tr.wcmmq-row.wcmma-row-Yes td *,
+table.stock-email-table tr.wcmmq-row.wcmma-row-Yes,
+table.stock-email-table tr.wcmmq-row.wcmma-row-Yes td{
+    font-weight: bold;
+    color: black;
+}
 
+table.stock-email-table tr.wcmmq-row td a.wcmmq-action-btn {
+    font-weight: normal;
+    background: #0584d1;
+    color: white;
+    padding: 2px 5px;
+    font-size: 10px;
+}
 
+table.stock-email-table tr.wcmmq-row td.wcmmq-delete a.wcmmq-action-btn {
+    background: #b3050e;
+}
+table.stock-email-table tr.wcmmq-row td a.wcmmq-action-btn:hover {
+    background: #1a2024;
+}
+table.stock-email-table tr.wcmmq-row td.wcmmq-td-email a{color: #0584d1;font-weight: bold;}
+table.stock-email-table tr.wcmmq-row td{padding: 0;}
