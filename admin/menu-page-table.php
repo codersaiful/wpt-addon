@@ -12,10 +12,12 @@ class Menu_Page_Table extends Hook_Base
     public $posts_per_page = 50;
     public $page_number = 1;
 
+    /**
+     *  all action will call from here.
+     *  @since 1.0.0 
+     */
     public function __construct()
     {
-
-        
         if( isset($_GET['page_number']) && ! empty( $_GET['page_number'] )){
             $this->page_number = $_GET['page_number'] ?? 1;
         }
@@ -23,13 +25,21 @@ class Menu_Page_Table extends Hook_Base
         $this->action('admin_menu');  
     }
 
+    /**
+     *  This will add a new submenu undrer the Woocommerce menu
+     *  New submenu name will be 'Low Stock Emails'. All email lists will there
+     *  @since 1.0.0 
+     */
     public function admin_menu()
     {
         $capability = apply_filters( 'wcmmq_addon_menu_capability', 'manage_woocommerce' );
         add_submenu_page( 'woocommerce', 'Low Stock Email', 'Low Stock Emails', $capability, $this->page_slug, [$this, 'notify_page'] );
 
     }
-
+    /**
+     *  To delete any email from the list
+     *  @since 1.0.0 
+     */
     public function delete_email($row_id){
         if(empty($row_id)) return;
 
@@ -38,6 +48,11 @@ class Menu_Page_Table extends Hook_Base
 
         $wpdb->delete($table_name, ['id'=>$row_id]);
     }
+
+    /**
+     *  Chnage the email send status 
+     *  @since 1.0.0 
+     */
     public function change_sent_status($row_id, $sent_status){
         if(empty($row_id)) return;
         if(empty($sent_status)) return;
@@ -47,11 +62,12 @@ class Menu_Page_Table extends Hook_Base
 
         $wpdb->update($table_name, ['sent_status'=>$sent_status], ['id'=>$row_id]);
     }
+
     /**
-     *  This is a menu page. Page data will show here 
+     *  This is main admin page. Page data will show here.
      * 
      *  @author Fazle Bari <fazlebarisn@gmail.com>
-     *  @since 1.0
+     *  @since 1.0.0
      */
     public function notify_page(){
 
@@ -128,6 +144,10 @@ class Menu_Page_Table extends Hook_Base
         <?php
     }
 
+    /**
+     *  Add pagination in to the table. By default pagination will start after 50 email
+     *  @since 1.0.0 
+     */
     public function pagination($position_name = ''){
         echo '<div class="wcmmq-pagination-wrapper wcmmq-pagination-wrapper-' . $position_name . '">';
         global $wpdb;
@@ -154,6 +174,11 @@ class Menu_Page_Table extends Hook_Base
 
         echo '</div>';///.wcmmq-pagination-wrapper
     }
+
+    /**
+     *  This will create a new table in to the database when plugin is install.
+     *  @since 1.0.0 
+     */
     public function create_table()
     {
     
