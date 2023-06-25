@@ -1,12 +1,13 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: WPT - Row Background
  * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Description: Add diffrent color to every row
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
  * Version: 1.0
+ * Text Domain: wpt-row-bg
  * Requires at least:    4.0.0
  * Tested up to:         6.1
  * WC requires at least: 3.0.0
@@ -59,7 +60,7 @@ class WPT_Addons{
 	}
 
     public function i18n(){
-        load_plugin_textdomain( 'wpt_addon' );
+        load_plugin_textdomain( 'wpt-row-bg' );
     }
 
     public function init(){
@@ -71,7 +72,7 @@ class WPT_Addons{
 	
 	
 		//Including Function File. It will stay at the Top of the File
-		include_once __DIR__ . '/inc/functions.php';
+		// include_once __DIR__ . '/inc/functions.php';
 
         WPT_ADDON\Inc\Load::instance();
 

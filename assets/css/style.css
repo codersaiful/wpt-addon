@@ -1,3 +1,7 @@
 /**
 Only for FrontEnd
 */
+
+div.wpt-wrap table.wpt_product_table tbody tr.wpt_row>td {
+    background-color: transparent !important;
+}
