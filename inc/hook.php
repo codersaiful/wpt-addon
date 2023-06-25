@@ -15,7 +15,7 @@ use WPT_ADDON\Inc\App\Hook_Base;
 class Hook extends Hook_Base{
 
     public function __construct(){
-        $this->action('woocommerce_product_options_general_product_data');        
+        $this->action('woocommerce_product_options_inventory_product_data');        
         $this->action('woocommerce_process_product_meta');   
 
         $this->filter('wpt_table_row_attr',10 ,2 );         
@@ -25,7 +25,7 @@ class Hook extends Hook_Base{
      * Add new input box under the general menu
      *  @author Fazle Bari <fazlebarisn@gmail.com>
      */
-    function woocommerce_product_options_general_product_data(){
+    function woocommerce_product_options_inventory_product_data(){
         woocommerce_wp_text_input(
             array(
                 'id'          => 'wpt_row_bg',
