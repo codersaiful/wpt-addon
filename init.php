@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: WPT - Row Background
+ * Plugin Name: WPT - Disable Min Max and Backorder
  * Plugin URI: https://wooproducttable.com/
- * Description: Add diffrent color to every row
+ * Description: Disable Min Max and Active for Out of Stock Products and Backorder
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
  * Version: 1.0
- * Text Domain: wpt-row-bg
+ * Text Domain: wpt-disable-mmq
  * Requires at least:    4.0.0
  * Tested up to:         6.1
  * WC requires at least: 3.0.0
