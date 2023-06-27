@@ -9,7 +9,7 @@ class Base{
 
     public function __construct()
     {
-        $this->version = WPT_ADDON_VERSION;
-        $this->base_url = WPT_ADDON_BASE_URL;
+        $this->version = WCMMQ_ADDON_VERSION;
+        $this->base_url = WCMMQ_ADDON_BASE_URL;
     }
 }

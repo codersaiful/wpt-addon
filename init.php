@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: MMQ For Backorder
  * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Description: Set min max and step only for backorder products
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
  * Version: 1.0
  * Requires at least:    4.0.0
- * Tested up to:         6.1
+ * Tested up to:         6.2.2
  * WC requires at least: 3.0.0
  * WC tested up to: 	 7.1.0
  * 
@@ -31,15 +31,15 @@ if( !function_exists('dd') ){
 // }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
-if ( !defined( 'WPT_ADDON_BASE_URL' ) ) {
-    define( "WPT_ADDON_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
+if ( !defined( 'WCMMQ_ADDON_BASE_URL' ) ) {
+    define( "WCMMQ_ADDON_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
 }
 
-if ( !defined( 'WPT_ADDON_VERSION' ) ) {
-    define( "WPT_ADDON_VERSION", '1.0.0' );
+if ( !defined( 'WCMMQ_ADDON_VERSION' ) ) {
+    define( "WCMMQ_ADDON_VERSION", '1.0.0' );
 }
 
-class WPT_Addons{
+class WCMMQ_Addons{
 
     public static $_instance;
 
@@ -84,10 +84,10 @@ class WPT_Addons{
 
     }
 }
-WPT_Addons::instace();
-register_activation_hook( __FILE__, 'wpt_addon_activation' );
+WCMMQ_Addons::instace();
+register_activation_hook( __FILE__, 'wcmmq_addon_activation' );
 
-function wpt_addon_activation(){
+function wcmmq_addon_activation(){
     $key = 'wpt_addon_date';
     $ins_dt = get_option( $key );
     if( ! empty( $ins_dt ) ) return;
