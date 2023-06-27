@@ -41,7 +41,18 @@ function wcmmq_custom_cartvalidation_removed($bool,$product_id,$quantity,$variat
 }
 add_filter('woocommerce_add_to_cart_validation','wcmmq_custom_cartvalidation_removed', 999, 5);	
 
-// remove_action('woocommerce_single_variation','wcmmq_pro_js_for_variation_product', 10);
+function wcmmq_custom_cart_update_validation_removed( $true, $cart_item_key, $values, $quantity ) {
+	$product_id = $values['product_id'];
+
+	$stock_status = get_post_meta($product_id,'_stock_status',true);
+
+	if($stock_status !== 'onbackorder'){
+		remove_filter('woocommerce_update_cart_validation','wcmmq_update_cart_validation', 10);
+		return true;
+	}
+	return $true;
+}
+add_filter('woocommerce_update_cart_validation','wcmmq_custom_cart_update_validation_removed', 999, 5);	
 
 
 function mmq_backorder_js_for_variation(){
@@ -108,11 +119,6 @@ function mmq_backorder_js_for_variation(){
 	$data = apply_filters( 'wcmmq_variation_data_for_json', $data, $product );
 	$data = wp_json_encode( $data );//htmlspecialchars( wp_json_encode( $data ) );
 	
-	
-	
-	
-	
-	//var_dump($product_data,$default_data,$data);
 	?>
 	<script  type='text/javascript'>
 	(function($) {
@@ -205,4 +211,4 @@ function mmq_backorder_js_for_variation(){
 	</script>
 	<?php
 	}
-	add_action('woocommerce_single_variation','mmq_backorder_js_for_variation');
+add_action('woocommerce_single_variation','mmq_backorder_js_for_variation');
