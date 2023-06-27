@@ -2,10 +2,13 @@
 /**
  * All important functon will stay here.
  */
-add_filter( 'woocommerce_loop_add_to_cart_args', 'wcmmq_custom_min_max_arg_regen', 999999, 2 );
-add_filter( 'woocommerce_quantity_input_args', 'wcmmq_custom_min_max_arg_regen', 999999, 2 );
-add_filter( 'woocommerce_available_variation', 'wcmmq_custom_min_max_arg_regen', 999999, 2 );
 
+/**
+ * 	Set default values for normal products
+ * 	@param $args
+ * 	@param $product
+ * 	@author Fazle Bari <fazlebarisn@gmail.com>
+ */
 function wcmmq_custom_min_max_arg_regen($args, $product)
 {
 	$product_id = $product->get_id();
@@ -19,7 +22,7 @@ function wcmmq_custom_min_max_arg_regen($args, $product)
 		$args['min_qty'] = $args['min_value'] = 1;
 		$args['max_value'] = $args['max_qty'] = false;
 		if( !is_cart() ){
-			$args['input_value'] = 1 ;
+			$args['input_value'] = 1;
 		}
 
 		return $args;
@@ -27,8 +30,19 @@ function wcmmq_custom_min_max_arg_regen($args, $product)
 
 	return $args;
 }
+add_filter( 'woocommerce_loop_add_to_cart_args', 'wcmmq_custom_min_max_arg_regen', 999999, 2 );
+add_filter( 'woocommerce_quantity_input_args', 'wcmmq_custom_min_max_arg_regen', 999999, 2 );
+add_filter( 'woocommerce_available_variation', 'wcmmq_custom_min_max_arg_regen', 999999, 2 );
 
-
+/**
+ * 	Remove add to cart validation for normal products
+ * 	@param $bool
+ * 	@param $product_id
+ * 	@param $variation_id
+ * 	@param $quantity
+ * 	@param $variations
+ * 	@author Fazle Bari <fazlebarisn@gmail.com>
+ */
 function wcmmq_custom_cartvalidation_removed($bool,$product_id,$quantity,$variation_id = 0, $variations = false){
 	
 	$stock_status = get_post_meta($product_id,'_stock_status',true);
@@ -41,6 +55,14 @@ function wcmmq_custom_cartvalidation_removed($bool,$product_id,$quantity,$variat
 }
 add_filter('woocommerce_add_to_cart_validation','wcmmq_custom_cartvalidation_removed', 999, 5);	
 
+/**
+ * 	Remove update cart validation for normal products
+ * 	@param $true
+ * 	@param $cart_item_key
+ * 	@param $values
+ * 	@param $quantity
+ * 	@author Fazle Bari <fazlebarisn@gmail.com>
+ */
 function wcmmq_custom_cart_update_validation_removed( $true, $cart_item_key, $values, $quantity ) {
 	$product_id = $values['product_id'];
 
@@ -54,7 +76,26 @@ function wcmmq_custom_cart_update_validation_removed( $true, $cart_item_key, $va
 }
 add_filter('woocommerce_update_cart_validation','wcmmq_custom_cart_update_validation_removed', 999, 5);	
 
+/**
+ * 	Remove step message for normal products
+ * 	@param $message
+ * 	@param $product_id
+ * 	@author Fazle Bari <fazlebarisn@gmail.com>
+ */
+add_filter( 'wcmmq_step_error_message', function( $message, $product_id ){
+	$stock_status = get_post_meta($product_id,'_stock_status',true);
 
+	if($stock_status !== 'onbackorder'){
+		$message = '';
+	}
+
+	return $message;
+}, 10, 2 );
+
+/**
+ * 	For the variable products. I have added stock status and then check backorder
+ * 	@author Fazle Bari <fazlebarisn@gmail.com>
+ */
 function mmq_backorder_js_for_variation(){
 	global $product;
 	$validation = apply_filters( 'wcmmq_js_variation_script', true, $product );
