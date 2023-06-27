@@ -19,6 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
 
+if( !function_exists('dd') ){
+    function dd($val){
+        echo '<pre>';
+            var_dump($val);
+        echo '</pre>';
+    }
+}
 // if ( ! defined( 'WPT_DEV_VERSION' ) ) {
 //     return;
 // }
