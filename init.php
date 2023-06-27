@@ -19,9 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
 
-if ( ! defined( 'WPT_DEV_VERSION' ) ) {
-    return;
-}
+// if ( ! defined( 'WPT_DEV_VERSION' ) ) {
+//     return;
+// }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 if ( !defined( 'WPT_ADDON_BASE_URL' ) ) {
