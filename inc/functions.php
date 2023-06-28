@@ -15,15 +15,23 @@ function wcmmq_custom_min_max_arg_regen($args, $product)
 
     $stock_status = get_post_meta($product_id,'_stock_status',true);
 	
-	if( $stock_status !== 'onbackorder' ){
-		// dd($args);
-		$args['quantity'] = 1;
-		$args['step'] = 1;
-		$args['min_qty'] = $args['min_value'] = 1;
-		$args['max_value'] = $args['max_qty'] = false;
-		if( !is_cart() ){
-			$args['input_value'] = 1;
-		}
+	if( $stock_status !== 'onbackorder'){
+
+		if( is_cart() ){
+            $cart = WC()->cart; 
+            $cart_contents = $cart->get_cart_contents();
+            foreach ($cart_contents as $key => $item) {
+                if ($item['product_id'] == $product_id) {
+                    $args['input_value'] = $item['quantity'];
+                }
+            }
+		}else{
+            $args['quantity'] = 1;
+            $args['step'] = 1;
+            $args['min_qty'] = $args['min_value'] = 1;
+            $args['max_value'] = $args['max_qty'] = false;
+            $args['input_value'] = 1;
+        }
 
 		return $args;
 	}
