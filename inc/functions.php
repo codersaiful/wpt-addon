@@ -82,7 +82,7 @@ add_filter('woocommerce_update_cart_validation','wcmmq_custom_cart_update_valida
  * 	@param $product_id
  * 	@author Fazle Bari <fazlebarisn@gmail.com>
  */
-add_filter( 'wcmmq_step_error_message', function( $message, $product_id ){
+add_filter( 'wcmmq_validation_message', function( $message, $product_id ){
 	$stock_status = get_post_meta($product_id,'_stock_status',true);
 
 	if($stock_status !== 'onbackorder'){
