@@ -102,9 +102,10 @@ class Hook extends Hook_Base{
         if(empty($text_color)) return;
         ?>
         <style>
-            tr#product_id_<?php echo $product_id; ?> td.td_or_cell.no-inner a,
-            tr#product_id_<?php echo $product_id; ?> td.td_or_cell.no-inner p,
-            tr#product_id_<?php echo $product_id; ?> td.td_or_cell.no-inner span,
+            tr#product_id_<?php echo $product_id; ?> td a,
+            tr#product_id_<?php echo $product_id; ?> td p,
+            tr#product_id_<?php echo $product_id; ?> td span,
+            tr#product_id_<?php echo $product_id; ?> td td.wpt-replace-td-in-tr,
             tr#product_id_<?php echo $product_id; ?> td.td_or_cell.no-inner{
                 color: <?php echo $text_color; ?>;
             }
