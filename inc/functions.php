@@ -21,8 +21,11 @@ function wcmmq_custom_min_max_arg_regen($args, $product)
             $cart = WC()->cart; 
             $cart_contents = $cart->get_cart_contents();
             foreach ($cart_contents as $key => $item) {
-                if ($item['product_id'] == $product_id) {
+                if ( $item['product_id'] == $product_id || $item['variation_id'] == $product_id ) {
+					$args['step'] = 1;
                     $args['input_value'] = $item['quantity'];
+					$args['min_qty'] = $args['min_value'] = 1;
+					$args['max_value'] = $args['max_qty'] = false;
                 }
             }
 		}else{
@@ -32,7 +35,6 @@ function wcmmq_custom_min_max_arg_regen($args, $product)
             $args['max_value'] = $args['max_qty'] = false;
             $args['input_value'] = 1;
         }
-
 		return $args;
 	}
 
