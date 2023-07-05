@@ -26,13 +26,31 @@ class Hook extends Hook_Base{
      *  @author Fazle Bari <fazlebarisn@gmail.com>
      */
     function woocommerce_product_options_inventory_product_data(){
+        global $post;
+
+        // Retrieve the current value of the custom field
+        $wpt_row_bg = get_post_meta($post->ID, 'wpt_row_bg', true);
+        $wpt_row_color = get_post_meta($post->ID, 'wpt_row_color', true);
+
         woocommerce_wp_text_input(
             array(
                 'id'          => 'wpt_row_bg',
                 'label'       => __( 'Row Background', 'wpt-row-bg' ),
-                'placeholder' => __( 'Color code eg: #abcabc or name eg: red', 'wpt-row-bg' ),
-                'desc_tip'    => true,
-                'description' => __( 'Enter a value for the Row Background. Color code eg: #abcabc or name eg: red', 'wpt-row-bg' ),
+                // 'desc_tip'    => true,
+                // 'description' => __( 'Enter a value for the Row Background. Color code eg: #abcabc or name eg: red', 'wpt-row-bg' ),
+                'type' => 'color',
+                'value' => $wpt_row_bg,
+            )
+        );
+
+        woocommerce_wp_text_input(
+            array(
+                'id'          => 'wpt_row_color',
+                'label'       => __( 'Row Text Color', 'wpt-row-bg' ),
+                // 'desc_tip'    => true,
+                // 'description' => __( 'Enter a value for the Row Background. Color code eg: #abcabc or name eg: red', 'wpt-row-bg' ),
+                'type' => 'color',
+                'value' => $wpt_row_color,
             )
         );
     }
@@ -43,8 +61,13 @@ class Hook extends Hook_Base{
      *  @author Fazle Bari <fazlebarisn@gmail.com> 
      */
     function woocommerce_process_product_meta( $product_id ){
+
         $row_bg_value = isset( $_POST['wpt_row_bg'] ) ? sanitize_text_field( $_POST['wpt_row_bg'] ) : '';
+        $wpt_row_color = isset( $_POST['wpt_row_color'] ) ? sanitize_text_field( $_POST['wpt_row_color'] ) : '';
+
         update_post_meta( $product_id, 'wpt_row_bg', $row_bg_value );
+        update_post_meta( $product_id, 'wpt_row_color', $wpt_row_color );
+
     }
 
     /**
@@ -54,9 +77,11 @@ class Hook extends Hook_Base{
      * @author Fazle Bari <fazlebarisn@gmail.com> 
      */
     function wpt_table_row_attr( $attr, $row_object ){
+
         $product_id = $row_object->product_id;
-        $color = get_post_meta($product_id, 'wpt_row_bg', true);
-        return "style='background-color:$color;'";
+        $bg_color = get_post_meta($product_id, 'wpt_row_bg', true);
+
+        return "style='background-color:$bg_color;'";
     }
 
 }

@@ -27,7 +27,7 @@ class Load extends Base{
         parent::__construct();
         //Load Enqueue
         $enqueue = new Enqueue();
-        // $enqueue->set('admin');
+        $enqueue->set('admin');
         $enqueue->set('frontend');
         $enqueue->run();
 
