@@ -67,10 +67,13 @@ class Enqueue extends Base{
 
     public function wp_enqueue_scripts()
     {
+        
         wp_enqueue_style( $this->prefix . '-style', WPT_ADDON_BASE_URL . 'assets/css/style.css', array(), WPT_ADDON_VERSION, 'all' );
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( $this->prefix . '-script', WPT_ADDON_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), WPT_ADDON_VERSION, true );
 
+        wp_enqueue_style('wp-color-picker');
+        wp_enqueue_script('iris-js', admin_url('js/iris.min.js'), array('jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch'), false, 1);
         $ajax_url = admin_url( 'admin-ajax.php' );
         $WPT_ADDON_DATA = array( 
             'ajaxurl'   => $ajax_url,
