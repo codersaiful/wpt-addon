@@ -3,19 +3,38 @@ jQuery(function ($) {
     $(document).ready(function () {
         console.log(WPT_ADDON_DATA_ORDERBY);
 
-        $('.target-order_by_text').each(function(){
-            var table_id = $(this).data('table_id');
-            var settings = $(this).data('settings');
-
-            console.log(settings, table_id);
-
+        
+        $(document.body).on('click','.test-my-button',function(){
+            $('.target-order_by_text').each(function(){
+                var table_id = $(this).data('table_id');
+                var settings = $(this).data('settings');
+                
+                var table_body_selector = '#table_id_' + table_id + ' table>tbody';
+                var tableObject = $(table_body_selector);
+                var html = '';
+                // console.log(typeof settings);
+                $(settings).each(function(index,text){
+                    var startText = text.toLowerCase();
+                    // console.log(startText);
+                    tableObject.find('tr').each(function(){
+                        var thisRowObject = $(this);
+                        var title = $(this).find('.wpt_product_title a').text().trim().toLowerCase();
+                        if(title.startsWith(startText)){
+                            html += thisRowObject.prop('outerHTML');
+                        }
+                    });
+                });
+                tableObject.html(html);
+                
+    
+            });
         });
 
         $(".my-button").click(function() {
             var sortBy = ['saiful', 'test', 'aaa']; // Sorting base array
 
             // Get all the table rows except the first one (header)
-            var rows = $(".my-table tr:not(:first)");
+            var rows = $(".my-table tr");
 
             // Sort the rows
             rows.sort(function(a, b) {

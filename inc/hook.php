@@ -32,7 +32,7 @@ class Hook extends Hook_Base{
         ?>
         <div class="target-order_by_text" data-table_id="<?php echo esc_attr( $table_id ); ?>" data-settings="<?php echo esc_attr( $settings ); ?>">
         </div>
-        <table class="my-table mobile_responsive normal_table device_for_colum wpt_temporary_table_20194 wpt_product_table wpt-tbl default_table  add_cart_left_icon playlist">
+        <!-- <table class="my-table mobile_responsive normal_table device_for_colum wpt_temporary_table_20194 wpt_product_table wpt-tbl default_table  add_cart_left_icon playlist">
         <tr class="table-row">
             <td class="product-title">
                 ddd name Product
@@ -74,9 +74,10 @@ class Hook extends Hook_Base{
                 Zamil name Product
             </td>
         </tr>
-    </table>
+    </table> -->
 
     <button class="my-button">Sort Table</button>
+    <button class="test-my-button">Sort Table</button>
         <?php 
     }
 
