@@ -6,6 +6,8 @@ jQuery(function ($) {
             $('.target-order_by_text').each(function(){
                 var table_id = $(this).data('table_id');
                 var settings = $(this).data('settings');
+                if(settings.length < 1) return;
+
                 
                 var table_body_selector = '#table_id_' + table_id + ' table>tbody';
                 var tableObject = $(table_body_selector);
@@ -16,11 +18,16 @@ jQuery(function ($) {
                     // console.log(startText);
                     tableObject.find('tr').each(function(){
                         var thisRowObject = $(this);
-                        var title = $(this).find('.wpt_product_title a').text().trim().toLowerCase();
+                        var title = $(this).find('.wpt_for_product_desc a').text().trim().toLowerCase();
                         if(title.startsWith(startText)){
                             html += thisRowObject.prop('outerHTML');
+                            thisRowObject.remove();
                         }
                     });
+                });
+                tableObject.find('tr').each(function(){
+                    var thisRowObject = $(this);
+                    html += thisRowObject.prop('outerHTML');
                 });
                 tableObject.html(html);
                 
