@@ -32,52 +32,7 @@ class Hook extends Hook_Base{
         ?>
         <div class="target-order_by_text" data-table_id="<?php echo esc_attr( $table_id ); ?>" data-settings="<?php echo esc_attr( $settings ); ?>">
         </div>
-        <!-- <table class="my-table mobile_responsive normal_table device_for_colum wpt_temporary_table_20194 wpt_product_table wpt-tbl default_table  add_cart_left_icon playlist">
-        <tr class="table-row">
-            <td class="product-title">
-                ddd name Product
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="product-title">
-                xxx name Product
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="product-title">
-                Test name Product
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="product-title">
-                Saiful name Product
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="product-title">
-                Abc name Product
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="product-title">
-                aaa name Product
-            </td>
-        </tr>
-        
-        <tr class="table-row">
-            <td class="product-title">
-                yaa name Product
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="product-title">
-                Zamil name Product
-            </td>
-        </tr>
-    </table> -->
 
-    <button class="my-button">Sort Table</button>
-    <button class="test-my-button">Sort Table</button>
         <?php 
     }
 
