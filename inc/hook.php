@@ -32,7 +32,7 @@ class Hook extends Hook_Base{
                         <label class="wpt_label" for="wpt_text_orderby"><?php esc_html_e( 'Orderby Text', 'wpt_pro' );?></label>
                     </th>
                     <td>
-                        <input name="basics[order_by_text]"  class="wpt_data_filed_atts ua_input" data-name="order_by_text" type="text" value="<?php echo isset( $meta_basics['order_by_text'] ) ? $meta_basics['order_by_text'] : ''; ?>" placeholder="Insert test" id="wpt_text_orderby">
+                        <input name="basics[order_by_text]"  class="wpt_data_filed_atts ua_input" data-name="order_by_text" type="text" value="<?php echo isset( $meta_basics['order_by_text'] ) ? $meta_basics['order_by_text'] : ''; ?>" placeholder="Insert text" id="wpt_text_orderby">
                         <p style="color: #006394;"><?php esc_html_e( 'Insert With comma', 'wpt_pro' );?></p>
                     </td>
                 </tr>

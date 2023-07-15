@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WPT - Order By Text (Anthony)
  * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Description: This is an product table addon for Anthony. This will add a new input box in the Query tab where the admin can insert sentences with a comma. Product will order by that sentences
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
