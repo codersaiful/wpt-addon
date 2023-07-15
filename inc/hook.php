@@ -29,10 +29,10 @@ class Hook extends Hook_Base{
             <table class="ultraaddons-table">
                 <tr>
                     <th>
-                        <label class="wpt_label" for="wpt_table_author"><?php esc_html_e( 'Orderby Text', 'wpt_pro' );?></label>
+                        <label class="wpt_label" for="wpt_text_orderby"><?php esc_html_e( 'Orderby Text', 'wpt_pro' );?></label>
                     </th>
                     <td>
-                        <input name="basics[author]"  class="wpt_data_filed_atts ua_input" data-name="author" type="text" value="<?php echo isset( $meta_basics['author'] ) ? $meta_basics['author'] : ''; ?>" placeholder="Author ID/Vendor ID" id="wpt_table_author">
+                        <input name="basics[order_by_text]"  class="wpt_data_filed_atts ua_input" data-name="order_by_text" type="text" value="<?php echo isset( $meta_basics['order_by_text'] ) ? $meta_basics['order_by_text'] : ''; ?>" placeholder="Insert test" id="wpt_text_orderby">
                         <p style="color: #006394;"><?php esc_html_e( 'Insert With comma', 'wpt_pro' );?></p>
                     </td>
                 </tr>
