@@ -17,17 +17,30 @@ class Hook extends Hook_Base{
     public function __construct(){
 
         
-        $this->action('example_hook');        
-        $this->filter('example_filter');   
+        $this->action('wpto_admin_basic_tab', 10, 4 );        
+        // $this->filter('example_filter');   
     }
 
 
-    function example_hook(){
-        echo '<h2>Example Hook</h2>';
+    public function wpto_admin_basic_tab( $meta_basics, $tab, $post, $tab_array ){
+
+        ?>
+        <div class="wpt_column">
+            <table class="ultraaddons-table">
+                <tr>
+                    <th>
+                        <label class="wpt_label" for="wpt_table_author"><?php esc_html_e( 'Orderby Text', 'wpt_pro' );?></label>
+                    </th>
+                    <td>
+                        <input name="basics[author]"  class="wpt_data_filed_atts ua_input" data-name="author" type="text" value="<?php echo isset( $meta_basics['author'] ) ? $meta_basics['author'] : ''; ?>" placeholder="Author ID/Vendor ID" id="wpt_table_author">
+                        <p style="color: #006394;"><?php esc_html_e( 'Insert With comma', 'wpt_pro' );?></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <?php
     }
-    function example_filter(){
-        return 'Example Hook';
-    }
+
 
 
 }
