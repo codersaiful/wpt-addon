@@ -47,7 +47,7 @@ class Hook extends Hook_Base{
                     </th>
                     <td>
                         <input name="basics[order_by_text]"  class="wpt_data_filed_atts ua_input" data-name="order_by_text" type="text" value="<?php echo isset( $meta_basics['order_by_text'] ) ? $meta_basics['order_by_text'] : ''; ?>" placeholder="Insert text" id="wpt_text_orderby">
-                        <p style="color: #006394;"><?php esc_html_e( 'Insert With comma', 'wpt_pro' );?></p>
+                        <p style="color: #006394;"><?php esc_html_e( 'Insert order text seperated by comma. (Ex - XF,OPzS,OPzV,XH,XM) Important: Need to add wpt_custom_order class in the targeted column.', 'wpt_pro' );?></p>
                     </td>
                 </tr>
             </table>
