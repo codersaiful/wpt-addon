@@ -18,7 +18,7 @@ jQuery(function ($) {
                     // console.log(startText);
                     tableObject.find('tr').each(function(){
                         var thisRowObject = $(this);
-                        var title = $(this).find('.wpt_for_product_desc a').text().trim().toLowerCase();
+                        var title = $(this).find('.wpt_custom_order a').text().trim().toLowerCase();
                         if(title.startsWith(startText)){
                             html += thisRowObject.prop('outerHTML');
                             thisRowObject.remove();
