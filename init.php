@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WCMMQ - Low stock email notify 
+ * Plugin Name: Low stock email notify 
  * Plugin URI: https://codeastrology.com/min-max-quantity/
  * Description: When the stock quantity is lower than the minimum quantity, an email input box appears. customer can submit their email
  * Author: Saiful Islam
