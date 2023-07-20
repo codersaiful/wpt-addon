@@ -15,19 +15,10 @@ use WCMMQ_ADDON\Inc\App\Hook_Base;
 class Hook extends Hook_Base{
 
     public function __construct(){
-
-        
         $this->action('woocommerce_single_product_summary');        
-        // $this->filter('example_filter');   
+        $this->filter('woocommerce_product_add_to_cart_text', 10, 2);   
     }
 
-
-    // function example_hook(){
-    //     echo '<h2>Example Hook</h2>';
-    // }
-    // function example_filter(){
-    //     return 'Example Hook';
-    // }
 
     /**
      * add a input box on the single product page 
@@ -43,7 +34,7 @@ class Hook extends Hook_Base{
                 $table_name = $wpdb->prefix . $this->notify_table_name; //'wcmmq_low_stock_emails' 
                 $saved = wcmmq_save_email_to_database( $email, $product_id, $table_name );
             }
-    
+
             if ( $saved ) {
                 $msessage = "Thank you! We will notify you when the product is available.";
                 // wc_add_notice( $msessage, 'success' );
@@ -95,6 +86,25 @@ class Hook extends Hook_Base{
                 </div>
             <?php
         endif;
-  }
+    }
+
+    /**
+     *  If stock quantity lower than min quantity, Add To Cart button text will change on archive page. 
+     *  @return $add_to_cart text
+     *  @author Fazle Bari <fazlebarisn@gmail.com>
+     */
+    public function woocommerce_product_add_to_cart_text( $text, $product ){
+        $product_id = $product->get_id();
+        $product_data= $product->get_data();
+        $stock_qty = $product_data['stock_quantity'];
+    
+        $min_quantity = get_post_meta($product_id, WC_MMQ_PREFIX . 'min_quantity', true);
+    
+        if( ! empty( $min_quantity ) && ! empty( $stock_qty ) && $min_quantity > $stock_qty ){
+            $text = 'Read More';
+        }
+    
+        return $text;
+    }
 
 }
