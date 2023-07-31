@@ -15,7 +15,7 @@ use WCMMQ_ADDON\Inc\App\Hook_Base;
 class Hook extends Hook_Base{
 
     public function __construct(){
-        $this->filter('cwg_default_allowed_status', 10, 2 );        
+        $this->filter('cwg_default_allowed_status', 10, 3 );        
         $this->filter('woocommerce_product_add_to_cart_text', 10, 2);   
     }
 
@@ -24,7 +24,11 @@ class Hook extends Hook_Base{
      * product is out of stock. Here i am changing  stock status. 
      * @author Fazle Bari <fazlebarisn@gmail.com>
      */
-    public function cwg_default_allowed_status( $status, $product ){
+    public function cwg_default_allowed_status( $status, $product, $variation ){
+
+        $product_type = $product->get_type();
+
+        if( 'variable' == $product_type ) return $status;
 
         $product_data= $product->get_data();
         $product_id= $product->get_id();
