@@ -21,21 +21,23 @@ class Hook extends Hook_Base{
         
         add_filter('cwginstock_display_subscribe_form',function($bool, $product, $variation){
             if($variation){
-                $variation_id = $variation->get_id();
 
+                $variation_id = $variation->get_id();
                 $stock = get_post_meta($variation_id, '_stock', true);
+
                 $min_quantity = get_post_meta($variation_id, WC_MMQ_PREFIX . 'min_quantity', true);
+
                 if($stock && $stock < $min_quantity){
-                    
                     return true;
                 }
                 return false;
             }else{
                 $product_id = $product->get_id();
                 $stock = get_post_meta($product_id, '_stock', true);
+
                 $min_quantity = get_post_meta($product_id, WC_MMQ_PREFIX . 'min_quantity', true);
+
                 if($stock && $stock < $min_quantity){
-                    
                     return true;
                 }
                 return false;
@@ -57,7 +59,6 @@ class Hook extends Hook_Base{
             $stock = get_post_meta($variation_id, '_stock', true);
             $min_quantity = get_post_meta($variation_id, WC_MMQ_PREFIX . 'min_quantity', true);
             if($stock && $stock < $min_quantity){
-                remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
                 return ['instock','outofstock'];
             }
             return ['outofstock'];
@@ -66,7 +67,7 @@ class Hook extends Hook_Base{
             $stock = get_post_meta($product_id, '_stock', true);
             $min_quantity = get_post_meta($product_id, WC_MMQ_PREFIX . 'min_quantity', true);
             if($stock && $stock < $min_quantity){
-                remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+                add_action('wp_footer', [ $this , 'hide_add_to_cart'] );
                 return ['instock','outofstock'];
             }
             return ['outofstock'];

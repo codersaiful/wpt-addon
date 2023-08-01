@@ -62,12 +62,12 @@ class Enqueue extends Base{
      */
     private function admin(){
         if( ! is_admin() ) return $this;
-        add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
+        // add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'] );
     }
 
     public function wp_enqueue_scripts()
     {
-        wp_enqueue_style( $this->prefix . '-style', WCMMQ_ADDON_BASE_URL . 'assets/css/style.css', array(), WCMMQ_ADDON_VERSION, 'all' );
+        // wp_enqueue_style( $this->prefix . '-style', WCMMQ_ADDON_BASE_URL . 'assets/css/style.css', array(), WCMMQ_ADDON_VERSION, 'all' );
         wp_enqueue_script( 'jquery' );
         wp_enqueue_script( $this->prefix . '-script', WCMMQ_ADDON_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), WCMMQ_ADDON_VERSION, true );
 
