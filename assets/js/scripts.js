@@ -18,11 +18,18 @@ jQuery(function ($) {
                     // console.log(startText);
                     tableObject.find('tr').each(function(){
                         var thisRowObject = $(this);
-                        var title = $(this).find('.wpt_custom_order a').text().trim().toLowerCase();
-                        if(title.startsWith(startText)){
+                        var title = $(this).find('.wpt_product_title a').text().trim().toLowerCase();
+                        // console.log(title);
+                        var firstWord = title.split(' ')[0];
+                        if(firstWord == startText){
                             html += thisRowObject.prop('outerHTML');
                             thisRowObject.remove();
                         }
+                        // console.log(firstWord);
+                        // if(title.startsWith(startText)){
+                        //     html += thisRowObject.prop('outerHTML');
+                        //     thisRowObject.remove();
+                        // }
                     });
                 });
                 tableObject.find('tr').each(function(){
