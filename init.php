@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: MMQ By User Ruls ( Addons)
+ * Plugin Name: MMQ By User Roles ( Addons)
  * Plugin URI: https://codeastrology.com/min-max-quantity/
  * Description: An addons plugin of Min Max Quantity & Step Control. This plugin remove all condition for administrator and shop manager.
  * Author: Saiful Islam
@@ -81,7 +81,7 @@ MMQ_USERS_RULS::instace();
 register_activation_hook( __FILE__, 'mmq_users_activation' );
 
 function mmq_users_activation(){
-    $key = 'MMQ_USERS_date';
+    $key = 'mmq_users_date';
     $ins_dt = get_option( $key );
     if( ! empty( $ins_dt ) ) return;
     update_option( $key, time());
