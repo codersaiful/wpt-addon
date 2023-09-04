@@ -1,11 +1,11 @@
 <?php 
-namespace mmq_users\Inc\App;
+namespace MMQ_USERS\Inc\App;
 
 class Base{
     public $version;
     public $base_url;
-    public $prefix = 'mmq_users';
-    public $data_name = 'mmq_users_DATA';
+    public $prefix = 'MMQ_USERS';
+    public $data_name = 'MMQ_USERS_DATA';
 
     public function __construct()
     {

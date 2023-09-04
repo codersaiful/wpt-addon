@@ -1,5 +1,5 @@
 <?php 
-namespace mmq_users\Inc\App;
+namespace MMQ_USERS\Inc\App;
 
 /**
  * All Basic Hook will control from 

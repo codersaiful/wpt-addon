@@ -1,6 +1,6 @@
 <?php 
-namespace mmq_users\Inc;
-use mmq_users\Inc\App\Hook_Base;
+namespace MMQ_USERS\Inc;
+use MMQ_USERS\Inc\App\Hook_Base;
 
 /**
  * All Basic Hook will control from 
@@ -14,20 +14,45 @@ use mmq_users\Inc\App\Hook_Base;
  */
 class Hook extends Hook_Base{
 
-    public function __construct(){
+    public function __construct(){      
+        $this->filter('wcmmq_single_product_min_max_condition');   
+        $this->filter('wcmmq_add_validation_check');   
+        $this->filter('wcmmq_cart_validation_check');   
+    }
 
+
+    public function wcmmq_single_product_min_max_condition( $args ){
+
+        if( wc_current_user_has_role('administrator') || wc_current_user_has_role('shop_manager') ){
+            $args['max_value'] = -1;
+            $args['min_value'] = 1;
+            $args['step'] = 1;
+            if( ! is_cart() ){
+                $args['input_value'] = 1;
+            }
+            return $args;
+        }
+
+        return $args;
+    }
+
+    public function wcmmq_add_validation_check(){
+
+        if( wc_current_user_has_role('administrator') || wc_current_user_has_role('shop_manager') ){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    public function wcmmq_cart_validation_check(){
+
+        if( wc_current_user_has_role('administrator') || wc_current_user_has_role('shop_manager') ){
+            return false;
+        }else{
+            return true;
+        }
         
-        $this->action('example_hook');        
-        $this->filter('example_filter');   
     }
-
-
-    function example_hook(){
-        echo '<h2>Example Hook</h2>';
-    }
-    function example_filter(){
-        return 'Example Hook';
-    }
-
-
 }

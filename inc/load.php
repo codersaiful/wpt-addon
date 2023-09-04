@@ -1,8 +1,8 @@
 <?php 
-namespace mmq_users\Inc;
+namespace MMQ_USERS\Inc;
 
-use mmq_users\Inc\App\Enqueue;
-use mmq_users\Inc\App\Base;
+use MMQ_USERS\Inc\App\Enqueue;
+use MMQ_USERS\Inc\App\Base;
 
 /**
  * Full Plugin Load Manager is here

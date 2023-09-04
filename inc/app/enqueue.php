@@ -1,5 +1,5 @@
 <?php 
-namespace mmq_users\Inc\App;
+namespace MMQ_USERS\Inc\App;
 
 class Enqueue extends Base{
 
@@ -72,14 +72,14 @@ class Enqueue extends Base{
         wp_enqueue_script( $this->prefix . '-script', MMQ_USERS_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), MMQ_USERS_VERSION, true );
 
         $ajax_url = admin_url( 'admin-ajax.php' );
-        $mmq_users_DATA = array( 
+        $MMQ_USERS_DATA = array( 
             'ajaxurl'   => $ajax_url,
             'ajax_url'  => $ajax_url,
             'site_url'  => site_url(),
             'checkout_url' => wc_get_checkout_url(),
             'cart_url' => wc_get_cart_url(),
             );
-        wp_localize_script( $this->prefix . '-script', $this->data_name, $mmq_users_DATA );
+        wp_localize_script( $this->prefix . '-script', $this->data_name, $MMQ_USERS_DATA );
     }
     
     public function admin_enqueue_scripts()

@@ -1,5 +1,5 @@
 <?php
-namespace mmq_users;
+namespace MMQ_USERS;
 
 defined('ABSPATH') || exit;
 
