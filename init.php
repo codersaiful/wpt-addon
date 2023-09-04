@@ -19,9 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
 
-if ( ! defined( 'WC_MMQ_VERSION' ) ) {
-    return;
-}
+// if ( ! defined( 'WC_MMQ_VERSION' ) ) {
+//     return;
+// }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 if ( !defined( 'MMQ_USERS_BASE_URL' ) ) {
@@ -32,7 +32,7 @@ if ( !defined( 'MMQ_USERS_VERSION' ) ) {
     define( "MMQ_USERS_VERSION", '1.0.0' );
 }
 
-class MMQ_USERS_RULS{
+class MMQ_USERS_ROLES{
 
     public static $_instance;
 
@@ -77,7 +77,7 @@ class MMQ_USERS_RULS{
 
     }
 }
-MMQ_USERS_RULS::instace();
+MMQ_USERS_ROLES::instace();
 register_activation_hook( __FILE__, 'mmq_users_activation' );
 
 function mmq_users_activation(){
