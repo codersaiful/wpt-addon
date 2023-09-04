@@ -20,7 +20,11 @@ class Hook extends Hook_Base{
         $this->filter('wcmmq_cart_validation_check');   
     }
 
-
+    /**
+     * Set default args for administrator and shop manager
+     * @return array $args
+     * @author Fazle Bari <fazlebarisn@gmail.com>
+     */
     public function wcmmq_single_product_min_max_condition( $args ){
 
         if( wc_current_user_has_role('administrator') || wc_current_user_has_role('shop_manager') ){
@@ -36,6 +40,11 @@ class Hook extends Hook_Base{
         return $args;
     }
 
+    /**
+     * Remove add to cart validation check for administrator and shop manager
+     * @return bool 
+     * @author Fazle Bari <fazlebarisn@gmail.com>
+     */
     public function wcmmq_add_validation_check(){
 
         if( wc_current_user_has_role('administrator') || wc_current_user_has_role('shop_manager') ){
@@ -46,6 +55,11 @@ class Hook extends Hook_Base{
 
     }
 
+    /**
+     * Remove cart update validation check for administrator and shop manager
+     * @return bool 
+     * @author Fazle Bari <fazlebarisn@gmail.com>
+     */
     public function wcmmq_cart_validation_check(){
 
         if( wc_current_user_has_role('administrator') || wc_current_user_has_role('shop_manager') ){
@@ -53,6 +67,6 @@ class Hook extends Hook_Base{
         }else{
             return true;
         }
-        
+
     }
 }
