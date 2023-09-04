@@ -1,8 +1,8 @@
 <?php 
-namespace WPT_ADDON\Inc;
+namespace mmq_users\Inc;
 
-use WPT_ADDON\Inc\App\Enqueue;
-use WPT_ADDON\Inc\App\Base;
+use mmq_users\Inc\App\Enqueue;
+use mmq_users\Inc\App\Base;
 
 /**
  * Full Plugin Load Manager is here
@@ -26,10 +26,10 @@ class Load extends Base{
     public function __construct(){
         parent::__construct();
         //Load Enqueue
-        $enqueue = new Enqueue();
-        $enqueue->set('admin');
-        $enqueue->set('frontend');
-        $enqueue->run();
+        // $enqueue = new Enqueue();
+        // $enqueue->set('admin');
+        // $enqueue->set('frontend');
+        // $enqueue->run();
 
         $hook = new Hook();
         

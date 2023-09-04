@@ -1,15 +1,15 @@
 <?php 
-namespace WPT_ADDON\Inc\App;
+namespace mmq_users\Inc\App;
 
 class Base{
     public $version;
     public $base_url;
-    public $prefix = 'wpt_addon';
-    public $data_name = 'WPT_ADDON_DATA';
+    public $prefix = 'mmq_users';
+    public $data_name = 'mmq_users_DATA';
 
     public function __construct()
     {
-        $this->version = WPT_ADDON_VERSION;
-        $this->base_url = WPT_ADDON_BASE_URL;
+        $this->version = MMQ_USERS_VERSION;
+        $this->base_url = MMQ_USERS_BASE_URL;
     }
 }

@@ -1,6 +1,6 @@
 <?php 
-namespace WPT_ADDON\Inc;
-use WPT_ADDON\Inc\App\Hook_Base;
+namespace mmq_users\Inc;
+use mmq_users\Inc\App\Hook_Base;
 
 /**
  * All Basic Hook will control from 
