@@ -46,41 +46,45 @@ class Hook extends Hook_Base{
         // Get the current user's ID
         $current_user_id = get_current_user_id(); 
 
-        foreach( $product_ids as $id ){
+        if( ! empty( $current_user_id ) && is_array( $current_user_id ) ){
 
-            $customer_status = get_post_meta( $id, '_wwp_hide_for_customer', true );
-            $visitor_status = get_post_meta( $id, '_wwp_hide_for_visitor', true );
-            $roles = get_post_meta( $id, 'wholesale_product_visibility_multi', true );
+            foreach( $product_ids as $id ){
 
-            // check if user login 
-            if( $current_user_id > 0 ) {
-                // Get user data based on ID
-                $user_info = get_userdata($current_user_id); 
-                
-                if( $user_info ) {
-                    // Get user roles
-                    $user_roles = $user_info->roles; 
+                $customer_status = get_post_meta( $id, '_wwp_hide_for_customer', true );
+                $visitor_status = get_post_meta( $id, '_wwp_hide_for_visitor', true );
+                $roles = get_post_meta( $id, 'wholesale_product_visibility_multi', true );
+    
+                // check if user login 
+                if( $current_user_id > 0 ) {
+                    // Get user data based on ID
+                    $user_info = get_userdata($current_user_id); 
                     
-                    // Check if the user has any roles
-                    if( !empty($user_roles) ) {
-
-                        // Get the first assigned role (assuming a user has only one primary role)
-                        $current_user_role = $user_roles[0]; 
+                    if( $user_info ) {
+                        // Get user roles
+                        $user_roles = $user_info->roles; 
                         
-                        if( is_array( $roles ) && in_array( $current_user_role, $roles ) ){
-
-                            if( 'yes' == $customer_status ){
-                                $excluded_ids[] = $id;
+                        // Check if the user has any roles
+                        if( !empty($user_roles) ) {
+    
+                            // Get the first assigned role (assuming a user has only one primary role)
+                            $current_user_role = $user_roles[0]; 
+                            
+                            if( is_array( $roles ) && in_array( $current_user_role, $roles ) ){
+    
+                                if( 'yes' == $customer_status ){
+                                    $excluded_ids[] = $id;
+                                }
                             }
                         }
                     }
+                }else{
+                    if( 'yes' == $visitor_status ){
+                        $excluded_ids[] = $id;
+                    }
                 }
-            }else{
-                if( 'yes' == $visitor_status ){
-                    $excluded_ids[] = $id;
-                }
+    
             }
-
+            
         }
 
         return $excluded_ids;
