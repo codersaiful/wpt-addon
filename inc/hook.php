@@ -14,20 +14,76 @@ use WPT_ADDON\Inc\App\Hook_Base;
  */
 class Hook extends Hook_Base{
 
-    public function __construct(){
-
-        
-        $this->action('example_hook');        
-        $this->filter('example_filter');   
+    public function __construct(){     
+        $this->filter('wpt_query_args');   
     }
 
+    /**
+     *  This function will check '_wwp_hide_for_customer' and 'wholesale_product_visibility_multi' post meta 
+     *  besed on that we will check if this product is hide for any user roles
+     *  If we find any id, we will push it in to a array
+     *  finally, return the ids
+     *  @return array Ids
+     *  @author Fazle Bari 
+     */
+    public function get_hide_products(){
 
-    function example_hook(){
-        echo '<h2>Example Hook</h2>';
-    }
-    function example_filter(){
-        return 'Example Hook';
+        $excluded_ids = [];
+
+        // Get all products ids
+        $product_ids = get_posts( array(
+            'post_type'   => 'product',
+            'numberposts' => -1,
+            'post_status' => 'publish',
+            'fields'      => 'ids',
+        ) );
+
+        // Get the current user's ID
+        $current_user_id = get_current_user_id(); 
+
+        foreach( $product_ids as $id ){
+
+            $status = get_post_meta( $id, '_wwp_hide_for_customer', true );
+            $roles = get_post_meta( $id, 'wholesale_product_visibility_multi', true );
+
+            if( $current_user_id > 0 ) {
+
+                // Get user data based on ID
+                $user_info = get_userdata($current_user_id); 
+                
+                if( $user_info ) {
+                    // Get user roles
+                    $user_roles = $user_info->roles; 
+                    
+                    // Check if the user has any roles
+                    if( !empty($user_roles) ) {
+
+                        // Get the first assigned role (assuming a user has only one primary role)
+                        $current_user_role = $user_roles[0]; 
+                        
+                        if( is_array( $roles ) && in_array( $current_user_role, $roles ) ){
+
+                            if( 'yes' == $status ){
+                                $excluded_ids[] = $id;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return $excluded_ids;
     }
 
+    /**
+     *  We just remove the products 
+     *  @return array $args
+     *  @author Fazle Bari 
+     */
+    function wpt_query_args( $args ){
+        $args['post__not_in'] = $this-> get_hide_products();
+        return $args;
+    }
 
 }
