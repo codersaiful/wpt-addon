@@ -26,7 +26,12 @@ class Hook extends Hook_Base{
      *  @return array Ids
      *  @author Fazle Bari 
      */
-    public function get_hide_products(){
+    public function get_excluded_product_ids(){
+
+        // if 'Wholesale For WooCommerce' plugin is not active, do not execute any codes
+        if (  ! is_plugin_active( 'woocommerce-wholesale-pricing/woocommerce-wholesale-pricing.php' ) ) {
+            return;
+        }
 
         $excluded_ids = [];
 
@@ -82,7 +87,11 @@ class Hook extends Hook_Base{
      *  @author Fazle Bari 
      */
     function wpt_query_args( $args ){
-        $args['post__not_in'] = $this-> get_hide_products();
+
+        if (  ! empty( $this->get_excluded_product_ids() ) ) {
+            $args['post__not_in'] = $this-> get_excluded_product_ids();
+        }
+
         return $args;
     }
 
