@@ -48,7 +48,8 @@ class Hook extends Hook_Base{
 
         foreach( $product_ids as $id ){
 
-            $status = get_post_meta( $id, '_wwp_hide_for_customer', true );
+            $customer_status = get_post_meta( $id, '_wwp_hide_for_customer', true );
+            $visitor_status = get_post_meta( $id, '_wwp_hide_for_visitor', true );
             $roles = get_post_meta( $id, 'wholesale_product_visibility_multi', true );
 
             if( $current_user_id > 0 ) {
@@ -68,11 +69,15 @@ class Hook extends Hook_Base{
                         
                         if( is_array( $roles ) && in_array( $current_user_role, $roles ) ){
 
-                            if( 'yes' == $status ){
+                            if( 'yes' == $customer_status ){
                                 $excluded_ids[] = $id;
                             }
                         }
                     }
+                }
+            }else{
+                if( 'yes' == $visitor_status ){
+                    $excluded_ids[] = $id;
                 }
             }
 
@@ -87,6 +92,8 @@ class Hook extends Hook_Base{
      *  @author Fazle Bari 
      */
     function wpt_query_args( $args ){
+
+        dd($this-> get_excluded_product_ids());
 
         if (  ! empty( $this->get_excluded_product_ids() ) ) {
             $args['post__not_in'] = $this-> get_excluded_product_ids();
