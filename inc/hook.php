@@ -36,12 +36,12 @@ class Hook extends Hook_Base{
         $excluded_ids = [];
 
         // Get all products ids
-        $product_ids = get_posts( array(
+        $product_ids = get_posts([
             'post_type'   => 'product',
             'numberposts' => -1,
             'post_status' => 'publish',
             'fields'      => 'ids',
-        ) );
+        ]);
 
         // Get the current user's ID
         $current_user_id = get_current_user_id(); 
