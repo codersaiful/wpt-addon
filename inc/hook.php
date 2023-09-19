@@ -52,8 +52,8 @@ class Hook extends Hook_Base{
             $visitor_status = get_post_meta( $id, '_wwp_hide_for_visitor', true );
             $roles = get_post_meta( $id, 'wholesale_product_visibility_multi', true );
 
+            // check if user login 
             if( $current_user_id > 0 ) {
-
                 // Get user data based on ID
                 $user_info = get_userdata($current_user_id); 
                 
@@ -92,8 +92,6 @@ class Hook extends Hook_Base{
      *  @author Fazle Bari 
      */
     function wpt_query_args( $args ){
-
-        dd($this-> get_excluded_product_ids());
 
         if (  ! empty( $this->get_excluded_product_ids() ) ) {
             $args['post__not_in'] = $this-> get_excluded_product_ids();
