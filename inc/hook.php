@@ -46,7 +46,7 @@ class Hook extends Hook_Base{
         // Get the current user's ID
         $current_user_id = get_current_user_id(); 
 
-        if( ! empty( $current_user_id ) && is_array( $current_user_id ) ){
+        if( ! empty( $product_ids ) && is_array( $product_ids ) ){
 
             foreach( $product_ids as $id ){
 
@@ -65,15 +65,10 @@ class Hook extends Hook_Base{
                         
                         // Check if the user has any roles
                         if( !empty($user_roles) ) {
-    
                             // Get the first assigned role (assuming a user has only one primary role)
                             $current_user_role = $user_roles[0]; 
-                            
-                            if( is_array( $roles ) && in_array( $current_user_role, $roles ) ){
-    
-                                if( 'yes' == $customer_status ){
-                                    $excluded_ids[] = $id;
-                                }
+                            if( (is_array( $roles ) && in_array( $current_user_role, $roles )) || ( 'yes' == $customer_status && 'administrator' == ! $current_user_role) ){
+                                $excluded_ids[] = $id;
                             }
                         }
                     }
