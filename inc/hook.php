@@ -14,14 +14,42 @@ use WPT_ADDON\Inc\App\Hook_Base;
  */
 class Hook extends Hook_Base{
 
+    public $config;
+
     public function __construct(){
+
+        $this->config = get_option( 'wpt_configure_options' ); 
+
         $this->action('woocommerce_product_meta_end');        
-        $this->action('wpto_admin_configuration_form_top');        
+        $this->action('wpto_admin_configuration_form_top', 10, 2);        
         $this->filter('wpt_query_args');   
     }
 
     function wpto_admin_configuration_form_top( $settings,$current_config_value ){
-
+        ?>
+            <table class="wpt-my-table universal-setting">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="wpt-form-control">
+                                <div class="form-label col-lg-6">
+                                    <label class="wpt_label wpt_group_table_on_off" for="wpt_group_table"><?php esc_html_e( 'Single Page SKU Table ID', 'wpt' );?></label>
+                                </div>
+                                <div class="form-field col-lg-6">
+                                    <input type="number" name="data[sku_table_id]" value="<?php echo esc_html(isset( $current_config_value['sku_table_id'] ) ? $current_config_value['sku_table_id'] : '')?>" >
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wpt-form-info">
+                                <?php wpt_doc_link('https://wooproducttable.com/docs/doc/'); ?>
+                                <p><?php echo esc_html__( 'You can chnage table position from here.', 'wpt' ); ?></p>
+                            </div> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php
     }
     /**
      * A query to get product id from sku
@@ -108,8 +136,9 @@ class Hook extends Hook_Base{
         if ($this->get_include_ids() == null  ) {
             return;
         }
+        $table_id =  $this->config['sku_table_id'];
 
-        echo do_shortcode("[Product_Table id='89' name='One' behavior='normal']");
+        echo do_shortcode("[Product_Table id='".$table_id."' name='One' behavior='normal']");
     }
 
 }
