@@ -54,7 +54,7 @@ class WPT_Addons{
 	public function __construct() {
 
 		add_action( 'init', [ $this, 'i18n' ] );
-		add_action( 'plugins_loaded', [ $this, 'init' ] );
+		add_action( 'init', [ $this, 'init' ] );
 
 	}
 
