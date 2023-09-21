@@ -15,16 +15,34 @@ use WPT_ADDON\Inc\App\Hook_Base;
 class Hook extends Hook_Base{
 
     public $config;
+    public $table_position;
 
     public function __construct(){
 
         $this->config = get_option( 'wpt_configure_options' ); 
+        $this->table_position = isset( $this->config['sku_table_position'] ) ? $this->config['sku_table_position'] : false;
 
-        $this->action('woocommerce_product_meta_end');        
+        if( $this->table_position  == 'woocommerce_single_product_summary' ){
+            add_action('woocommerce_single_product_summary', [ $this, 'displayTable' ] );
+        }elseif( $this->table_position  == 'woocommerce_product_meta_start'){
+            add_action('woocommerce_product_meta_start', [ $this, 'displayTable' ] );
+        }elseif( $this->table_position  == 'woocommerce_product_meta_end'){
+            add_action('woocommerce_product_meta_end', [ $this, 'displayTable' ] );
+        }elseif( $this->table_position  == 'woocommerce_after_single_product_summary'){
+            add_action('woocommerce_after_single_product_summary', [ $this, 'displayTable'] );
+        }elseif( $this->table_position  == 'woocommerce_product_after_tabs'){
+            add_action('woocommerce_product_after_tabs', [ $this, 'displayTable'] );
+        }
+     
         $this->action('wpto_admin_configuration_form_top', 10, 2);        
         $this->filter('wpt_query_args');   
     }
 
+    /**
+     * Add SKU table options on configure page
+     * @return void
+     * @author Fazle Bari <fazlebarisn@gmail.com>
+     */
     function wpto_admin_configuration_form_top( $settings,$current_config_value ){
         ?>
             <table class="wpt-my-table universal-setting">
@@ -33,7 +51,7 @@ class Hook extends Hook_Base{
                         <td>
                             <div class="wpt-form-control">
                                 <div class="form-label col-lg-6">
-                                    <label class="wpt_label wpt_group_table_on_off" for="wpt_group_table"><?php esc_html_e( 'Single Page SKU Table ID', 'wpt' );?></label>
+                                    <label class="wpt_label wpt_sku_table_on_off" for="wpt_group_table"><?php esc_html_e( 'Single Page SKU Table ID', 'wpt' );?></label>
                                 </div>
                                 <div class="form-field col-lg-6">
                                     <input type="number" name="data[sku_table_id]" value="<?php echo esc_html(isset( $current_config_value['sku_table_id'] ) ? $current_config_value['sku_table_id'] : '')?>" >
@@ -43,7 +61,31 @@ class Hook extends Hook_Base{
                         <td>
                             <div class="wpt-form-info">
                                 <?php wpt_doc_link('https://wooproducttable.com/docs/doc/'); ?>
-                                <p><?php echo esc_html__( 'You can chnage table position from here.', 'wpt' ); ?></p>
+                                <p><?php echo esc_html__( 'Insert SKU Table ID', 'wpt' ); ?></p>
+                            </div> 
+                        </td>
+                    </tr>
+                    
+                        <td>
+                            <div class="wpt-form-control">
+                                <div class="form-label col-lg-6">
+                                    <label class="wpt_label wpt_sku_table_on_off" for="wpt_group_table"><?php esc_html_e( 'Select SKU Table Position', 'wpt' );?></label>
+                                </div>
+                                <div class="form-field col-lg-6">
+                                    <select name="data[sku_table_position]" class="wpt_fullwidth ua_input wpt_table_position_for_variation">
+                                        <option value="woocommerce_single_product_summary" <?php wpt_selected( 'sku_table_position', 'woocommerce_single_product_summary' ); ?>><?php esc_html_e( 'After Title', 'product-table-for-group-products' );?></option>
+                                        <option value="woocommerce_product_meta_start" <?php wpt_selected( 'sku_table_position', 'woocommerce_product_meta_start' ); ?>><?php esc_html_e( 'Before Meta', 'product-table-for-group-products' );?></option>
+                                        <option value="woocommerce_product_meta_end" <?php wpt_selected( 'sku_table_position', 'woocommerce_product_meta_end' ); ?>><?php esc_html_e( 'After Meta', 'product-table-for-group-products' );?></option>
+                                        <option value="woocommerce_after_single_product_summary" <?php wpt_selected( 'sku_table_position', 'woocommerce_after_single_product_summary' ); ?>><?php esc_html_e( 'After summary', 'product-table-for-group-products' );?></option>
+                                        <option value="woocommerce_product_after_tabs" <?php wpt_selected( 'sku_table_position', 'woocommerce_product_after_tabs' ); ?>><?php esc_html_e( 'After Tab', 'product-table-for-group-products' );?></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wpt-form-info">
+                                <?php wpt_doc_link('https://wooproducttable.com/docs/doc/'); ?>
+                                <p><?php echo esc_html__( 'You can chnage SKU table position from here.', 'wpt' ); ?></p>
                             </div> 
                         </td>
                     </tr>
@@ -131,7 +173,7 @@ class Hook extends Hook_Base{
      * @return void
      * @author Fazle Bari <fazlebarisn@gmail.com>
      */
-    public function woocommerce_product_meta_end(){
+    public function displayTable(){
 
         if ($this->get_include_ids() == null  ) {
             return;
