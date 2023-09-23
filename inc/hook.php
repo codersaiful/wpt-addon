@@ -110,7 +110,7 @@ class Hook extends Hook_Base{
      * @author Fazle Bari <fazlebarisn@gmail.com>
      */
     public function get_sku(){
-	    $sku_from_acf = get_field('sku',  get_the_ID() );
+	    $sku_from_acf = get_field('pl_inc',  get_the_ID() );
         return $sku_from_acf;
     }
 
