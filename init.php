@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: WPT - Diaplay Product By SKU
  * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Description: Will display products by SKU from an ACF field.
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
