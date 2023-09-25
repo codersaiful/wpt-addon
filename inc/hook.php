@@ -175,11 +175,12 @@ class Hook extends Hook_Base{
      */
     public function displayTable(){
 
-        if ($this->get_include_ids() == null  ) {
-            return;
-        }
         $table_id =  $this->config['sku_table_id'];
 
+        if( $this->get_include_ids() == null || empty($table_id) ) {
+            return;
+        }
+        
         echo do_shortcode("[Product_Table id='".$table_id."' name='One' behavior='normal']");
     }
 
