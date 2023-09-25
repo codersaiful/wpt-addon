@@ -181,7 +181,7 @@ class Hook extends Hook_Base{
             return;
         }
         
-        echo do_shortcode("[Product_Table id='".$table_id."' name='One' behavior='normal']");
+        echo do_shortcode("[Product_Table id='".$table_id."' behavior='normal']");
     }
 
 }
