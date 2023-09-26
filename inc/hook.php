@@ -190,6 +190,9 @@ class Hook extends Hook_Base{
      */
     public function wpt_query_args( $args ){
 
+        $sku_table_id = isset( $this->config['sku_table_id']) ? $this->config['sku_table_id'] : 1;
+        if( $args['table_ID'] != $sku_table_id ) return $args;
+
         if(  is_product() ) {
             $sale_products = $this->get_include_ids();
             $args['post__in'] = $sale_products;
@@ -205,13 +208,13 @@ class Hook extends Hook_Base{
      */
     public function displayTable(){
 
-        $table_id =  $this->config['sku_table_id'];
+        $sku_table_id = isset( $this->config['sku_table_id']) ? $this->config['sku_table_id'] : 1;
 
-        if( $this->get_include_ids() == null || empty($table_id) ) {
+        if( $this->get_include_ids() == null || empty($sku_table_id) ) {
             return;
         }
         
-        echo do_shortcode("[Product_Table id='".$table_id."' behavior='normal']");
+        echo do_shortcode("[Product_Table id='".$sku_table_id."' behavior='normal']");
     }
 
 }
