@@ -35,7 +35,19 @@ class Hook extends Hook_Base{
         }
      
         $this->action('wpto_admin_configuration_form_top', 10, 2);        
+        $this->action('wpto_action_before_table', 10, 5);        
         $this->filter('wpt_query_args');   
+    }
+
+    /**
+     * Add a heading before table
+     * @return void
+     * @author Fazle Bari <fazlebarisn@gmail.com>
+     */
+    public function wpto_action_before_table( $table_id, $args, $column_settings, $enable_cols, $config ){
+        if( empty( $table_id ) || $table_id != $config['sku_table_id'] ) return;
+        $table_header = isset( $config['sku_table_header'] ) ? $config['sku_table_header'] : "What's included";
+        echo '<h2 class="sku-table-header">'. $table_header . '<h2>';
     }
 
     /**
@@ -65,7 +77,7 @@ class Hook extends Hook_Base{
                             </div> 
                         </td>
                     </tr>
-                    
+                    <tr>
                         <td>
                             <div class="wpt-form-control">
                                 <div class="form-label col-lg-6">
@@ -86,6 +98,24 @@ class Hook extends Hook_Base{
                             <div class="wpt-form-info">
                                 <?php wpt_doc_link('https://wooproducttable.com/docs/doc/'); ?>
                                 <p><?php echo esc_html__( 'You can chnage SKU table position from here.', 'wpt' ); ?></p>
+                            </div> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="wpt-form-control">
+                                <div class="form-label col-lg-6">
+                                    <label class="wpt_label wpt_sku_table_on_off" for="wpt_group_table"><?php esc_html_e( 'SKU Table Header', 'wpt' );?></label>
+                                </div>
+                                <div class="form-field col-lg-6">
+                                    <input type="text" name="data[sku_table_header]" value="<?php echo esc_html(isset( $current_config_value['sku_table_header'] ) ? $current_config_value['sku_table_header'] : '')?>" >
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="wpt-form-info">
+                                <?php wpt_doc_link('https://wooproducttable.com/docs/doc/'); ?>
+                                <p><?php echo esc_html__( 'Insert SKU Table Header', 'wpt' ); ?></p>
                             </div> 
                         </td>
                     </tr>
