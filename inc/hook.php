@@ -47,7 +47,7 @@ class Hook extends Hook_Base{
     public function wpto_action_before_table( $table_id, $args, $column_settings, $enable_cols, $config ){
         if( empty( $table_id ) || $table_id != $config['sku_table_id'] ) return;
         $table_header = isset( $config['sku_table_header'] ) ? $config['sku_table_header'] : "What's included";
-        echo '<h2 class="sku-table-header">'. $table_header . '<h2>';
+        echo '<h3 class="sku-table-header">'. $table_header . '<h3>';
     }
 
     /**
