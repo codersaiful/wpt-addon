@@ -102,6 +102,7 @@ class Hook extends Hook_Base{
         if(empty($text_color)) return;
         ?>
         <style>
+            tr#product_id_<?php echo $product_id; ?> .item_inside_cell.wpt_short_description,
             tr#product_id_<?php echo $product_id; ?> td a,
             tr#product_id_<?php echo $product_id; ?> td p,
             tr#product_id_<?php echo $product_id; ?> td span,
