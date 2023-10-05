@@ -21,7 +21,7 @@ class Hook extends Hook_Base{
 
     public function __construct(){
         $this->action('wpt_load');        
-        // $this->filter('wpt_query_args');   
+        $this->filter('wpt_query_args');   
     }
 
     public function array_insert_before( array $existing_array, array $new_array, string $target_array_key, bool $bottom = true ) {
@@ -42,6 +42,11 @@ class Hook extends Hook_Base{
     }
 
     public function wpt_load( $shortcode ){
+        
+        global $product;
+        if( ! is_product() ) return;
+        $is_variable = $product->is_type( 'variable' );
+        if( ! $is_variable ) return;
 
         /**
          * On variable product, I disabled Pagination
@@ -54,7 +59,6 @@ class Hook extends Hook_Base{
         $this->behavior = $shortcode->args['behavior'] ?? '';
         if($this->behavior == 'normal') return;        
 
-        if( ! is_product() ) return;
         $maArr = [];
         
         $shortcode->search_box = false;
@@ -66,8 +70,11 @@ class Hook extends Hook_Base{
         unset($shortcode->_enable_cols['variations']);
         // unset($shortcode->_enable_cols['variation_name']);
 
-        
+        $this->Product_Variable = new \WC_Product_Variable( get_the_ID() ); 
+        $this->attributes = $this->Product_Variable->get_variation_attributes();
+
         $arrtibutes = array_keys( $this->attributes );
+
         if( empty( $arrtibutes ) ){
             $shortcode->table_display = false;
             add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
