@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Variation
+ * Plugin Name: Variation dfdfd
  * Plugin URI: https://wooproducttable.com/
  * Description: WooProductTable Addons Plugin for specific task.
  * Author: Saiful Islam
