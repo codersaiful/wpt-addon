@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name: Variation dfdfd
+ * Plugin Name: WPT - Table on Variable Product Page
  * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Description: If there is any short code on variable product page, this plugin will convart all variation as row and display on table.
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
  * Version: 1.0
  * Requires at least:    4.0.0
- * Tested up to:         6.1
+ * Tested up to:         6.3.1
  * WC requires at least: 3.0.0
- * WC tested up to: 	 7.1.0
+ * WC tested up to: 	 8.1.1
  * 
  */
 
