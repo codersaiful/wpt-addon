@@ -20,7 +20,7 @@ class Hook extends Hook_Base{
     public function __construct(){
 
         $this->config = get_option( 'wpt_configure_options' ); 
-        $this->table_position = isset( $this->config['sku_table_position'] ) ? $this->config['sku_table_position'] : false;
+        $this->table_position = isset( $this->config['rcp_table_position'] ) ? $this->config['rcp_table_position'] : false;
 
         if( $this->table_position  == 'woocommerce_single_product_summary' ){
             add_action('woocommerce_single_product_summary', [ $this, 'displayTable' ] );
@@ -92,7 +92,7 @@ class Hook extends Hook_Base{
                         <td>
                             <div class="wpt-form-info">
                                 <?php wpt_doc_link('https://wooproducttable.com/docs/doc/'); ?>
-                                <p><?php echo esc_html__( 'Enable table on group product Page. First Select a table and check [Show] to show the table on a group page.', 'wpt-rcp' ); ?></p>
+                                <p><?php echo esc_html__( 'Enable table on product Page. First Select a table and check [Show] to show the table on a group page.', 'wpt-rcp' ); ?></p>
                                 <p class="wpt-tips">
                                     <b><?php echo esc_html__( 'Notice:', 'wpt-rcp' ); ?></b>
                                     <span><?php echo esc_html__( 'Make sure you have installed and activated Woo Product Table plugin','wpt-rcp' ); ?></span>
@@ -129,20 +129,44 @@ class Hook extends Hook_Base{
         <?php
     }
 
+     /**
+     * Get category ids from products
+     * @return array $category_ids
+     * @author Fazle Bari <fazlebarisn@gmail.com>
+     */
+    function get_cat_ids(){
+        global $product;
+        
+        $categories = get_the_terms( $product->get_id(), 'product_cat' );
+        
+        if ( $categories && ! is_wp_error( $categories ) ) {
+            $category_ids = [];
+            foreach ( $categories as $category ) {
+                $category_ids[] = $category->term_id;
+            }
+        }
 
+        return $category_ids;
+    }
 
     /**
-     * Push our chooen ids in to the table
+     * Push our chooen category ids in to the table
      * @return array $args
      * @author Fazle Bari <fazlebarisn@gmail.com>
      */
     public function wpt_query_args( $args ){
 
-        $rpc_table_id = isset( $this->config['rpc_table_id']) ? $this->config['rpc_table_id'] : 1;
+        $rpc_table_id = isset( $this->config['rcp_table_id']) ? $this->config['rcp_table_id'] : '';
+
         if( $args['table_ID'] != $rpc_table_id ) return $args;
 
         if(  is_product() ) {
-
+            $args['tax_query'] = [
+                'product_cat_IN' => [
+                    'taxonomy' => 'product_cat',
+                    'terms'=> $this->get_cat_ids(),
+                ]
+            ];
         }
 
         return $args;
@@ -155,12 +179,12 @@ class Hook extends Hook_Base{
      */
     public function displayTable(){
 
-        $rpc_table_id = isset( $this->config['rpc_table_id']) ? $this->config['rpc_table_id'] : 1;
+        $rpc_table_id = isset( $this->config['rcp_table_id']) ? $this->config['rcp_table_id'] : '';
 
-        // if( $this->get_include_ids() == null || empty($rpc_table_id) ) {
-        //     return;
-        // }
-        
+        if( empty($rpc_table_id) ) {
+            return;
+        }
+
         echo do_shortcode("[Product_Table id='".$rpc_table_id."' behavior='normal']");
     }
 
