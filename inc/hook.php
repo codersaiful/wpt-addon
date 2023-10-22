@@ -135,7 +135,7 @@ class Hook extends Hook_Base{
         $args[] = array(
             'id'        =>'wpt_var_hide_msg2',
             'name'      => 'wpt_var_hide_msg2',
-            'label'     =>  __( 'Hide 2nd Message Column', 'wpt_pro' ),
+            'label'     =>  __( 'Hide Specify size Column', 'wpt_pro' ),
             // 'description'=> "Type 'hide', if you want to hide message column",
         );
 
@@ -221,7 +221,7 @@ class Hook extends Hook_Base{
         }
 
         if( 'yes' == $wpt_var_hide_msg2 ){
-            unset($shortcode->_enable_cols['new_message']);
+            unset($shortcode->_enable_cols['specify_size']);
         }
 
         if( 'yes' == $wpt_var_hide_img ){

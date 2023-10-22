@@ -56,7 +56,7 @@ jQuery(function ($) {
         }
 
         // for message box
-        $(document.body).on('keyup','input.message_2',function(){
+        $(document.body).on('keyup','input.specify_size',function(){
             var text = $(this).val();
             $(this).closest('tr').attr('additional_json', text);
         });

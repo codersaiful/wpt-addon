@@ -1,22 +1,23 @@
 <?php
 
-if( !function_exists( 'mio_new_message_column' ) ){
-    function mio_new_message_column( $column_array ) {
-        $column_array['new_message'] = 'New Message';
+if( !function_exists( 'mio_specify_size_message_column' ) ){
+    function mio_specify_size_message_column( $column_array ) {
+        $column_array['specify_size'] = 'Specify size';
+        $column_array['specify_size'] = 'Specify size';
         return $column_array;
     }
  }
- add_filter( 'wpto_default_column_arr', 'mio_new_message_column' );
+ add_filter( 'wpto_default_column_arr', 'mio_specify_size_message_column' );
 
 
 //Filter wpto_template_loc_item
-if( !function_exists( 'mio_temp_file_for_new_message' ) ){
-    function mio_temp_file_for_new_message( $file ){
-        $file = __DIR__ . '/../file/new-message.php';
+if( !function_exists( 'mio_temp_file_for_specify_size' ) ){
+    function mio_temp_file_for_specify_size( $file ){
+        $file = __DIR__ . '/../file/specify_size.php';
         return $file;
     }
 }
-add_filter( 'wpto_template_loc_item_new_message', 'mio_temp_file_for_new_message', 10 );
+add_filter( 'wpto_template_loc_item_specify_size', 'mio_temp_file_for_specify_size', 10 );
 
 
 if( !function_exists( 'mio_new_message_in_meta' ) ){
@@ -28,7 +29,7 @@ if( !function_exists( 'mio_new_message_in_meta' ) ){
             $custom_items = $cart_data;
         }
         if( isset( $cart_item['color_2'] ) ) {
-            $msg_label = __( '2nd Message', 'wpt_pro' );
+            $msg_label = __( 'Specify Size', 'wpt_pro' );
             $args['cart_item'] = $cart_item;
             $custom_items[] = array( "name" => $msg_label, "value" => $cart_item['color_2'] );
         }
@@ -61,7 +62,7 @@ if( ! function_exists( 'mio_order_meta_handler' ) ){
         $values = $item->legacy_values;
         $custom_msg_2nd_color = isset( $values['color_2'] ) && !empty( $values['color_2'] ) ? $values['color_2'] : false;
         if( $custom_msg_2nd_color ) {
-            $msg_label = __( '2nd Message', 'wpt_pro' );
+            $msg_label = __( 'Specify Size', 'wpt_pro' );
             $args['item_id'] = $item_id;
             $args['values'] = $values;
             $args['item'] = $item;
