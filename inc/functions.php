@@ -3,11 +3,19 @@
 if( !function_exists( 'mio_specify_size_message_column' ) ){
     function mio_specify_size_message_column( $column_array ) {
         $column_array['specify_size'] = 'Specify size';
-        $column_array['specify_size'] = 'Specify size';
         return $column_array;
     }
  }
  add_filter( 'wpto_default_column_arr', 'mio_specify_size_message_column' );
+
+if( !function_exists( 'mio_specify_option_message_column' ) ){
+
+    function mio_specify_option_message_column( $column_array ) {
+        $column_array['option'] = 'Option';
+        return $column_array;
+    }
+ }
+ add_filter( 'wpto_default_column_arr', 'mio_specify_option_message_column' );
 
 
 //Filter wpto_template_loc_item
@@ -18,6 +26,15 @@ if( !function_exists( 'mio_temp_file_for_specify_size' ) ){
     }
 }
 add_filter( 'wpto_template_loc_item_specify_size', 'mio_temp_file_for_specify_size', 10 );
+
+//add option.php file
+if( !function_exists( 'mio_temp_file_for_option' ) ){
+    function mio_temp_file_for_option( $file ){
+        $file = __DIR__ . '/../file/option.php';
+        return $file;
+    }
+}
+add_filter( 'wpto_template_loc_item_option', 'mio_temp_file_for_option', 10 );
 
 
 if( !function_exists( 'mio_new_message_in_meta' ) ){
@@ -33,16 +50,42 @@ if( !function_exists( 'mio_new_message_in_meta' ) ){
             $args['cart_item'] = $cart_item;
             $custom_items[] = array( "name" => $msg_label, "value" => $cart_item['color_2'] );
         }
+
         return $custom_items;
     }
 }
 add_filter( 'woocommerce_get_item_data', 'mio_new_message_in_meta', 10, 2 );
+
+if( !function_exists( 'mio_option_message_in_meta' ) ){
+
+    function mio_option_message_in_meta( $cart_data, $cart_item = null ) {
+        $custom_items = array();
+
+        if( ! empty( $cart_data ) ) {
+            $custom_items = $cart_data;
+        }
+
+        if( isset( $cart_item['option'] ) ) {
+            $msg_label = __( 'Option', 'wpt_pro' );
+            $args['cart_item'] = $cart_item;
+            $custom_items[] = array( "name" => $msg_label, "value" => $cart_item['option'] );
+        }
+        return $custom_items;
+    }
+}
+add_filter( 'woocommerce_get_item_data', 'mio_option_message_in_meta', 10, 2 );
 
 
 //Alada function banate hobe. for Bari
 add_filter('wpto_cart_meta_by_additional_json',function($cart_item_meta, $additional_json){
     if(empty( $additional_json )) return $cart_item_meta;
     $cart_item_meta['color_2'] = $additional_json;
+    return $cart_item_meta;
+}, 10, 2);
+
+add_filter('wpto_cart_meta_by_additional_json',function($cart_item_meta, $additional_json){
+    if(empty( $additional_json )) return $cart_item_meta;
+    $cart_item_meta['option'] = $additional_json;
     return $cart_item_meta;
 }, 10, 2);
 
@@ -70,6 +113,36 @@ if( ! function_exists( 'mio_order_meta_handler' ) ){
             $unique = md5( $order_id . '_' . $custom_msg_2nd_color);
             wc_add_order_item_meta( $item_id, $msg_label, $custom_msg_2nd_color, $unique );
         }
+
     }
 }
 add_action( 'woocommerce_new_order_item', 'mio_order_meta_handler', 1, 3 );
+
+if( ! function_exists( 'mio_option_meta_handler' ) ){
+    /**
+     * Adding Customer Message to Order
+     * 
+     * @param type $item_id Session ID of Item's
+     * @param type $item Value's Array of Customer message
+     * @param type $order_id
+     * 
+     * @since 1.9 6.6.2018 d.m.y
+     * @fixed 8.2.2021 d.m.y fixed to this date
+     * @return Void This Function will add Customer Custom Message to Order
+     */
+    function mio_option_meta_handler( $item_id, $item, $order_id ) {
+        $values = $item->legacy_values;
+
+        $custom_option_msg = isset( $values['option'] ) && !empty( $values['option'] ) ? $values['option'] : false;
+        if( $custom_option_msg ) {
+            $msg_label = __( 'Option', 'wpt_pro' );
+            $args['item_id'] = $item_id;
+            $args['values'] = $values;
+            $args['item'] = $item;
+            $args['cart_item_key'] = $order_id;
+            $unique = md5( $order_id . '_' . $custom_option_msg);
+            wc_add_order_item_meta( $item_id, $msg_label, $custom_option_msg, $unique );
+        }
+    }
+}
+add_action( 'woocommerce_new_order_item', 'mio_option_meta_handler', 1, 3 );

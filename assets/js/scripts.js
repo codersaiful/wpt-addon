@@ -61,5 +61,10 @@ jQuery(function ($) {
             $(this).closest('tr').attr('additional_json', text);
         });
 
+        $(document.body).on('keyup','input.option',function(){
+            var text = $(this).val();
+            $(this).closest('tr').attr('additional_json', text);
+        });
+
     });
 });

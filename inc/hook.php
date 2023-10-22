@@ -138,6 +138,12 @@ class Hook extends Hook_Base{
             'label'     =>  __( 'Hide Specify size Column', 'wpt_pro' ),
             // 'description'=> "Type 'hide', if you want to hide message column",
         );
+        $args[] = array(
+            'id'        =>'wpt_var_option_msg',
+            'name'      => 'wpt_var_option_msg',
+            'label'     =>  __( 'Hide Option Column', 'wpt_pro' ),
+            // 'description'=> "Type 'hide', if you want to hide message column",
+        );
 
         $args[] = array(
             'id'        =>'wpt_var_hide_img',
@@ -163,6 +169,7 @@ class Hook extends Hook_Base{
         // $wpt_var_id = $_POST['wpt_var_id'] ?? false;
         $wpt_var_hide_col = $_POST['wpt_var_hide_col'] ?? false;
         $wpt_var_hide_msg2 = $_POST['wpt_var_hide_msg2'] ?? false;
+        $wpt_var_option_msg = $_POST['wpt_var_option_msg'] ?? false;
 
         $wpt_var_hide_img = $_POST['wpt_var_hide_img'] ?? false;
         
@@ -171,6 +178,7 @@ class Hook extends Hook_Base{
         // update_post_meta( $post_id, 'wpt_var_id', esc_attr( $wpt_var_id ) );
         update_post_meta( $post_id, 'wpt_var_hide_col', esc_attr( $wpt_var_hide_col ) );
         update_post_meta( $post_id, 'wpt_var_hide_msg2', esc_attr( $wpt_var_hide_msg2 ) );
+        update_post_meta( $post_id, 'wpt_var_option_msg', esc_attr( $wpt_var_option_msg ) );
 
         update_post_meta( $post_id, 'wpt_var_hide_img', esc_attr( $wpt_var_hide_img ) );
     }
@@ -212,6 +220,7 @@ class Hook extends Hook_Base{
 
         $wpt_var_hide_col = get_post_meta( $product_id,'wpt_var_hide_col', true );
         $wpt_var_hide_msg2 = get_post_meta( $product_id,'wpt_var_hide_msg2', true );
+        $wpt_var_option_msg = get_post_meta( $product_id,'wpt_var_option_msg', true );
         $wpt_var_hide_img = get_post_meta( $product_id,'wpt_var_hide_img', true );
 
         // var_dump($shortcode->_enable_cols);
@@ -222,6 +231,9 @@ class Hook extends Hook_Base{
 
         if( 'yes' == $wpt_var_hide_msg2 ){
             unset($shortcode->_enable_cols['specify_size']);
+        }
+        if( 'yes' == $wpt_var_option_msg ){
+            unset($shortcode->_enable_cols['option']);
         }
 
         if( 'yes' == $wpt_var_hide_img ){
