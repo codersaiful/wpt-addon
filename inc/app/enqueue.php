@@ -67,9 +67,9 @@ class Enqueue extends Base{
 
     public function wp_enqueue_scripts()
     {
-        wp_enqueue_style( $this->prefix . '-style', WPT_ADDON_BASE_URL . 'assets/css/style.css', array(), WPT_ADDON_VERSION, 'all' );
+        wp_enqueue_style( $this->prefix . '-style', WPT_RLC_BASE_URL . 'assets/css/style.css', array(), WPT_RLC_VERSION, 'all' );
         wp_enqueue_script( 'jquery' );
-        wp_enqueue_script( $this->prefix . '-script', WPT_ADDON_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), WPT_ADDON_VERSION, true );
+        wp_enqueue_script( $this->prefix . '-script', WPT_RLC_BASE_URL . 'assets/js/scripts.js', array( 'jquery','wpt-custom-js' ), WPT_RLC_VERSION, true );
 
         $ajax_url = admin_url( 'admin-ajax.php' );
         $WPT_ADDON_DATA = array( 
@@ -84,8 +84,8 @@ class Enqueue extends Base{
     
     public function admin_enqueue_scripts()
     {
-        wp_enqueue_style( $this->prefix . '-admin', WPT_ADDON_BASE_URL . 'assets/css/admin-style.css', array(), WPT_ADDON_VERSION, 'all' );
-        wp_enqueue_script( $this->prefix . '-admin', WPT_ADDON_BASE_URL . 'assets/js/admin-script.js', array( 'jquery' ), WPT_ADDON_VERSION, true );
+        wp_enqueue_style( $this->prefix . '-admin', WPT_RLC_BASE_URL . 'assets/css/admin-style.css', array(), WPT_RLC_VERSION, 'all' );
+        wp_enqueue_script( $this->prefix . '-admin', WPT_RLC_BASE_URL . 'assets/js/admin-script.js', array( 'jquery' ), WPT_RLC_VERSION, true );
     }
 
 }

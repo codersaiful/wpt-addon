@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WPT - Related Category Table
+ * Plugin Name: WPT - Related Products Category Table
  * Plugin URI: https://wooproducttable.com/
  * Description: WooProductTable Addons Plugin for specific task.
  * Author: Saiful Islam
@@ -14,7 +14,6 @@
  * 
  */
 
-
 if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
@@ -24,15 +23,15 @@ if ( ! defined( 'WPT_DEV_VERSION' ) ) {
 }
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
-if ( !defined( 'WPT_ADDON_BASE_URL' ) ) {
-    define( "WPT_ADDON_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
+if ( !defined( 'WPT_RLC_BASE_URL' ) ) {
+    define( "WPT_RLC_BASE_URL", plugins_url() . '/'. plugin_basename( dirname( __FILE__ ) ) . '/' );
 }
 
-if ( !defined( 'WPT_ADDON_VERSION' ) ) {
-    define( "WPT_ADDON_VERSION", '1.0.0' );
+if ( !defined( 'WPT_RLC_VERSION' ) ) {
+    define( "WPT_RLC_VERSION", '1.0.0' );
 }
 
-class WPT_Addons{
+class Wpt_Related_Category{
 
     public static $_instance;
 
@@ -59,7 +58,7 @@ class WPT_Addons{
 	}
 
     public function i18n(){
-        load_plugin_textdomain( 'wpt_addon' );
+        load_plugin_textdomain( 'related_products_category_table' ); // related_products_category_table
     }
 
     public function init(){
@@ -77,11 +76,11 @@ class WPT_Addons{
 
     }
 }
-WPT_Addons::instace();
-register_activation_hook( __FILE__, 'wpt_addon_activation' );
+Wpt_Related_Category::instace();
+register_activation_hook( __FILE__, 'related_products_category_table_activation' );
 
-function wpt_addon_activation(){
-    $key = 'wpt_addon_date';
+function related_products_category_table_activation(){
+    $key = 'related_products_category_table_date';
     $ins_dt = get_option( $key );
     if( ! empty( $ins_dt ) ) return;
     update_option( $key, time());
