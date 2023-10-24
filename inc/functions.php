@@ -56,9 +56,11 @@ add_filter( 'woocommerce_get_item_data', 'mio_new_message_in_meta', 10, 2 );
 
 //Alada function banate hobe. for Bari
 add_filter('wpto_cart_meta_by_additional_json',function($cart_item_meta, $additional_json){
+    
     if(empty( $additional_json )) return $cart_item_meta;
-    $cart_item_meta['color_2'] = $additional_json;
-    $cart_item_meta['option'] = $additional_json;
+    $myData = json_decode($additional_json,true);
+    $cart_item_meta['color_2'] = $myData['specifySize'];
+    $cart_item_meta['option'] = $myData['option'];
     return $cart_item_meta;
 }, 10, 2);
 

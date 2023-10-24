@@ -58,12 +58,40 @@ jQuery(function ($) {
         // for message box
         $(document.body).on('keyup','input.specify_size',function(){
             var text = $(this).val();
-            $(this).closest('tr').attr('additional_json', text);
+            var myjson = {
+                specifySize: text,
+                option: ""
+            };
+
+            var curJsonString = $(this).closest('tr').attr('additional_json');
+            if(curJsonString == ''){
+                $(this).closest('tr').attr('additional_json', JSON.stringify(myjson));
+                return;
+            }else{
+                myjson = JSON.parse(curJsonString);
+                myjson.specifySize = text;
+            }
+            
+            $(this).closest('tr').attr('additional_json', JSON.stringify(myjson));
         });
 
         $(document.body).on('keyup','input.option',function(){
             var text = $(this).val();
-            $(this).closest('tr').attr('additional_json', text);
+            var myjson = {
+                specifySize: '',
+                option: text
+            };
+
+            var curJsonString = $(this).closest('tr').attr('additional_json');
+            if(curJsonString == ''){
+                $(this).closest('tr').attr('additional_json', JSON.stringify(myjson));
+                return;
+            }else{
+                myjson = JSON.parse(curJsonString);
+                myjson.option = text;
+            }
+            
+            $(this).closest('tr').attr('additional_json', JSON.stringify(myjson));
         });
 
     });
