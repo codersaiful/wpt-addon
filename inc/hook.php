@@ -25,12 +25,12 @@ class Hook extends Hook_Base{
      */
     function wcmmq_single_product_min_max_condition( $args , $product ){
 
+        $stock_quantity = $product->stock_quantity;
+        
         if( $product->manage_stock ){
-            $stock_quantity = $product->stock_quantity;
             $args['min_value'] = $stock_quantity;
         }
         if( is_archive() ){
-            $stock_quantity = $product->stock_quantity;
             $args['quantity'] = $stock_quantity;
         }
         return $args;
