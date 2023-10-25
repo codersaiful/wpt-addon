@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: MMQ - Set Stock As Minimum Quantity
  * Plugin URI: https://wooproducttable.com/
- * Description: WooProductTable Addons Plugin for specific task.
+ * Description: An addon plugin for Mix Max Step Control plugin. It will set the Stock quantity as the minimum quantity. 
  * Author: Saiful Islam
  * Author URI: https://profiles.wordpress.org/codersaiful/#content-plugins
  * 
  * Version: 1.0
  * Requires at least:    4.0.0
- * Tested up to:         6.1
+ * Tested up to:         6.3
  * WC requires at least: 3.0.0
  * WC tested up to: 	 7.1.0
  * 
