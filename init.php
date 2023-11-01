@@ -12,6 +12,7 @@
  * WC requires at least: 3.0.0
  * WC tested up to: 	 7.1.0
  * 
+ * project: sku onujayi table a product show korobe, tobe seta single product page. it Will display products by SKU from an ACF field.
  */
 
 
