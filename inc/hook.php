@@ -124,6 +124,11 @@ class Hook extends Hook_Base{
         <?php
     }
     /**
+     * Importang:
+     * ther eis a function available
+     * wc_get_product_id_by_sku('YOUR SKU');
+     * 
+     * 
      * A query to get product id from sku
      * @return int $product_id
      * @author Fazle Bari <fazlebarisn@gmail.com>
