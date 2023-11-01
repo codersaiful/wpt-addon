@@ -12,6 +12,10 @@
  * WC requires at least: 3.0.0
  * WC tested up to: 	 7.1.0
  * Client Name: Miodrag ( thechoperpilot@gmail.com )
+ * 
+ * Project Details:
+ * https://app.asana.com/0/1200602135381495/1203964517980331
+ * 
  */
 
 
