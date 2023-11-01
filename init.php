@@ -12,6 +12,11 @@
  * WC requires at least: 3.0.0
  * WC tested up to: 	 7.1.0
  * 
+ * Project Drtails:
+ * woocommerce-wholesale-pricing/woocommerce-wholesale-pricing.php ei plugin er madhome nirdisto user role onuzayi 
+ * product hide hoy, seta table a kaj korchilo na
+ * ei addon er madhome seta fix kora hoyeche.
+ * 
  */
 
 
