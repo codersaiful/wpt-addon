@@ -7,6 +7,7 @@ $cut_to_size_off = get_post_meta($id,'cut_to_size_off',true);
 // var_dump($term_list);
 ?>
 <select class="wpt-extra-size-column" data-product_id="<?php echo esc_attr($id); ?>">
+<option value="">Choose</option>
 <?php
 foreach($term_list as $eachTerm){
 ?>
@@ -15,7 +16,7 @@ foreach($term_list as $eachTerm){
 }
 if($cut_to_size_off !== 'off'){
 ?>
-<option value=""><?php echo esc_attr($extraOption); ?></option>
+<option value="0"><?php echo esc_attr($extraOption); ?></option>
 <?php
 }
 
