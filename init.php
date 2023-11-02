@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Addons WPT - Specific
+ * Plugin Name: Addons WPT - Size Attribute Dropdown
  * Plugin URI: https://wooproducttable.com/
  * Description: WooProductTable Addons Plugin for specific task.
  * Author: Saiful Islam
@@ -11,6 +11,13 @@
  * Tested up to:         6.1
  * WC requires at least: 3.0.0
  * WC tested up to: 	 7.1.0
+ * 
+ * 
+ * 
+ * IMPORTANT NOTICE:
+ * custom filed 'cut_to_size_off' == 'off'
+ * then Cut to Size will disable
+ * 
  * 
  */
 
