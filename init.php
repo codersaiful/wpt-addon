@@ -13,9 +13,11 @@
  * WC tested up to: 	 7.1.0
  * 
  * 
+ * IMPORTANT:
+ * pa_size Attribute automatically show hobe zodi deya thake.
  * 
  * IMPORTANT NOTICE:
- * custom filed 'cut_to_size_off' == 'off'
+ * custom filed 'cut_to_size_off' == 'off' 
  * then Cut to Size will disable
  * 
  * 
