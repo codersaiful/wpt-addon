@@ -1,6 +1,9 @@
 jQuery(function ($) {
     'use strict';
     $(document).ready(function () {
+        var checkout_text = "Checkout Now";
+        var successfull_added_msg = "Successfully Added Items!";
+
 
         var plugin_url = WPT_DATA.plugin_url;
         var include_url = WPT_DATA.include_url;
@@ -8,7 +11,8 @@ jQuery(function ($) {
         
         var ajax_url = WPT_DATA.ajax_url;
         var site_url = WPT_DATA.site_url;
-
+        var checkout_url = WPT_DATA.checkout_url;
+        console.log(WPT_DATA);
         //Adding popup area
         addingPopupWrapper();
 
@@ -42,17 +46,19 @@ jQuery(function ($) {
             let table_id = Row.data('temp_number');
             let product_id = Row.data('product_id');
             let product_title = Row.data('title');
+            let product_description = Row.find('.product_description').text();
 
             popupContentArea.attr('table_id', table_id);
             popupContentArea.attr('product_id', product_id);
             popupContentArea.attr('product_title', product_title);
 
             //Setup content All Here
-            popupWrapper.find('.wpt-custom-popup-insider>h2').html(product_title);
+            popupWrapper.find('.wpt-custom-popup-insider>h2').html(product_title + '<span>' + product_description + '</span>');
 
             let contentHtml = "";
             contentHtml += getPopupQtyFirstLoadAllItem();
             contentHtml += '<div class="wpt-items-bottom"><span class="wpt-popup-add-line button">Add Line</span></div>';
+            // contentHtml += '<div class="wpt-items-message"></div>';
             contentHtml += '<div class="wpt-popup-footer"><span class="wpt-popup-add-to-cart button">Add to Cart</span><span class="wpt-popup-close button">Close</span></div>';
             popupContentArea.html(contentHtml);
             
@@ -77,7 +83,8 @@ jQuery(function ($) {
             let product_id = popupContentArea.attr('product_id');
             let product_title = popupContentArea.attr('product_title');
             let error = 0;
-            itemsAreaWrapper.find('.wpt-custom-pop-item').each(function(){
+            let products_data = new Array();
+            itemsAreaWrapper.find('.wpt-custom-pop-item').each(function(index){
                 var quantity = $(this).find('.wpt-pop-qty input').val();
                 var feet = $(this).find('.wpt-pop-size-all .wpt-cus-pop-ft').val();
                 var inches = $(this).find('.wpt-pop-size-all .wpt-cus-pop-inc').val();
@@ -90,34 +97,15 @@ jQuery(function ($) {
                     $(this).removeClass('error-in-qty-line');
                 }
                 var additional_json = feet + " ft " + inches + " and " + inches_fact + "in.";
-                
-
-                var data = {
-                    action:     'wpt_ajax_add_to_cart',
+                index++;
+                // console.log(index);
+                products_data[index] = {
                     product_id: product_id,
                     quantity:   quantity,
                     additional_json: additional_json,
                 };
 
-                $.ajax({
-                    type: 'POST',
-                    url: ajax_url,// + get_data,
-                    data: data,
-                    complete: function(){
-                        
-                    },
-                    success: function(response) {
-                        $( document.body ).trigger( 'added_to_cart' );
-
-                        //It's need to update checkout page Since 3.3.3.1
-                        $( document.body ).trigger( 'update_checkout' );
-                        $(this).find('.wpt-pop-each-item-close').remove();
-                        $(this).append('<span class="wpt-pop-each-item-added">✓</span>');
-                    },
-                    error: function() {
-                        
-                    },
-                });
+                
 
 
 
@@ -127,7 +115,41 @@ jQuery(function ($) {
                 alert("Fixed row first");
                 return;
             }else{
-                console.log(table_id,product_id,product_title);
+                var addToCartButton = $('span.wpt-popup-add-to-cart.button');
+                addToCartButton.html("Adding...");
+                $.ajax({
+                    type: 'POST',
+                    url: ajax_url,
+                    data: {
+                        action: 'wpt_ajax_mulitple_add_to_cart',
+                        products: products_data,
+                    },
+                    complete: function(){
+                        $( document ).trigger( 'wc_fragments_refreshed' );
+    
+                        //It's need to update checkout page Since 3.3.3.1
+                        $( document.body ).trigger( 'update_checkout' );
+                        addToCartButton.hide();
+                        addToCartButton.after("<a href='" + checkout_url + "' class='button wpt-custom-popup-checkout-btn' target='_blank'>" + checkout_text + "</a>");
+                        
+
+                        addToCartButton.before('<div class="wpt-items-message">' + successfull_added_msg + '</div>');
+                        addToCartButton.remove();
+                    },
+                    success: function( response ) {
+                        console.log(response);
+                        $( document.body ).trigger( 'updated_cart_totals' );
+                        $( document.body ).trigger( 'wc_fragments_refreshed' );
+                        $( document.body ).trigger( 'wc_fragments_refresh' );
+                        $( document.body ).trigger( 'wc_fragment_refresh' );
+                        
+                    },
+                    error: function() {
+                        addToCartButton.html("Failed to add");
+                    },
+                });
+
+
             }
         });
 
