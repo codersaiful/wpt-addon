@@ -8,5 +8,9 @@ jQuery(function ($) {
             }
             $(this).closest('tr').attr('additional_json', myText);
         });
+
+        $(document.body).on('click','p.wpt-stats-post-count',function(){
+            // alert(33333);
+        });
     });
 });
