@@ -125,3 +125,6 @@ a.button.wpt-custom-popup-checkout-btn {
     color: #ffffff;
     background: red;
 }
+.tables_cart_message_box a.button.wc-forward:first-child {
+    display: none;
+}

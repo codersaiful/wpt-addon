@@ -96,7 +96,7 @@ jQuery(function ($) {
                 }else{
                     $(this).removeClass('error-in-qty-line');
                 }
-                var additional_json = feet + " ft " + inches + " and " + inches_fact + "in.";
+                var additional_json = feet + " ft " + inches + " and " + inches_fact + " in.";
                 index++;
                 // console.log(index);
                 products_data[index] = {

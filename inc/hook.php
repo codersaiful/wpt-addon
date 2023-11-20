@@ -19,9 +19,12 @@ class Hook extends Hook_Base{
     public function __construct(){
 
         
-        $this->action('example_hook');        
+             
         $this->filter('wpto_default_column_arr');   
         $this->filter('wpto_template_loc_item_' . $this->column_keyword, 1, 10, 'size_attribute_control');   
+
+        $this->filter('wpt_view_cart_text');
+        $this->filter('wpt_view_cart_link');
     }
 
 
@@ -38,4 +41,13 @@ class Hook extends Hook_Base{
         return $file;
     }
 
+
+    public function wpt_view_cart_text(){
+
+        return 'View Checkout';
+    }
+    public function wpt_view_cart_link(){
+
+        return wc_get_checkout_url();
+    }
 }
