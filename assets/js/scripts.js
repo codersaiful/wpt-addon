@@ -36,24 +36,36 @@ jQuery(function ($) {
             let product_id = Row.data('product_id');
             let product_title = Row.data('title');
 
+            popupContentArea.attr('table_id', table_id);
+            popupContentArea.attr('product_id', product_id);
+            popupContentArea.attr('product_title', product_title);
+
             //Setup content All Here
             popupWrapper.find('.wpt-custom-popup-insider>h2').html(product_title);
 
             let contentHtml = "";
-            contentHtml = getPopupQtyFirstLoadAllItem();
-
+            contentHtml += getPopupQtyFirstLoadAllItem();
+            contentHtml += '<div class="wpt-items-bottom"><span class="wpt-popup-add-line button">Add Line</span></div>';
+            contentHtml += '<div class="wpt-popup-footer"><span class="wpt-popup-add-to-cart button">Add to Cart</span><span class="wpt-popup-close button">Close</span></div>';
             popupContentArea.html(contentHtml);
             
         });
 
-        $(document.body).on('click','p.wpt-stats-post-count',function(){
-            // alert(33333);
+        $(document.body).on('click','span.wpt-popup-add-line',function(){
+            const contentWrapper = $(this).closest('.wpt-custom-popup-content-area');
+            const itemsWrapper = contentWrapper.find('.wpt-custom-popup-items');
+            let newItem = getEachPopupQtyItem();
+            itemsWrapper.append(newItem);
         });
 
 
 
 
-        $(document.body).on('click','.wpt-custom-at-close',function(){
+        $(document.body).on('click','.wpt-pop-each-item-close',function(){
+            // $(this).closest('.wpt-custom-pop-item').fadeOut();
+            $(this).closest('.wpt-custom-pop-item').remove();
+        });
+        $(document.body).on('click','.wpt-custom-at-close,.wpt-popup-close',function(){
             const mainWrapper = $(this).closest('.wpt-custom-popup-area-wrapper');
             mainWrapper.fadeOut();
             mainWrapper.find('.wpt-custom-popup-content-area').html("");
@@ -68,8 +80,9 @@ jQuery(function ($) {
             contentHtml += "<div class='wpt-custom-popup-items'>"; //Main Area
 
             contentHtml += getEachPopupQtyItem();
+            contentHtml += getEachPopupQtyItem();
 
-            contentHtml += "<div>"; //.wpt-custom-popup-items
+            contentHtml += "</div>"; //.wpt-custom-popup-items
             return contentHtml;
         }
         function getEachPopupQtyItem(){
@@ -92,7 +105,7 @@ jQuery(function ($) {
             contentHtml += "in.";
             contentHtml += "</div>"; //.wpt-pop-size-all
 
-
+            contentHtml += "<span class='wpt-pop-each-item-close'>x</span>";
 
             contentHtml += "</div>"; //.wpt-custom-pop-item
 
