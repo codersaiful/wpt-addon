@@ -2,6 +2,13 @@ jQuery(function ($) {
     'use strict';
     $(document).ready(function () {
 
+        var plugin_url = WPT_DATA.plugin_url;
+        var include_url = WPT_DATA.include_url;
+        var content_url = WPT_DATA.content_url;
+        
+        var ajax_url = WPT_DATA.ajax_url;
+        var site_url = WPT_DATA.site_url;
+
         //Adding popup area
         addingPopupWrapper();
 
@@ -60,6 +67,69 @@ jQuery(function ($) {
 
 
 
+        $(document.body).on('click','.wpt-popup-add-to-cart',function(){
+            
+            const popupWrapper = $('.wpt-custom-popup-area-wrapper');
+            const popupContentArea = popupWrapper.find('.wpt-custom-popup-content-area');
+            const itemsAreaWrapper = popupContentArea.find('.wpt-custom-popup-items');
+
+            let table_id = popupContentArea.attr('table_id');
+            let product_id = popupContentArea.attr('product_id');
+            let product_title = popupContentArea.attr('product_title');
+            let error = 0;
+            itemsAreaWrapper.find('.wpt-custom-pop-item').each(function(){
+                var quantity = $(this).find('.wpt-pop-qty input').val();
+                var feet = $(this).find('.wpt-pop-size-all .wpt-cus-pop-ft').val();
+                var inches = $(this).find('.wpt-pop-size-all .wpt-cus-pop-inc').val();
+                var inches_fact = $(this).find('.wpt-pop-size-all select').val();
+                if(quantity == '' || feet == '' || inches == ''){
+                    $(this).addClass('error-in-qty-line');
+                    error++;
+                    return true;
+                }else{
+                    $(this).removeClass('error-in-qty-line');
+                }
+                var additional_json = feet + " ft " + inches + " and " + inches_fact + "in.";
+                
+
+                var data = {
+                    action:     'wpt_ajax_add_to_cart',
+                    product_id: product_id,
+                    quantity:   quantity,
+                    additional_json: additional_json,
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: ajax_url,// + get_data,
+                    data: data,
+                    complete: function(){
+                        
+                    },
+                    success: function(response) {
+                        $( document.body ).trigger( 'added_to_cart' );
+
+                        //It's need to update checkout page Since 3.3.3.1
+                        $( document.body ).trigger( 'update_checkout' );
+                        $(this).find('.wpt-pop-each-item-close').remove();
+                        $(this).append('<span class="wpt-pop-each-item-added">✓</span>');
+                    },
+                    error: function() {
+                        
+                    },
+                });
+
+
+
+            });
+
+            if(error > 0){
+                alert("Fixed row first");
+                return;
+            }else{
+                console.log(table_id,product_id,product_title);
+            }
+        });
 
         $(document.body).on('click','.wpt-pop-each-item-close',function(){
             // $(this).closest('.wpt-custom-pop-item').fadeOut();
@@ -90,16 +160,16 @@ jQuery(function ($) {
             contentHtml += "<div class='wpt-custom-pop-item'>";
 
             contentHtml += "<div class='wpt-pop-qty'>";
-            contentHtml += "<input type='number' stpe='any' placeholder='Qty'>";
+            contentHtml += "<input type='number' placeholder='Qty'>";
             contentHtml += "PCS";
             contentHtml += "</div>";
 
 
             contentHtml += "<div class='wpt-pop-size-all'>";
-            contentHtml += "<input type='number' stpe='any' placeholder='Feet' class='wpt-cus-pop-ft'>";
+            contentHtml += "<input type='number' placeholder='Feet' class='wpt-cus-pop-ft'>";
             contentHtml += " ft ";
             
-            contentHtml += "<input type='number' stpe='any' placeholder='Inches'  class='wpt-cus-pop-inc'>";
+            contentHtml += "<input type='number' placeholder='Inches'  class='wpt-cus-pop-inc'>";
             contentHtml += " and ";
             contentHtml += '<select class="wpt-cus-pop-inc-select" style="width: 55px;"> <option value="0">--</option> <option value="0.125">1/8</option> <option value="0.25">1/4</option> <option value="0.375">3/8</option> <option value="0.5">1/2</option> <option value="0.625">5/8</option> <option value="0.75">3/4</option> <option value="0.875">7/8</option> </select>';
             contentHtml += "in.";
@@ -113,7 +183,6 @@ jQuery(function ($) {
         }
         function addingPopupWrapper(){
             const sizeColCount = $('select.wpt-extra-size-column').length;
-            console.log(sizeColCount);
             if(sizeColCount > 0){
                 $('body').append('<div class="wpt-custom-popup-area-wrapper"><div class="wpt-custom-popup-insider"><span class="wpt-custom-at-close">x</span><h2></h2><div class="wpt-custom-popup-content-area"></div></div></div>');
             }

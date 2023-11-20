@@ -68,11 +68,15 @@ span.wpt-custom-at-close:hover {
 
 .wpt-custom-popup-items .wpt-custom-pop-item {
     display: flex;
+    padding: 5px 0;
     gap: 10px;
     margin-bottom: 15px;
     align-items: center;
     justify-content: flex-start;
     /* justify-content: space-between; */
+}
+.wpt-custom-pop-item.error-in-qty-line {
+    border: 1px solid #ff00004d;
 }
 span.wpt-pop-each-item-close {
     color: red;
