@@ -7,16 +7,21 @@ jQuery(function ($) {
 
         $(document.body).on('change','.wpt-extra-size-column',function(){
             var myText = $(this).val();
+            console.log(myText,typeof myText);
             if(myText == '0'){
-                myText = '';
+                // myText = '';
             }
-            if(myText !== ''){
+            if(myText !== '' && myText !== '0'){
                 $(this).closest('tr').attr('additional_json', myText);
                 return;
             }
 
+            if(myText !== '0'){
+                return;
+            }
+
             //Again set Choose Option as by default
-            $(this).val('');
+            
             //If myText null, then run following. otherwise, it will return null at upper block
             const popupWrapper = $('.wpt-custom-popup-area-wrapper');
             const popupContentArea = popupWrapper.find('.wpt-custom-popup-content-area');
@@ -35,11 +40,7 @@ jQuery(function ($) {
             popupWrapper.find('.wpt-custom-popup-insider>h2').html(product_title);
 
             let contentHtml = "";
-            contentHtml += "<div class='wpt-custom-popup-items'>"; //Main Area
-
-            contentHtml += getEachPopupQtyItem();
-
-            contentHtml += "<div>"; //.wpt-custom-popup-items
+            contentHtml = getPopupQtyFirstLoadAllItem();
 
             popupContentArea.html(contentHtml);
             
@@ -57,8 +58,20 @@ jQuery(function ($) {
             mainWrapper.fadeOut();
             mainWrapper.find('.wpt-custom-popup-content-area').html("");
             mainWrapper.find('.wpt-custom-popup-insider>h2').html("");
+
+
+            $('.wpt-extra-size-column').val('');
         });
 
+        function getPopupQtyFirstLoadAllItem(){
+            var contentHtml = '';
+            contentHtml += "<div class='wpt-custom-popup-items'>"; //Main Area
+
+            contentHtml += getEachPopupQtyItem();
+
+            contentHtml += "<div>"; //.wpt-custom-popup-items
+            return contentHtml;
+        }
         function getEachPopupQtyItem(){
             var contentHtml = '';
             contentHtml += "<div class='wpt-custom-pop-item'>";
