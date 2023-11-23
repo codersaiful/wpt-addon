@@ -12,11 +12,6 @@ jQuery(function ($) {
             loadVariableMiniFilter(key);
         });
 
-        $(document.body).on('click','span.sku_wrapper',function(){
-            const currentURL = window.location.href;
-            window.history.pushState(currentURL, "Title", currentURL + "/new-url");
-        });
-
         $(document.body).on('click','#wpt-variable-page-submit-button',function(){
             var TableTagWrap = $('.normal_table_wrapper');
             TableTagWrap.addClass('wpt-ajax-loading');
@@ -33,7 +28,7 @@ jQuery(function ($) {
             const currentURL = window.location.href;
             var variable_table_pagi = $('div.normal_table_wrapper').hasClass('wpt-variatin-table-all-variation');
             
-            var paginatedMiniFilter = $('.mio-variable-product-options').length;
+            var paginatedMiniFilter = $('.wpt-variable-product-options').length;
             
 
 
@@ -60,42 +55,7 @@ jQuery(function ($) {
 
                     return;    
                 }
-                $(miniFilterSelector).each(function(){
-
-                    var selected = '';
-                    var thisSelect = $(this);
-                    var currentValue = thisSelect.val();
-                    if(currentValue !== '' && $(this).hasClass('filter_select_' + clicked_on_fiter)){
-                        return;
-                    }
-                    var key = $(this).data('key');
-                    var customizedKey = key.replace(/[^A-Z0-9]+/ig, "_");
-                    var label = $(this).data('label');
-                    var Arr = {};
-                    var targetRowClass = 'tr.wpt-row.visible_row';
-                    if(clicked_on_fiter){
-                        targetRowClass = 'tr.wpt-row.visible_row';
-                        // if(clicked_on_fiter == key) return;
-                        thisSelect = $(this).html('<option value="">' + label + '</option>');
-                    }
-    
-                    //New data come here
-                    var variable_options = $('.mio-variable-product-options').data('variable_options');
-                    Arr = variable_options[key];
-                    console.log(Arr);
-                    Object.keys(Arr).forEach(function(item) {
-                        
-                        var realKey = item.replace(/[^A-Z0-9]+/ig, "_");
-                        
-                        realKey = customizedKey + '_' + realKey;
-                        if(currentValue == realKey){
-                            selected = 'selected';
-                        }
-                        
-                        thisSelect.append('<option value="' + item + '" ' + selected + '>' + item + '</option>');
-                    });
-                    
-                });
+                
 
                 
                 var urlParams = getUrlParams(currentURL);

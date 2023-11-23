@@ -14,7 +14,7 @@ use WPT_ADDON\Inc\App\Hook_Base;
  */
 class Hook extends Hook_Base{
 
-    public function __construct(){      
+    public function __construct(){    
         $this->filter('wpto_short_message_box_type',10,6); 
 
         $this->filter('woocommerce_product_data_tabs'); 

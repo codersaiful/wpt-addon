@@ -104,8 +104,8 @@ if( ! function_exists( 'mio_order_meta_handler' ) ){
 }
 add_action( 'woocommerce_new_order_item', 'mio_order_meta_handler', 1, 3 );
 
-add_filter('wpt_variation_filter_data_class', 'mio_variation_data_class');
-function mio_variation_data_class(){
+// add_filter('wpt_variation_filter_data_class', 'mio_variation_data_class');
+// function mio_variation_data_class(){
 	
-	return 'mio-variable-product-options';
-}
+// 	return 'mio-variable-product-options';
+// }
