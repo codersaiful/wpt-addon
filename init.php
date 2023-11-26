@@ -21,6 +21,8 @@
  * then Cut to Size will disable
  * 
  * 
+ * Filename: wpt-addon-size-popup
+ * 
  */
 
 
