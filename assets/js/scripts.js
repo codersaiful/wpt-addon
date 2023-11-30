@@ -59,6 +59,7 @@ jQuery(function ($) {
             contentHtml += getPopupQtyFirstLoadAllItem();
             contentHtml += '<div class="wpt-items-bottom"><span class="wpt-popup-add-line button">+Add Line</span></div>';
             // contentHtml += '<div class="wpt-items-message"></div>';
+            contentHtml += getPopupFooterExtraContent();
             contentHtml += '<div class="wpt-popup-footer"><span class="wpt-popup-add-to-cart button">Add to Enqiry</span><span class="wpt-popup-close button">Close</span></div>';
             popupContentArea.html(contentHtml);
             
@@ -167,6 +168,11 @@ jQuery(function ($) {
             $('.wpt-extra-size-column').val('');
         });
 
+        function getPopupFooterExtraContent(){
+            var contentHtml = $('div#wpt-custom-footer-content-wrapper').html();
+            return contentHtml;
+            
+        }
         function getPopupQtyFirstLoadAllItem(){
             var contentHtml = '';
             contentHtml += "<div class='wpt-custom-popup-items'>"; //Main Area

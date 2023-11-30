@@ -84,3 +84,19 @@ if( ! function_exists( 'wpt_custom_order_meta_handler' ) ){
     }
 }
 add_action( 'woocommerce_new_order_item', 'wpt_custom_order_meta_handler', 1, 3 );
+
+
+add_action( 'wp_footer', 'wpt_custom_popup_footer_content' );
+
+function wpt_custom_popup_footer_content(){
+?>
+<div id="wpt-custom-footer-content-wrapper" class="wpt-custom-footer-content-wrapper" style="display: none !important;">
+    
+
+    <div class="row"> <div class="col-xs-12 custom-cut-disclaimer"> <strong>Custom cut tolerances = plus / minus 1/16 in.</strong><br> <span id="custom-cut-call">Call Us for Mitering and Large Quantities.</span> </div> </div>
+    <div class="row"> <div class="col-xs-12 custom-cut-disclaimer"> <strong>NOTICE:</strong> Custom Cut material is non-returnable and not cancelable once processing begins. Custom cutting may require additional processing time. </div> </div>
+
+</div>
+
+<?php
+}
