@@ -24,6 +24,7 @@ class Hook extends Hook_Base{
         $this->filter('wpto_template_loc_item_' . $this->column_keyword, 1, 10, 'size_attribute_control');   
 
         $this->filter('wpt_view_cart_text');
+        $this->filter('wpto_floating_cart_content');
         $this->filter('wpt_view_cart_link');
     }
 
@@ -49,5 +50,16 @@ class Hook extends Hook_Base{
     public function wpt_view_cart_link(){
 
         return wc_get_checkout_url();
+    }
+    public function wpto_floating_cart_content($content){
+        ob_start();
+        ?>
+        <a target="_blank" href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="wpt-floating-cart-link">
+        <span class="count">
+                        <?php echo wp_kses_data( sprintf( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'woo-product-table' ), WC()->cart->get_cart_contents_count() ) ); ?>
+                    </span>
+        </a>
+        <?php
+        return ob_get_clean();
     }
 }
