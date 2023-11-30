@@ -6,9 +6,7 @@ $cut_to_size_off = get_post_meta($id,'cut_to_size_off',true);
 
 // var_dump($term_list);
 ?>
-<div class="wpt-custom-description" style="display: none !important;">
-    <?php echo $data['short_description']; ?>
-</div>
+
 <select class="wpt-extra-size-column" data-product_id="<?php echo esc_attr($id); ?>">
 <option value="">Choose</option>
 <?php
