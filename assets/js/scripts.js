@@ -1,7 +1,7 @@
 jQuery(function ($) {
     'use strict';
     $(document).ready(function () {
-        var checkout_text = "Checkout Now";
+        var checkout_text = "View Enquiry List";
         var successfull_added_msg = "Successfully Added Items!";
 
 
@@ -53,13 +53,13 @@ jQuery(function ($) {
             popupContentArea.attr('product_title', product_title);
 
             //Setup content All Here
-            popupWrapper.find('.wpt-custom-popup-insider>h2').html(product_title + '<span>' + product_description + '</span>');
+            popupWrapper.find('.wpt-custom-popup-insider>h2').html('Custom Cut: '+product_title + '<span>' + product_description + '</span>');
 
             let contentHtml = "";
             contentHtml += getPopupQtyFirstLoadAllItem();
-            contentHtml += '<div class="wpt-items-bottom"><span class="wpt-popup-add-line button">Add Line</span></div>';
+            contentHtml += '<div class="wpt-items-bottom"><span class="wpt-popup-add-line button">+Add Line</span></div>';
             // contentHtml += '<div class="wpt-items-message"></div>';
-            contentHtml += '<div class="wpt-popup-footer"><span class="wpt-popup-add-to-cart button">Add to Cart</span><span class="wpt-popup-close button">Close</span></div>';
+            contentHtml += '<div class="wpt-popup-footer"><span class="wpt-popup-add-to-cart button">Add to Enqiry</span><span class="wpt-popup-close button">Close</span></div>';
             popupContentArea.html(contentHtml);
             
         });
@@ -111,7 +111,7 @@ jQuery(function ($) {
 
             });
 
-            if(error > 0){
+            if(error > 2){
                 alert("Fixed row first");
                 return;
             }else{
