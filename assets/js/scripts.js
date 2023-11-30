@@ -68,7 +68,8 @@ jQuery(function ($) {
         $(document.body).on('click','span.wpt-popup-add-line',function(){
             const contentWrapper = $(this).closest('.wpt-custom-popup-content-area');
             const itemsWrapper = contentWrapper.find('.wpt-custom-popup-items');
-            let newItem = getEachPopupQtyItem();
+            let currentItemCount = itemsWrapper.find('.wpt-custom-pop-item').length;
+            let newItem = getEachPopupQtyItem( currentItemCount + 1 );
             itemsWrapper.append(newItem);
         });
 
@@ -177,15 +178,15 @@ jQuery(function ($) {
             var contentHtml = '';
             contentHtml += "<div class='wpt-custom-popup-items'>"; //Main Area
 
-            contentHtml += getEachPopupQtyItem();
-            contentHtml += getEachPopupQtyItem();
+            contentHtml += getEachPopupQtyItem( 1 );
+            contentHtml += getEachPopupQtyItem( 2 );
 
             contentHtml += "</div>"; //.wpt-custom-popup-items
             return contentHtml;
         }
-        function getEachPopupQtyItem(){
+        function getEachPopupQtyItem(index = 0){
             var contentHtml = '';
-            contentHtml += "<div class='wpt-custom-pop-item'>";
+            contentHtml += "<div class='wpt-custom-pop-item wpt-custom-pop-item-" + index + "'>";
 
             contentHtml += "<div class='wpt-pop-qty'>";
             contentHtml += "<input type='number' placeholder='Qty'>";
