@@ -46,7 +46,7 @@ jQuery(function ($) {
             let table_id = Row.data('temp_number');
             let product_id = Row.data('product_id');
             let product_title = Row.data('title');
-            let product_description = Row.find('.product_description').text();
+            let product_description = Row.find('.wpt_description').text();
 
             popupContentArea.attr('table_id', table_id);
             popupContentArea.attr('product_id', product_id);
