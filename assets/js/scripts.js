@@ -2,6 +2,14 @@ jQuery(function ($) {
     'use strict';
     $(document).ready(function () {
 		
+		
+		/****************************************** Write a Slash at end this line If you change Table Location of Variable Product *****************
+
+
+
+
+
+
         // He design variation product page with a page builder and selector is different
         // So we need to Load mini-filter for variation product with correct selector
 
@@ -10,6 +18,11 @@ jQuery(function ($) {
         $(document.body).on('change',miniFilterSelector,function(){
             var key = $(this).data('key');
             loadVariableMiniFilter(key);
+        });
+
+        $(document.body).on('click','span.sku_wrapper',function(){
+            const currentURL = window.location.href;
+            window.history.pushState(currentURL, "Title", currentURL + "/new-url");
         });
 
         $(document.body).on('click','#wpt-variable-page-submit-button',function(){
@@ -22,7 +35,7 @@ jQuery(function ($) {
 
 
         loadVariableMiniFilter(false);
-        
+        //******************************************/
         function loadVariableMiniFilter(clicked_on_fiter){
             
             const currentURL = window.location.href;
@@ -55,7 +68,42 @@ jQuery(function ($) {
 
                     return;    
                 }
-                
+                $(miniFilterSelector).each(function(){
+
+                    var selected = '';
+                    var thisSelect = $(this);
+                    var currentValue = thisSelect.val();
+                    if(currentValue !== '' && $(this).hasClass('filter_select_' + clicked_on_fiter)){
+                        return;
+                    }
+                    var key = $(this).data('key');
+                    var customizedKey = key.replace(/[^A-Z0-9]+/ig, "_");
+                    var label = $(this).data('label');
+                    var Arr = {};
+                    var targetRowClass = 'tr.wpt-row.visible_row';
+                    if(clicked_on_fiter){
+                        targetRowClass = 'tr.wpt-row.visible_row';
+                        // if(clicked_on_fiter == key) return;
+                        thisSelect = $(this).html('<option value="">' + label + '</option>');
+                    }
+    
+                    //New data come here
+                    var variable_options = $('.wpt-variable-product-options').data('variable_options');
+                    Arr = variable_options[key];
+                    console.log(Arr);
+                    Object.keys(Arr).forEach(function(item) {
+                        
+                        var realKey = item.replace(/[^A-Z0-9]+/ig, "_");
+                        
+                        realKey = customizedKey + '_' + realKey;
+                        if(currentValue == realKey){
+                            selected = 'selected';
+                        }
+                        
+                        thisSelect.append('<option value="' + item + '" ' + selected + '>' + item + '</option>');
+                    });
+                    
+                });
 
                 
                 var urlParams = getUrlParams(currentURL);
