@@ -243,5 +243,32 @@ jQuery(function ($) {
             $(this).closest('tr').attr('additional_json', JSON.stringify(myjson));
         });
 
+        document.addEventListener("bricks/popup/close", (event) => {
+			$('input.wpt_custom_message').trigger('change');
+		});
+		$(document.body).on('change','input.wpt_custom_message',function(){
+
+             var text = $(this).val();
+            var myjson = {
+                specifySize: text,
+                option: ""
+            };
+
+            var curJsonString = $(this).closest('tr').attr('additional_json');
+            if(curJsonString == ''){
+                $(this).closest('tr').attr('additional_json', JSON.stringify(myjson));
+                return;
+            }else{
+                myjson = JSON.parse(curJsonString);
+                myjson.specifySize = text;
+            }
+            
+            $(this).closest('tr').attr('additional_json', JSON.stringify(myjson));
+            if( text !== '' ){
+                $(this).closest('tr').find('.ajax_active.button').attr('style','');
+            }else{
+                $(this).closest('tr').find('.ajax_active.button').attr('style','pointer-events: none; opacity: 0.5;');
+            }
+        });
     });
 });
