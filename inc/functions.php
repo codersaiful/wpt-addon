@@ -22,6 +22,7 @@ if( ! function_exists('dd') ){
 function ccd_wpt_addon_sub_taxonomies() {
     
 	$parent_term_id = $_POST['parent_cat_id'] ?? 0;
+	$parent_term_name = $_POST['parent_cat_name'] ?? 'Sub Category';
 
 	if( empty($parent_term_id) || ! is_numeric( $parent_term_id )){
 		echo 'error_founded';
@@ -44,7 +45,7 @@ function ccd_wpt_addon_sub_taxonomies() {
 		wp_die();
 	}
 
-	$options_html = '<option value="" selected="selected">Choose Sub Category</option>';
+	$options_html = '<option value="'.$parent_term_id.'" selected="selected">Choose ' . $parent_term_name . '</option>';
     // dd($parent_term_id);
     // Add the child terms to the sub_taxonomies array
     foreach ($child_terms as $child_term) {
