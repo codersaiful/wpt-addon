@@ -1,5 +1,5 @@
 <?php
-namespace WPT_ADDON;
+namespace CCD_WPT_ADDON;
 
 defined('ABSPATH') || exit;
 

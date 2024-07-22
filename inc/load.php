@@ -1,8 +1,8 @@
 <?php 
-namespace WPT_ADDON\Inc;
+namespace CCD_WPT_ADDON\Inc;
 
-use WPT_ADDON\Inc\App\Enqueue;
-use WPT_ADDON\Inc\App\Base;
+use CCD_WPT_ADDON\Inc\App\Enqueue;
+use CCD_WPT_ADDON\Inc\App\Base;
 
 /**
  * Full Plugin Load Manager is here
