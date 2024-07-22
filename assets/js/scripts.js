@@ -15,10 +15,12 @@ jQuery(function ($) {
         var site_url = WPT_DATA.site_url;
         
         $(document.body).on('change','.wpt-addon-parent-category',function(){
+            $('select#wpt-addon-temp-select').remove();
+            
             var thisSelect = $(this);
 
             var parent_cat_id = $(this).val();
-            
+            var html = '<select data-key="product_cat" name="product_cat" id="wpt-addon-temp-select" class="search_select query search_select_product_cat"><option value="' + parent_cat_id + '" selected="selected">Hello</option></select>';
             var data = {
                 action: 'ccd_wpt_addon_subcategory',
                 parent_cat_id: parent_cat_id,
@@ -34,9 +36,11 @@ jQuery(function ($) {
                     var subCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');
                     console.log(result);
                     if(result == 'no_subcategory'){
-
+                        thisSelect.after(html);
                         subCateBox.html('');
-                        $('button.button.wpt-search-products').trigger('click');
+                        setTimeout(function(){
+                            $('button.button.wpt-search-products').trigger('click');
+                        }, 2000);
                         return;
                     }else{
                         subCateBox.html(result);
