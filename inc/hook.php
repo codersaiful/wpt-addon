@@ -30,7 +30,7 @@ class Hook extends Hook_Base{
         ?>
         <div class="wpt-addon-extra-searchbox-wrapper wpt-addon-first search_single search_single_texonomy search_single_product_cat">
             <label class="search_keyword_label product_cat" for="product_cat_wpt-addon-extra">Sub Categories</label>
-            <select data-key="product_cat" name="product_cat" id="product_cat_wpt-addon-extra" class="query search_select_product_cat">
+            <select data-key="product_cat" name="product_cat" id="product_cat_wpt-addon-extra" class="search_select query search_select_product_cat">
             </select>
         </div>
         <div class="wpt-addon-extra-searchbox-wrapper wpt-addon-last search_single search_single_texonomy search_single_product_cat">

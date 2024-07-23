@@ -4,6 +4,7 @@ jQuery(function ($) {
         
         $('.search_single.search_single_texonomy.search_single_product_cat').each(function(index, content){
             if(index == 0){
+                $('#product_cat_wpt-addon-extra').removeClass('search_select');
                 $(this).find('.search_select')
                 .addClass('wpt-addon-parent-category')
                 .removeClass('search_select');
@@ -36,11 +37,13 @@ jQuery(function ($) {
 
 
             var parent_cat_id = $(this).val();
-
+            var parent_cat_name = $(this).find('option[value="'+parent_cat_id+'"]').text();
+            
             var html = '<option value="' + parent_cat_id + '" selected="selected"></option>';
             var data = {
                 action: 'ccd_wpt_addon_subcategory',
                 parent_cat_id: parent_cat_id,
+                parent_cat_name: parent_cat_name
             };
             $.ajax({
                 type: 'POST',
@@ -53,8 +56,6 @@ jQuery(function ($) {
                     var allSubCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');
                     var subCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-first.search_single_product_cat>select#product_cat_wpt-addon-extra');
                     var lastCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-last.search_single_product_cat>select#product_cat_wpt-addon-extra-last');
-                    console.log("result");
-                    console.log(result);
                     if(result == 'no_subcategory'){
                         subCateBox.html('');
                         lastCateBox.html(html);
@@ -99,6 +100,7 @@ jQuery(function ($) {
 
 
             var parent_cat_id = $(this).val();
+            var parent_cat_name = $(this).find('option[value="'+parent_cat_id+'"]').text();
             var html = '<option value="' + parent_cat_id + '" selected="selected"></option>';
             console.log(parent_cat_id,main_parent_id);
             if(parent_cat_id == main_parent_id && table_load_when_sub){
@@ -111,6 +113,7 @@ jQuery(function ($) {
             var data = {
                 action: 'ccd_wpt_addon_subcategory',
                 parent_cat_id: parent_cat_id,
+                parent_cat_name: parent_cat_name
             };
             $.ajax({
                 type: 'POST',
@@ -120,9 +123,6 @@ jQuery(function ($) {
 
                 },
                 success:function(result){
-                    console.log(result);
-                    // $('.hentry.type-page .entry-header').html(result);
-                    
                     if(result == 'no_subcategory'){
                         lastCateBox.html(html);
                         lastCateBox.trigger('change');
