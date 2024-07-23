@@ -24,8 +24,17 @@ function ccd_wpt_addon_sub_taxonomies() {
 	$parent_term_id = $_POST['parent_cat_id'] ?? 0;
 	$parent_term_name = $_POST['parent_cat_name'] ?? 'Sub Category';
 
+	$output = [
+		'status' => 'no_output',
+		'html'   => '',
+		'cat_name'=> false,
+		'cat_id'	=> false,
+	];
+
 	if( empty($parent_term_id) || ! is_numeric( $parent_term_id )){
-		echo 'error_founded';
+		$output['status'] = 'error_founded';
+		## echo 'error_founded';
+		wp_send_json( $output );
 		wp_die();
 	}
 
@@ -41,7 +50,9 @@ function ccd_wpt_addon_sub_taxonomies() {
     ]);
 
 	if(empty($child_terms)){
-		echo 'no_subcategory';
+		$output['status'] = 'no_subcategory';
+		## echo 'no_subcategory';
+		wp_send_json( $output );
 		wp_die();
 	}
 
@@ -57,7 +68,12 @@ function ccd_wpt_addon_sub_taxonomies() {
         // $sub_sub_taxonomies = get_all_sub_taxonomies($taxonomy, $child_term->term_id);
         // $sub_taxonomies = array_merge($sub_taxonomies, $sub_sub_taxonomies);
     }
-	echo $options_html;
+	$output['cat_id'] = $parent_term_id;
+	$output['cat_name'] = $parent_term_name;
+	$output['status'] = 'success';
+	$output['html'] = $options_html; 
+	## echo $options_html;
+	wp_send_json( $output );
 	wp_die();
     // return $sub_taxonomies;
 }

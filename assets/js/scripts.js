@@ -52,23 +52,15 @@ jQuery(function ($) {
                 complete: function(){
 
                 },
-                success:function(result){
+                success:function(response){
+                    var result = response.html;
+                    var status = response.status;   
+                    console.log(status);
+                    console.log(result);              
                     var allSubCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');
                     var subCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-first.search_single_product_cat>select#product_cat_wpt-addon-extra');
                     var lastCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-last.search_single_product_cat>select#product_cat_wpt-addon-extra-last');
-                    if(result == 'no_subcategory'){
-                        subCateBox.html('');
-                        lastCateBox.html(html);
-                        lastCateBox.trigger('change');
-                        allSubCateBoxWrapper.css({opacity:'0.3'});
-                        return;
-                    }else if(result == 'error_founded'){
-                        allSubCateBoxWrapper.css({opacity:'0.3'});
-                        subCateBox.html('');
-                        lastCateBox.html('');
-                        lastCateBox.trigger('change');
-                        
-                    }else{
+                    if(status === 'success'){
                         if( table_load_when_sub ){
                             lastCateBox.html(html); //Sub availale and load selected cat
                             lastCateBox.trigger('change'); //Sub availale and load selected cat
@@ -76,6 +68,19 @@ jQuery(function ($) {
                         
                         subCateBoxWrapper.css({opacity:'1.0'});
                         subCateBox.html(result);
+                        return;
+                    }else if(status === 'no_subcategory'){
+                        subCateBox.html('');
+                        lastCateBox.html(html);
+                        lastCateBox.trigger('change');
+                        allSubCateBoxWrapper.css({opacity:'0.3'});
+                        return;
+                    }else if(status === 'error_founded'){
+                        allSubCateBoxWrapper.css({opacity:'0.3'});
+                        subCateBox.html('');
+                        lastCateBox.html('');
+                        lastCateBox.trigger('change');
+                        return;
                     }
                     
                     
@@ -126,23 +131,24 @@ jQuery(function ($) {
                 complete: function(){
 
                 },
-                success:function(result){
-                    if(result == 'no_subcategory'){
-                        lastCateBox.html(html);
-                        lastCateBox.trigger('change');
-                        subCateBoxWrapper.css({opacity:'0.3'});
-                        return;
-                    }else if(result == 'error_founded'){
-                        subCateBoxWrapper.css({opacity:'0.3'});
-                        lastCateBox.html('');
-                        lastCateBox.trigger('change');
-                        
-                    }else{
+                success:function(response){
+                    var result = response.html;
+                    var status = response.status; 
+                    if(status === 'success'){
                         subCateBoxWrapper.css({opacity:'1.0'});
                         lastCateBox.html(result);
                         if(table_load_when_sub){
                             lastCateBox.trigger('change'); //Sub Cate available and load main cat
                         }
+                    }else if(status == 'no_subcategory'){
+                        lastCateBox.html(html);
+                        lastCateBox.trigger('change');
+                        subCateBoxWrapper.css({opacity:'0.3'});
+                        return;
+                    }else if(status == 'error_founded'){
+                        subCateBoxWrapper.css({opacity:'0.3'});
+                        lastCateBox.html('');
+                        lastCateBox.trigger('change');
                         
                     }
                     
