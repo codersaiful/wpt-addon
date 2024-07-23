@@ -19,6 +19,19 @@ if( ! function_exists('dd') ){
 	}
 }
 
+/**
+ * Finding sub taxonomy
+ * specially for Category actually.
+ * actually we made it for Category
+ * useing taxonomy key: product_cat
+ * Code:
+ * $taxonomy = 'product_cat';
+ * 
+ * @author Saiful Islam <codersaiful@gmail.com>
+ * @author Saiful Islam WhatsApp +8801724025412 
+ *
+ * @return void
+ */
 function ccd_wpt_addon_sub_taxonomies() {
     
 	$parent_term_id = $_POST['parent_cat_id'] ?? 0;
