@@ -33,7 +33,7 @@ jQuery(function ($) {
 
             var allSubCateBoxWrapper = $('.wpt-addon-extra-searchbox-wrapper.search_single');
             var subCateBoxWrapper = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-first.search_single');
-            subCateBoxWrapper.css({opacity:'0.1'});
+            subCateBoxWrapper.css({opacity:'0.3'});
 
 
             var parent_cat_id = $(this).val();
@@ -63,7 +63,7 @@ jQuery(function ($) {
                         allSubCateBoxWrapper.css({opacity:'0.3'});
                         return;
                     }else if(result == 'error_founded'){
-                        allSubCateBoxWrapper.css({opacity:'0.1'});
+                        allSubCateBoxWrapper.css({opacity:'0.3'});
                         subCateBox.html('');
                         lastCateBox.html('');
                         lastCateBox.trigger('change');
@@ -92,7 +92,7 @@ jQuery(function ($) {
             var main_parent_id = $('.wpt-addon-parent-category').val();
 
             var subCateBoxWrapper = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-last.search_single');
-            subCateBoxWrapper.css({opacity:'0.1'});
+            subCateBoxWrapper.css({opacity:'0.3'});
 
             var allSubCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');  
             var lastCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-last.search_single_product_cat>select#product_cat_wpt-addon-extra-last');
@@ -103,10 +103,14 @@ jQuery(function ($) {
             var parent_cat_name = $(this).find('option[value="'+parent_cat_id+'"]').text();
             var html = '<option value="' + parent_cat_id + '" selected="selected"></option>';
             console.log(parent_cat_id,main_parent_id);
-            if(parent_cat_id == main_parent_id && table_load_when_sub){
+            if(parent_cat_id == main_parent_id){
                 lastCateBox.html(html); //Sub availale and load selected cat
-                lastCateBox.trigger('change'); //Sub availale and load selected cat
-                subCateBoxWrapper.css({opacity:'0.3'}); //Sub availale and load selected cat
+                    lastCateBox.trigger('change'); //Sub availale and load selected cat
+                if(table_load_when_sub){
+                    
+                    subCateBoxWrapper.css({opacity:'0.3'}); //Sub availale and load selected cat
+                }
+                
                 return;
             }
 
@@ -129,7 +133,7 @@ jQuery(function ($) {
                         subCateBoxWrapper.css({opacity:'0.3'});
                         return;
                     }else if(result == 'error_founded'){
-                        subCateBoxWrapper.css({opacity:'0.1'});
+                        subCateBoxWrapper.css({opacity:'0.3'});
                         lastCateBox.html('');
                         lastCateBox.trigger('change');
                         
