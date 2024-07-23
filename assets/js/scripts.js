@@ -15,10 +15,10 @@ jQuery(function ($) {
         var site_url = WPT_DATA.site_url;
         
         $(document.body).on('change','.wpt-addon-parent-category',function(){
-            $('select#wpt-addon-temp-select').remove();
-            var subCateBoxWrapper = $('.wpt-addon-extra-searchbox-wrapper.search_single');
+
+            var subCateBoxWrapper = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-first.search_single');
             subCateBoxWrapper.css({opacity:'0.1'});
-            var thisSelect = $(this);
+
 
             var parent_cat_id = $(this).val();
             console.log(parent_cat_id);
@@ -36,17 +36,19 @@ jQuery(function ($) {
 
                 },
                 success:function(result){
-                    var subCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');
-                    console.log(result);
+                    var allSubCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');
+                    var subCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-first.search_single_product_cat>select#product_cat_wpt-addon-extra');
+                    var lastCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-last.search_single_product_cat>select#product_cat_wpt-addon-extra');
+                    
                     if(result == 'no_subcategory'){
-                        subCateBox.html(html);
-                        subCateBox.trigger('change');
+                        lastCateBox.html(html);
+                        lastCateBox.trigger('change');
                         subCateBoxWrapper.css({opacity:'0.3'});
                         return;
                     }else if(result == 'error_founded'){
                         subCateBoxWrapper.css({opacity:'0.1'});
-                        subCateBox.html('');
-                        subCateBox.trigger('change');
+                        lastCateBox.html('');
+                        lastCateBox.trigger('change');
                         
                     }else{
                         subCateBoxWrapper.css({opacity:'1.0'});
