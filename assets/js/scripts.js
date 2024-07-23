@@ -35,6 +35,10 @@ jQuery(function ($) {
             var subCateBoxWrapper = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-first.search_single');
             subCateBoxWrapper.css({opacity:'0.3'});
 
+            var nextLabel = $('.wpt-addon-first label');     
+            var allLabel = $('.wpt-addon-extra-searchbox-wrapper label');   
+
+            nextLabel.html('Loading..');
 
             var parent_cat_id = $(this).val();
             var parent_cat_name = $(this).find('option[value="'+parent_cat_id+'"]').text();
@@ -56,8 +60,7 @@ jQuery(function ($) {
                     var result = response.html;
                     var status = response.status;   
                     console.log(response);      
-                    var nextLabel = $('.wpt-addon-first label');     
-                    var allLabel = $('.wpt-addon-extra-searchbox-wrapper label');   
+                    
                     nextLabel.html(response.cat_name);
                     
                     var allSubCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');
@@ -107,7 +110,7 @@ jQuery(function ($) {
             var lastCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-last.search_single_product_cat>select#product_cat_wpt-addon-extra-last');
             var nextLabel = $('.wpt-addon-last label');     
             var allLabel = $('.wpt-addon-extra-searchbox-wrapper label');   
-
+            nextLabel.html('Loading..');
 
             var parent_cat_id = $(this).val();
             var parent_cat_name = $(this).find('option[value="'+parent_cat_id+'"]').text();
