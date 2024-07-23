@@ -22,12 +22,12 @@ if( ! function_exists('dd') ){
 function ccd_wpt_addon_sub_taxonomies() {
     
 	$parent_term_id = $_POST['parent_cat_id'] ?? 0;
-	$parent_term_name = $_POST['parent_cat_name'] ?? 'Sub Category';
+	$parent_term_name = $_POST['parent_cat_name'] ?? 'Sub Categories';
 
 	$output = [
 		'status' => 'no_output',
 		'html'   => '',
-		'cat_name'=> false,
+		'cat_name'=> 'Sub Categories',
 		'cat_id'	=> false,
 	];
 
@@ -51,6 +51,7 @@ function ccd_wpt_addon_sub_taxonomies() {
 
 	if(empty($child_terms)){
 		$output['status'] = 'no_subcategory';
+		$output['cat_id'] = $parent_term_id;
 		## echo 'no_subcategory';
 		wp_send_json( $output );
 		wp_die();

@@ -24,7 +24,7 @@ jQuery(function ($) {
          * if set false for [table_load_when_sub] then table will load only last box
          * 
          */
-        var table_load_when_sub = true;
+        var table_load_when_sub = false;
 
         var ajax_url = WPT_DATA.ajax_url;
         var site_url = WPT_DATA.site_url;
@@ -55,8 +55,11 @@ jQuery(function ($) {
                 success:function(response){
                     var result = response.html;
                     var status = response.status;   
-                    console.log(status);
-                    console.log(result);              
+                    console.log(response);      
+                    var nextLabel = $('.wpt-addon-first label');     
+                    var allLabel = $('.wpt-addon-extra-searchbox-wrapper label');   
+                    nextLabel.html(response.cat_name);
+                    
                     var allSubCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');
                     var subCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-first.search_single_product_cat>select#product_cat_wpt-addon-extra');
                     var lastCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-last.search_single_product_cat>select#product_cat_wpt-addon-extra-last');
@@ -80,6 +83,7 @@ jQuery(function ($) {
                         subCateBox.html('');
                         lastCateBox.html('');
                         lastCateBox.trigger('change');
+                        allLabel.html(response.cat_name);
                         return;
                     }
                     
@@ -101,7 +105,8 @@ jQuery(function ($) {
 
             var allSubCateBox = $('.wpt-addon-extra-searchbox-wrapper.search_single_product_cat>select#product_cat_wpt-addon-extra');  
             var lastCateBox = $('.wpt-addon-extra-searchbox-wrapper.wpt-addon-last.search_single_product_cat>select#product_cat_wpt-addon-extra-last');
-                    
+            var nextLabel = $('.wpt-addon-last label');     
+            var allLabel = $('.wpt-addon-extra-searchbox-wrapper label');   
 
 
             var parent_cat_id = $(this).val();
@@ -110,12 +115,12 @@ jQuery(function ($) {
             console.log(parent_cat_id,main_parent_id);
             if(parent_cat_id == main_parent_id){
                 lastCateBox.html(html); //Sub availale and load selected cat
-                    lastCateBox.trigger('change'); //Sub availale and load selected cat
+                lastCateBox.trigger('change'); //Sub availale and load selected cat
                 if(table_load_when_sub){
                     
                     subCateBoxWrapper.css({opacity:'0.3'}); //Sub availale and load selected cat
                 }
-                
+                nextLabel.html('Sub Categories');
                 return;
             }
 
@@ -134,6 +139,11 @@ jQuery(function ($) {
                 success:function(response){
                     var result = response.html;
                     var status = response.status; 
+                    console.log(response); 
+
+                    
+                    nextLabel.html(response.cat_name);
+
                     if(status === 'success'){
                         subCateBoxWrapper.css({opacity:'1.0'});
                         lastCateBox.html(result);
